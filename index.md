@@ -1,11 +1,10 @@
-# March.13 2018
-
-## Yonji
+# Yonji
 
 # WAR IS PEACE
 # FREEDOM IS SLAVERY
 # IGNORANCE IS STRENGTH
 
+# March.13 2018
 
 <div class="blog-index">  
   {% assign post = site.posts.first %}
@@ -22,23 +21,14 @@ Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://j
 
 ### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
 Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+あ　い　う　え　お
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 ### Jekyll Themes
 
