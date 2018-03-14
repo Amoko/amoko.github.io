@@ -1,5 +1,19 @@
 # March.13 2018
 
+# WAR IS PEACE
+# FREEDOM IS SLAVERY
+# IGNORANCE IS STRENGTH
+---
+layout: default
+---
+
+<div class="blog-index">  
+  {% assign post = site.posts.first %}
+  {% assign content = post.content %}
+  {% include post_detail.html %}
+</div>
+
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/Amoko/amoko.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
