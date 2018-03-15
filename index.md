@@ -4,23 +4,19 @@
 <div class="posts">
   {% for post in site.posts %}
     <article class="post">
-
+      
       <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-
       <div class="entry">
         {{ post.excerpt }}
       </div>
       <hr />
       
-      <!--
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-      -->
     </article>
   {% endfor %}
 </div>
 
 
-## My [GitHub](https://github.com/Amoko/amoko.github.io/)
+## This project in [GitHub](https://github.com/Amoko/amoko.github.io/)
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
