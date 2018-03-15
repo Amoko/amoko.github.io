@@ -16,7 +16,7 @@
 </div>
 
 
-## This project in [Git Hub](https://github.com/Amoko/amoko.github.io/)
+### This project in [Git Hub](https://github.com/Amoko/amoko.github.io/)
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
