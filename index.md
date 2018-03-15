@@ -9,6 +9,7 @@
       <div class="entry">
         {{ post.excerpt }}
       </div>
+      <hr />
       
       <!--
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
