@@ -1,11 +1,4 @@
-# Yonji
----
-# WAR IS PEACE
-# FREEDOM IS SLAVERY
-# IGNORANCE IS STRENGTH
----
-# March.13 2018
----
+# Yonji's Blog
 
 <div class="posts">
   {% for post in site.posts %}
@@ -16,31 +9,16 @@
       <div class="entry">
         {{ post.excerpt }}
       </div>
-
+      
+      <!--
       <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+      -->
     </article>
   {% endfor %}
 </div>
 
 
-You can use the [editor on GitHub](https://github.com/Amoko/amoko.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
-
-
-### Markdown
-
-
-```markdown
-Syntax highlighted code block
-
-あ　い　う　え　お
-
-```
-
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Amoko/amoko.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
+## My [GitHub](https://github.com/Amoko/amoko.github.io/)
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
