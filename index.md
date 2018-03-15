@@ -7,7 +7,7 @@
       
       <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
       <div class="entry">
-        <h3>{{ post.excerpt }}<h3>
+        {{ post.excerpt }}
       </div>
       <hr />
       
@@ -16,7 +16,7 @@
 </div>
 
 
-## This project in [GitHub](https://github.com/Amoko/amoko.github.io/)
+## This project in [Git Hub](https://github.com/Amoko/amoko.github.io/)
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
