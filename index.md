@@ -7,7 +7,7 @@
       
       <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
       <div class="entry">
-        {{ post.excerpt }}
+        <h3>{{ post.excerpt }}<h3>
       </div>
       <hr />
       
