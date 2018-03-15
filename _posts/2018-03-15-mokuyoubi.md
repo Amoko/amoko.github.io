@@ -1,3 +1,5 @@
-# Hi, there.
+# 木曜日
 
-It's Thursday.
+**木曜日です。**
+
+*It's Thursday.*
