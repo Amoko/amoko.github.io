@@ -5,7 +5,8 @@
       <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
       <p>{{ post.excerpt }}</p>
       <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-    </article>
+      ***
+    </article>
   {% endfor %}
 </div>
 
