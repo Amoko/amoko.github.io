@@ -21,9 +21,9 @@ $$
 
 
 公式$(2)$对应的 sigmoid 函数曲线如下：
-
+<div align="center">
 ![sigmod函数曲线](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/480px-Logistic-curve.svg.png)
-
+</div>
 
 sigmoid 函数的取值在[0, 1]之间，根据这个取值与阈值*θ*的大小关系进行分类，logistic回归的决策函数如下
 $$
