@@ -28,9 +28,8 @@ $$
 $$
 p(y=1|x,\theta)=\frac{1}{1+e^{-\theta^Tx}}\tag{3}
 $$
-
 函数具有对称性质，$p(y=0|x,\theta)=1-p(y=1|x,\theta)$
-Logistic 回归的输出是一个概率值，根据此概率值与阈值$μ$的大小进行分类，若$p(y=1|x,\theta)>μ$，则$y^*=1$，$μ$一般取值0.5
+Logistic 回归的输出是一个概率值，根据此概率值与阈值$μ$的大小进行分类，若 $p(y=1|x,\theta)>μ$，则$y^*=1$，$μ$一般取值0.5
 
 因为线性回归残差服从高斯分布，所以可以使用最小二乘法进行参数求解；而 Logistic 回归的因变量、残差均为二项分布，不满足正态性，所以使用MLE为目标函数来进行参数$\theta$的求解。
 
@@ -39,8 +38,6 @@ Logistic 回归的输出是一个概率值，根据此概率值与阈值$μ$的�
 ### 2 最大似然估计（MLE）
 
 最大似然估计Maximum Likelihood Estimation，是一个用来估计概率模型参数的方法，由![Britain](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/38px-Flag_of_the_United_Kingdom.svg.png)英国人 Ronald Fisher 于上世纪20年代推广。MLE的两个条件是已知数据和概率分布假设（似然函数），其思想是求得这个分布具有什么样的参数值才能使我们观测到这组数据的可能性最大。
-
-
 
 假设有一组独立同分(i.i.d.)布的随机变量$X$，给定一个概率分布$D$，假设其概率密度函数为$f$，从这组样本中抽出$x_1,x_2,\cdots,x_n$，那么通过参数为$\theta$的模型$f$产生上面样本的概率为
 $$
@@ -64,7 +61,6 @@ $$
 $$
 \hat \theta_{MLE}=\mathop{\arg\max}_\theta\hat l(\theta|x_1,x_2,\cdots,x_n)\tag{8}
 $$
-
 
 以上是MLE的通用范式，具体到 Logistic 回归，令$h(\theta^Tx)=\cfrac{1}{1+e^{-\theta^Tx}}$，则似然函数为
 $$
@@ -95,7 +91,7 @@ $$
 
 ### 3 梯度下降法
 
-梯度下降法 Gradient Descent 是最优化算法的一种，出处不详，据说由![France](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/38px-Flag_of_France.svg.png)法国人 Augustin Cauchy 于1847年发明。从函数当前点对应梯度的反方向按一定的步长$\alpha$进行迭代搜索，寻找函数$J(\theta)$的一个局部极小值点。若目标函数为凸函数，则得到的一定是全局最小值点。
+梯度下降法 Gradient Descent 是最优化算法的一种，据说由![France](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/38px-Flag_of_France.svg.png)法国人 Augustin Cauchy 于1847年提出。从函数当前点对应梯度的反方向按一定的步长$\alpha$进行迭代搜索，寻找函数$J(\theta)$的一个局部极小值点。若目标函数为凸函数，则得到的一定是全局最小值点。
 
 GD 算法如下：
 
