@@ -10,7 +10,7 @@
 
 比如男性（或女性）的身高分布、等等。高斯分布的概率密度函数及钟形函数曲线如下
 $$
-f(x|\mu,\sigma^2)=\cfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+f(x|\mu,\sigma^2)=\cfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\tag{1}
 $$
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Normal_Distribution_PDF.svg/525px-Normal_Distribution_PDF.svg.png)
@@ -27,7 +27,7 @@ $$
 
 其概率密度函数及函数曲线（J型）如下，$x_m$是$x$所能取到的最小值
 $$
-f(x|\alpha)=\frac {\alpha x_m^\alpha}{x^{\alpha +1}}
+f(x|\alpha)=\frac {\alpha x_m^\alpha}{x^{\alpha +1}}\tag{2}
 $$
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Probability_density_function_of_Pareto_distribution.svg/488px-Probability_density_function_of_Pareto_distribution.svg.png)
