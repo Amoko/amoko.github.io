@@ -2,3 +2,4 @@ title: Yonji's Blog
 description: OMG! They killed Kenny!
 paginate: 5
 theme: jekyll-theme-cayman
+site.github.is_project_page: true
