@@ -13,8 +13,6 @@
 </div>
 
 
-#### This project in [GitHub](https://github.com/Amoko/amoko.github.io/)
-
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115616798-1"></script>
