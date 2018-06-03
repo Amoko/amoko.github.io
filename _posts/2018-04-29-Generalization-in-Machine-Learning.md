@@ -42,11 +42,11 @@ $$
 
 Akaike Information Criterion 由![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/38px-Flag_of_Japan.svg.png)日本人<ruby>赤池<rt>あかいけ</rt></ruby>（ Akaike）于1974年提出，$k$是模型参数的个数，$\hat L$是似然函数值，AIC评分越小模型越好。
 $$
-{\rm AIC}=2k-2\ln(\hat L)
+{\rm AIC}=2k-2\ln(\hat L)\tag{3}
 $$
 Bayesian Information Criterion 由Schwarz 于1978年提出，$k$是模型参数的个数，$n$是样本数量，$\hat L$是似然函数值，BIC评分越小模型越好。对比AIC，BIC的改进是考虑了样本数量$n$，大数据量时，惩罚项更大。
 $$
-{\rm BIC}=k\ln(n)-2\ln(\hat L)
+{\rm BIC}=k\ln(n)-2\ln(\hat L)\tag{4}
 $$
 
 
