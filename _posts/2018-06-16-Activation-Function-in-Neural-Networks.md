@@ -57,6 +57,6 @@ $$
 
 \[1] [Wikipedia Activation Function](https://en.wikipedia.org/wiki/Activation_function)
 
-\[2] [从感知机到深度神经网络|机器之心](https://www.jiqizhixin.com/articles/2018-01-15-2)
+\[2] [从感知机到深度神经网络-机器之心](https://www.jiqizhixin.com/articles/2018-01-15-2)
 
-\[3] [深度学习-从线性到非线性|徐阿衡](http://www.shuang0420.com/2017/01/21/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E4%BB%8E%E7%BA%BF%E6%80%A7%E5%88%B0%E9%9D%9E%E7%BA%BF%E6%80%A7/)
+\[3] [深度学习-从线性到非线性-徐阿衡](http://www.shuang0420.com/2017/01/21/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E4%BB%8E%E7%BA%BF%E6%80%A7%E5%88%B0%E9%9D%9E%E7%BA%BF%E6%80%A7/)
