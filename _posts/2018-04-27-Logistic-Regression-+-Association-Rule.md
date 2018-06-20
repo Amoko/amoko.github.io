@@ -89,7 +89,7 @@ For a sample, if *head_shape = body_shape* **or** *jacket_color = red*,  it's in
 
 模型
 
-![模型](img/monk.model.PNG)
+![模型](/img/monk.model.PNG)
 
 复现结果
 ```python
@@ -98,7 +98,7 @@ line = np.array([e[0]^e[3], e[1]^e[4], e[2]^e[5], e[11]])
 ```
 
 
-![复现结果](img/monk.result.PNG)
+![复现结果](/img/monk.result.PNG)
 
 
 
