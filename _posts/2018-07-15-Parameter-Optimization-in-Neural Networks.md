@@ -22,7 +22,7 @@
 
 BP算法（Error Backpropagation），基于链式法则，缺点是梯度弥散。
 
-解决方案有以下两个：ReLU、BN。
+针对梯度弥散，解决方案有以下两个：ReLU、BN。
 
 ### ReLU
 
@@ -72,13 +72,57 @@ SGD-M的下降方向不再单由此时的梯度决定，而是由历史梯度和
 
 ### AdaGrad
 
-引入二阶动量，待补充
+Ada是Adaptive的缩写，AdaGrad对SGD的改进在学习率上。
 
+AdaGrad引入了二阶动量以自适应不同参数的学习率，所谓二阶动量就是该参数所有历史梯度值的平方和$V_t=\sum_{i=1}^t g_i^2​$，学习率反比于此二阶动量。其作用是在参数空间中越平缓的倾斜方向，使用越大的学习率。
 
+- Q1：为什么要在平缓的倾斜方向上使用大学习率？
+
+  A1：平缓说明已经积累了大量关于此参数的信息，我们不希望其被少数新样本带偏，需要放缓学习率；反之说明历史信息太少，需要加大学习率。
+
+- Q2：为什么$V_t$值越小越平缓？
+
+  A2：历史梯度值波动越小，其平方和$V_t$越小，当然也就越平缓。
+
+定义：待优化参数$\theta$，目标函数$f(\theta)$，学习率$\alpha$。
+
+那么更新策略如下，在每次迭代$t$：
+
+1. 计算当前梯度：$g_t=\nabla f(\theta_t)$
+
+2. 更新参数：$\theta_{t+1}=\theta_t-\cfrac{\alpha}{\sqrt V_t} \cdot g_t$
+
+   
 
 ### Adam
 
-同时加入一阶动量和二阶动量，小白用这个就行了。
+同时引入一阶动量和二阶动量，小白用这个就行了。
+
+
+
+## 3 权重衰减
+
+权重衰减（weight decay）是优化器中的可选项，其等价于在损失函数中加入$L_2$范数作为正则项。关于正则项，我在这篇文章里有介绍。$\rightarrow$ [Generalization in Machine Learning](https://amoko.github.io/2018/04/29/Generalization-in-Machine-Learning.html)
+
+为什么优化器中的权重衰减等价于$L_2$范数正则项？
+
+
+
+首先$L_2$范数的公式为$\lVert x\rVert_2=\sqrt{\sum_i x_i^2}$。
+
+假设原始损失函数为$f\theta)$，那么加入$L_2$正则项（为方便计算对$L_2$范数做了一些变形）后损失函数为$g(\theta)=f(\theta)+\cfrac{\lambda}{2\alpha}\lVert\theta\rVert_2^2$。
+
+相应在SGD优化过程中，迭代公式变为：
+$$
+\begin{align}
+\theta_{t+1} &= \theta_t-\alpha \cdot \nabla g(\theta_t)\\
+&= \theta_t-\alpha\cdot(\nabla f(\theta_t)+\frac{\lambda}{\alpha}\theta_t)\\
+&= \theta_t-\alpha\cdot\nabla f(\theta_t)-\lambda\theta_t
+\end{align}
+$$
+
+可以看出，加入$L_2$正则项后，迭代公式的变化是多了一项$-\lambda\theta_t$，因此将其称为权重衰减，超参数$\lambda$即是权重衰减系数。
+
 
 
 
@@ -94,4 +138,6 @@ SGD-M的下降方向不再单由此时的梯度决定，而是由历史梯度和
 
 
 \[4] [Adam那么棒，为什么还对SGD念念不忘 - Juliuszh](https://zhuanlan.zhihu.com/p/32230623)
+
+\[5] [权重衰减-动手学深度学习](https://zh.gluon.ai/chapter_deep-learning-basics/weight-decay.html)
 
