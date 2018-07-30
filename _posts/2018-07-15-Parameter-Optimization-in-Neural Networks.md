@@ -74,7 +74,7 @@ SGD-M的下降方向不再单由此时的梯度决定，而是由历史梯度和
 
 Ada是Adaptive的缩写，AdaGrad对SGD的改进在学习率上。
 
-AdaGrad引入了二阶动量以自适应不同参数的学习率，所谓二阶动量就是该参数所有历史梯度值的平方和$V_t=\sum_{i=1}^t g_i^2​$，学习率反比于此二阶动量。其作用是在参数空间中越平缓的倾斜方向，使用越大的学习率。
+AdaGrad引入了二阶动量以自适应不同参数的学习率，所谓二阶动量就是该参数所有历史梯度值的平方和$V_t=\sum_{i=1}^t g_i^2$，学习率反比于此二阶动量。其作用是在参数空间中越平缓的倾斜方向，使用越大的学习率。
 
 - Q1：为什么要在平缓的倾斜方向上使用大学习率？
 
@@ -118,10 +118,10 @@ $$
 \theta_{t+1} &= \theta_t-\alpha \cdot \nabla g(\theta_t)\\
 &= \theta_t-\alpha\cdot(\nabla f(\theta_t)+\frac{\lambda}{\alpha}\theta_t)\\
 &= \theta_t-\alpha\cdot\nabla f(\theta_t)-\lambda\theta_t
-\end{align}
+\end{align}\tag{あ}
 $$
 
-可以看出，加入$L_2$正则项后，迭代公式的变化是多了一项$-\lambda\theta_t$，因此将其称为权重衰减，超参数$\lambda$即是权重衰减系数。
+可以看出，加入$L_2​$正则项后，迭代公式的变化是多了一项$-\lambda\theta_t​$，因此将其称为权重衰减，超参数$\lambda​$即是权重衰减系数。
 
 
 
