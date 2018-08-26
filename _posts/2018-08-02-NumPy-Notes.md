@@ -2,11 +2,11 @@
 
 > 一些NumPy笔记。
 
-Updated in Aug 24, 2018
+Updated on Aug 26, 2018
 
 ## 1 特征值&特征向量
 
-对一个$N$维方阵$A$，其一组特征值$\lambda$和特征向量$v$满足以下等式：$Av=\lambda v$。
+对一个$n$阶方阵$A$，其一组特征值$\lambda$和特征向量$v$满足以下等式：$Av=\lambda v$。
 
 
 在NumPy中计算方阵的特征值、特征向量的函数为:
@@ -91,6 +91,51 @@ array([[0.66666667, 1.33333333],
 
 
 
-## 3 TBD
+## 3 矩阵的转置&行列式&逆
+
+### 3.1 矩阵的转置（Transpose）
+
+``` python
+>>> a=np.arange(6).reshape(2,3)
+>>> a
+array([[0, 1, 2],
+       [3, 4, 5]])
+>>> aT=a.T
+>>> aT
+array([[0, 3],
+       [1, 4],
+       [2, 5]])
+```
+
+### 3.2 矩阵的行列式（Determinant）
+
+``` python
+>>> a=np.arange(4).reshape(2,2)
+>>> a
+array([[0, 1],
+       [2, 3]])
+>>> np.linalg.det(a)
+-2.0
+```
+
+### 3.3 矩阵的逆（Inverse）
+
+对一个$n$阶方阵$A$，其逆矩阵$A^{-1}$满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$为$n$阶单位矩阵。
+
+``` python
+>>> a=np.arange(4).reshape(2,2)
+>>> a
+array([[0, 1],
+       [2, 3]])
+>>> aI=np.linalg.inv(a)
+>>> aI
+array([[-1.5,  0.5],
+       [ 1. ,  0. ]])
+>>> np.dot(a,aI)
+array([[1., 0.],
+       [0., 1.]])
+```
+
+## 4 TBD
 
 つづく
