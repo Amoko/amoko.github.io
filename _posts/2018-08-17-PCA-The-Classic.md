@@ -1,3 +1,8 @@
+---
+layout: post
+title: PCA, The Classic
+---
+
 # PCA
 
 主成分分析（Principal Component Analysis）是机器学习里一个基础的降维方法，由![](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/30px-Flag_of_the_United_Kingdom.svg.png)英国人Karl Pearson于1901年提出。其实现原理是通过正交化线性变换，将数据从原来的坐标系转换到新的坐标系，**我自己的理解PCA本质是坐标系旋转**。
