@@ -1,8 +1,6 @@
 ---
-title：PyTorch Notes
+title: PyTorch Notes
 ---
-
-
 
 # PyTorch Notes
 
