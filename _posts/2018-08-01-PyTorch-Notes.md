@@ -1,3 +1,10 @@
+---
+title：PyTorch Notes
+tags: machine learning
+---
+
+
+
 # PyTorch Notes
 
 > 一些PyTorch学习中的个人笔记。
@@ -21,6 +28,7 @@ class Net(nn.Module):
         x = F.relu(self.fc2(x))
         # the last layer needs no activation function
         x = self.fc3(x)
+        return x
         
 criterion = nn.CrossEntropyLoss()
 net = Net()
@@ -51,7 +59,7 @@ numpy.squeeze(a, axis=None)
 对于二维矩阵，dim = 0 则以行（0维度）为轴，对各列进行“压缩”；dim = 1 则以列（1维度）为轴对各行进行“压缩”。参见下面这段代码。
 
 ```python
->>> a=torch.randint(0, 10, (2, 3))
+>>> a = torch.randint(0, 10, (2, 3))
 >>> a
 tensor([[ 5.,  2.,  9.],
         [ 7.,  3.,  2.]])
