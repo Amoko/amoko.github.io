@@ -1,6 +1,5 @@
 ---
 title：PyTorch Notes
-tags: [machine learning]
 ---
 
 
