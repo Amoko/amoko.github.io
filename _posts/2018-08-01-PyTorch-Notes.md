@@ -1,6 +1,6 @@
 ---
 title：PyTorch Notes
-tags: machine learning
+tags: [machine learning]
 ---
 
 
@@ -9,7 +9,7 @@ tags: machine learning
 
 > 一些PyTorch学习中的个人笔记。
 
-updated in Aug 9，2018
+updated in Nov 11，2018
 
 
 
