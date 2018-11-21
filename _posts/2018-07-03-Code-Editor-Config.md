@@ -1,5 +1,5 @@
 ---
-title: Sublime Text, Spyder
+title: Sublime Text, Spyder Configuration
 layout: default
 tags: [dev config,]
 ---
