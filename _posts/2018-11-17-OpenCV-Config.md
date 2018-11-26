@@ -64,7 +64,7 @@ OpenCV 发布页面，https://opencv.org/releases.html 选择2.4.13- winpack下�
 
    选择 Project - Properties - Linker - Input
 
-   Additional Directories 中添加下列内容。（默认是debug模式，）
+   Additional Dependencies 中添加下列内容。（默认是debug模式，）
 
    ```
    opencv_ml2413d.lib
