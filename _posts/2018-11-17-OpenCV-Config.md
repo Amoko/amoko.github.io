@@ -42,7 +42,7 @@ plt.show()
 >
 >时间：2018.11.17
 
-OpenCV 发布页面，https://opencv.org/releases.html 选择2.4.13- winpack下载，双击解压即可。
+OpenCV 发布页面，[OpenCV releases](https://opencv.org/releases.html)，选择2.4.13- winpack下载，双击解压即可。
 
 ### 2.2 配置项目
 
