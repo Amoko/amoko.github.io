@@ -4,6 +4,8 @@ layout: default
 tags: [dev config,]
 ---
 
+# OpenCV Configuration, Python & C++
+
 ## 1 Python
 
 ### 1.1 安装

@@ -1,8 +1,12 @@
+---
+title: Numpy Notes
+layout: default
+tags: [machine learning,]
+---
+
 # NumPy Notes
 
-> 一些NumPy笔记。
-
-Updated on Aug 26, 2018
+> 一些NumPy笔记 ，Updated on Nov 29, 2018
 
 ## 1 特征值&特征向量
 
@@ -136,6 +140,37 @@ array([[1., 0.],
        [0., 1.]])
 ```
 
-## 4 TBD
+
+
+## 4 计算两点距离
+
+两点构成一个向量，可以通过向量的范数来计算两点距离。
+
+在NumPy中计算矩阵、向量范数的函数为：
+
+```python
+numpy.linalg.norm(x, ord=None, axis=None, keepdims=False)
+```
+
+**默认值** ord=2，对应L2范数，即常用的欧式距离；ord=1 对应L1范数，即曼哈顿距离；ord=0 对应L0范数。
+
+参见下面示例。
+
+```python
+>>> a = np.array([1, 1])
+>>> b = np.array([4, 5])
+>>> np.linalg.norm(a-b)
+5.0
+>>> np.linalg.norm(a-b, ord=0)
+2.0
+>>> np.linalg.norm(a-b, ord=1)
+7.0
+>>> np.linalg.norm(a-b, ord=2)
+5.0
+```
+
+
+
+## 5 TBD
 
 つづく
