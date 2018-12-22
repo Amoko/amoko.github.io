@@ -1,3 +1,11 @@
+---
+title: Generalization in Machine Learning
+layout: default
+tags: [machine learning,]
+---
+
+
+
 # Generalization in Machine Learning
 
 > 机器学习中的泛化能力，指模型对未知数据（测试集）的拟合能力。

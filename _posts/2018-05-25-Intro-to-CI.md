@@ -1,7 +1,7 @@
 ---
 title: An Intro to Causal Inference & do-Calculus
 layout: default
-tags: [machine learning]
+tags: [machine learning,]
 ---
 
 

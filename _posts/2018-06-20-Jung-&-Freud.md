@@ -1,3 +1,11 @@
+---
+title: Jung & Freud
+layout: default
+tags: [etc,]
+---
+
+
+
 # Jung & Freud
 
 > 西格蒙德·弗洛伊德 Sigmund Freud （1856-1939），心理学家，出生于![](https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Flag_of_the_Habsburg_Monarchy.svg/38px-Flag_of_the_Habsburg_Monarchy.svg.png)奥地利。

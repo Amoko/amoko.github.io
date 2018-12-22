@@ -1,3 +1,9 @@
+---
+title: Logistic Regression
+layout: default
+tags: [machine learning,]
+---
+
 # Logistic Regression
 
 

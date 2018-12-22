@@ -1,3 +1,9 @@
+---
+title: Parameter Optimization in Neural Networks
+layout: default
+tags: [machine learning,]
+---
+
 # Parameter Optimization in Neural Networks
 
 >机器学习的一般框架是：建立模型，确定目标（损失）函数，使用最优化算法进行参数求解。
@@ -90,7 +96,6 @@ AdaGrad引入了二阶动量以自适应不同参数的学习率，所谓二阶�
 
 2. 更新参数：$\theta_{t+1}=\theta_t-\cfrac{\alpha}{\sqrt V_t} \cdot g_t$
 
-   
 
 ### Adam
 

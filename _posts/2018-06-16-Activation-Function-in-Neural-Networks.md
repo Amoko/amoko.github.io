@@ -1,3 +1,11 @@
+---
+title: Activation Function in Neural Networks
+layout: default
+tags: [machine learning,]
+---
+
+
+
 # Activation Function in Neural Networks
 
 > 神经网络中，一个节点的**激活函数**定义了此节点输入与输出之间的映射关系。

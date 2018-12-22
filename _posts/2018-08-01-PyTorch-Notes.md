@@ -1,5 +1,7 @@
 ---
 title: PyTorch Notes
+layout: default
+tags: [machine learning,]
 ---
 
 # PyTorch Notes
