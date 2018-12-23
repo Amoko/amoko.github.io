@@ -1,5 +1,5 @@
 ---
-title: Otsu の　method
+title: Otsu の method
 layout: default
 tags: [machine learning, ]
 ---
