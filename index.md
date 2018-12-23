@@ -6,7 +6,7 @@ layout: default
 <div>
 	<h2>
 		tags:
-		{% for tag in site.tags %}
+		{% for tag in site.tags reversed%}
 			<a href="#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
 				{{ tag[0] }}
 			</a>
@@ -17,7 +17,7 @@ layout: default
 
 
 <div>
-	{% for tag in site.tags %}
+	{% for tag in site.tags reversed%}
 		<h2 id="{{ tag[0] }}">{{ tag[0] }}</h2>
 		{% for post in tag[1] %}
 			<li>
