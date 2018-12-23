@@ -150,7 +150,7 @@ int main()
 	Mat grayImg;
 	cvtColor(img, grayImg, CV_BGR2GRAY);
 	Mat biImg;
-    // threshold with otsu
+	// threshold with otsu
 	threshold(grayImg, biImg, 0, 255, THRESH_BINARY | THRESH_OTSU);
 	imshow("biImg", biImg);
 	waitKey(0);
