@@ -1,5 +1,5 @@
 ---
-title: Numpy Notes
+title: NumPy Notes
 layout: default
 tags: [machine learning,]
 ---
