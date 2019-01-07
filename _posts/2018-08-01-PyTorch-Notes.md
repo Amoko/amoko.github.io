@@ -6,9 +6,7 @@ tags: [machine learning,]
 
 # PyTorch Notes
 
-> 一些PyTorch学习中的个人笔记。
-
-updated in Nov 11，2018
+> 一些PyTorch笔记 ，Updated on Nov 11，2018
 
 
 

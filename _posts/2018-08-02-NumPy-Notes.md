@@ -5,8 +5,12 @@ tags: [machine learning,]
 ---
 
 # NumPy Notes
+{:.no_toc}
 
 > 一些NumPy笔记 ，Updated on Dec 25, 2018
+
+* toc
+{:toc}
 
 ## 1 切片
 
