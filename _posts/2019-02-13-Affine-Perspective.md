@@ -14,12 +14,52 @@ tags: [machine learning,]
 
 仿射变换后，相交线之间的角度可能发生变化（shear），但平行线之间的关系保持不变。
 
-因为仿射变换是在二维空间中进行的，所以至少需要3个点才能构造一个一个 $2\times3$ 的仿射变换矩阵。
+因为仿射变换是在二维空间中进行的，所以至少需要3个点才能构造一个 $2\times3$ 的仿射变换矩阵。
 
 仿射变换矩阵中各个元素的作用见下图：
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/2D_affine_transformation_matrix.svg/500px-2D_affine_transformation_matrix.svg.png)
 
+
+
+求出仿射变换矩阵 $M​$ 后，与点 $P(x, y)​$ 进行矩阵乘法，就得到仿射变换后的点 $P'(x',y')​$。
+$$
+M \cdot
+\begin{bmatrix}
+x\\y\\1
+\end{bmatrix}=
+\begin{bmatrix}
+x'\\y'
+\end{bmatrix}
+$$
+- 将点 $p(0,0)$ 通过仿射变换矩阵在 $x,y$ 方向上分别平移1，2个单位。
+
+$$
+\begin{bmatrix}
+1 & 0 & 1\\
+0 & 1 & 2
+\end{bmatrix}\cdot
+\begin{bmatrix}
+0\\0\\1
+\end{bmatrix}=
+\begin{bmatrix}
+1\\2
+\end{bmatrix}
+$$
+- 将点 $p(0,1)$ 通过仿射变换矩阵绕原点旋转$90^{\circ}​。$
+
+$$
+\begin{bmatrix}
+0 & 1 & 0\\
+-1 & 0 & 0
+\end{bmatrix}\cdot
+\begin{bmatrix}
+0\\1\\1
+\end{bmatrix}=
+\begin{bmatrix}
+1\\0
+\end{bmatrix}
+$$
 
 
 ## 2 透视变换
