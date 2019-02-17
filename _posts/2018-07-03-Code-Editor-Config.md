@@ -4,7 +4,9 @@ layout: default
 tags: [dev config,]
 ---
 
-### Sublime Text 3 添加新的Build System
+## 1 Sublime Text 3
+
+### 1.1 添加新的Build System
 
 选择 Tools - Build System- New Build System
 
@@ -27,9 +29,21 @@ Windows
 }
 ```
 
+### 1.2 添加sublimerge插件
+
+Ctrl + Shift + P 打开命令面板
+
+输入 install 调出 Install Package
+
+搜索 sublimerge 安装。
+
+打开要比较的文件，右键 - compare
 
 
-### Spyder 添加模块自动补全
+
+## 2 Spyder 
+
+### 2.1 添加模块自动补全
 
 找到此文件  ~\Anaconda3\Lib\site-packages\spyder\utils\introspection\module_completion.py
 
