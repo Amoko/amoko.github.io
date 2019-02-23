@@ -1,12 +1,12 @@
 ---
-title: Activation Function in Neural Networks
+title: Deep learning その 1: Activation Function
 layout: default
 tags: [machine learning,]
 ---
 
 
 
-# Activation Function in Neural Networks
+# Deep learning その 1: Activation Function
 
 > 神经网络中，一个节点的**激活函数**定义了此节点输入与输出之间的映射关系。
 
@@ -24,7 +24,7 @@ f(x)={\rm sign}(x)=\begin{cases}1,x>0\\0,x\leq0\end{cases}\tag{1}
 $$
 而神经网络常使用非线性函数（如Sigmoid、Tanh、ReLU等）作为神经元的激活函数。
 
-为什么要使用非线性的激活函数，因为若激活函数为线性，则无论神经网络有多少层，输出都是输入的线性组合，多层没有任何意义。因此引入非线性的激活函数，神经网络才有理论上拟合任意函数的能力。
+为什么要使用非线性的激活函数，因为**若激活函数为线性，则无论神经网络有多少层，输出都是输入的线性组合，多层没有任何意义**。因此引入非线性的激活函数，神经网络才有理论上拟合任意函数的能力。
 
 ### 1 Sigmoid函数
 
@@ -56,9 +56,14 @@ $$
 
 ### 4 Softmax函数
 
-Softmax函数是Sigmoid函数的泛化，作用是将一个元素为任意实数的$n$维向量$\vec{a}$压缩为一个同为$n$维的向量$\vec{b}$，向量$\vec{b}$中每一个元素范围为(0, 1)，且所有元素和为1。与前面作为隐层神经元的激活函数不同，Softmax函数常用于神经网络的最后一层，来处理多分类问题的输出。常用形式如下：
+Softmax函数是Sigmoid函数的泛化，常用于多分类神经网络的最后一层。
+
+Softmax函数的作用是将输出向量归一化，并且让归一化后的值大的更大、小的更小。
+
+将一个元素为任意实数的$n$维向量$\vec{z}$压缩为一个同为$n$维的向量$\vec{a}$，向量$\vec{a}$中每一个元素范围为(0, 1)，且所有元素和为1。常用形式如下：
+
 $$
-f(\vec{x})=\frac{e^{x_i}}{\sum_{j=1}^n e^{x_j}}，{\rm for}\quad i=1,\dots,n\tag{5}
+a_i(\vec{z})=\cfrac{e^{z_i}}{\sum_{j=1}^n e^{z_j}}，{\rm for}\quad i=1,\dots,n\tag{5}
 $$
 
 ### Reference
