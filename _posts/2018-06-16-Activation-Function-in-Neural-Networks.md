@@ -1,5 +1,5 @@
 ---
-title: Deep learning その 1: Activation Function
+title: Deep learning その 1、Activation Function
 layout: default
 tags: [machine learning,]
 ---

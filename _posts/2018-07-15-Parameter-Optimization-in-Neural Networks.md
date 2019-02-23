@@ -1,5 +1,5 @@
 ---
-title: Deep learning その 2: Parameter Optimization
+title: Deep learning その 2、Parameter Optimization
 layout: default
 tags: [machine learning,]
 ---
