@@ -14,40 +14,65 @@ tags: [machine learning,]
 
 神经网络（Neural Networks）与感知机（Perceptron）很大的区别，或者说改进就在于**激活函数**的不同。
 
-简单介绍一下，感知机由![](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/38px-Flag_of_the_United_States.svg.png)美国心理学家Frank Rosenblatt 于1958年提出，是一种处理二分类问题的线性模型，同时也是Logistics回归、SVM和神经网络的基础。模型如下：
+简单介绍一下，感知机由![](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/38px-Flag_of_the_United_States.svg.png)美国心理学家Frank Rosenblatt 于1958年提出，是一种处理二分类问题的线性模型，同时也是SVM、Logistics回归和神经网络的基础。模型如下：
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Perceptron.svg/750px-Perceptron.svg.png)
 
 对于线性不可分的数据，感知机模型无法收敛。因为感知机的激活函数$f(x)$是Sign函数是线性的。Sign函数，也称单位跃迁函数，常用形式如下：
 $$
-f(x)={\rm sign}(x)=\begin{cases}1,x>0\\0,x\leq0\end{cases}\tag{1}
+f(x)={\rm sign}(x)=\begin{cases}+1,x>0\\-1,x\leq0\end{cases}\tag{1}
 $$
-而神经网络常使用非线性函数（如Sigmoid、Tanh、ReLU等）作为神经元的激活函数。
+而神经网络常使用如Sigmoid、Tanh、ReLU等非线性函数作为神经元的激活函数。
 
 为什么要使用非线性的激活函数，因为**若激活函数为线性，则无论神经网络有多少层，输出都是输入的线性组合，多层没有任何意义**。因此引入非线性的激活函数，神经网络才有理论上拟合任意函数的能力。
 
 ### 1 Sigmoid函数
 
-Sigmoid函数，也称S型函数，常用形式如下：
+Sigmoid函数，也称S型函数，形式如下：
 
 $$
 f(x)=\frac{1}{1+e^{-x}}\tag{2}
 $$
 
-Sigmoid函数将输出映射在[0, 1]，优点是梯度下降快，缺点是在输入非常大或非常小的时候容易出现梯度消失的情况。
+Sigmoid函数将任意范围内的输入映射在[0, 1]区间内。优点是求导简单，$f'(x)=f(x)(1-f(x))$。
+
+但缺点是因为S型函数的关系，在输入值较大或较小时梯度值过小。
+
+```python
+import math
+
+def sigmoid(x):
+    return 1.0 / (1 + math.exp(-x))
+
+def sg(x):
+    f = sigmoid(x)
+    g = f * (1 - f)
+    print('x={:2d}, g={:.4f}'.format(x, g))
+
+for i in range(0, 11, 2):
+    sg(i)
+'''
+x= 0, g=0.2500
+x= 2, g=0.1050
+x= 4, g=0.0177
+x= 6, g=0.0025
+x= 8, g=0.0003
+x=10, g=0.0000
+'''
+```
 
 ### 2 Tanh函数
 
-Tanh函数，即双曲正切函数，常用形式如下：
+Tanh函数，即双曲正切函数，形式如下：
 $$
 f(x)=\tanh(x)=\frac{\sinh(x)}{\cosh(x)}=\frac{e^x-e^{-x}}{e^x+e^{-x}}\tag{3}
 $$
 
-Tanh函数与Sigmoid函数的区别是将输出映射在[-1, 1]。
+Tanh函数与Sigmoid函数同为S型函数，区别是其将输出映射在[-1, 1]区间内。
 
 ### 3 ReLU函数
 
-线性整流函数（Rectified Linear Unit）,也称斜坡函数，常用形式如下：
+线性整流函数（Rectified Linear Unit）,也称斜坡函数，形式如下：
 $$
 f(x)=\max(0,x)\tag{4}
 $$
