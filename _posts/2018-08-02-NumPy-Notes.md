@@ -7,12 +7,12 @@ tags: [machine learning,]
 # NumPy Notes
 {:.no_toc}
 
-> 一些NumPy笔记 ，Updated on Dec 25, 2018
+> 一些NumPy笔记 ，Updated on Mar 22, 2019
 
 * toc
 {:toc}
 
-## 1 切片
+## 1 切片&变形
 
 取 numpy 矩阵的子行列
 
@@ -27,6 +27,28 @@ array([[ 0,  1,  2,  3],
 >>> b
 array([[ 5,  6],
        [ 9, 10]])
+```
+
+改变 numpy 矩阵 shape
+
+```python
+>>> a = np.arange(3).reshape(-1, 1)
+>>> a
+array([[0],
+       [1],
+       [2]])
+>>> a.shape
+(3, 1)
+>>> b = a.transpose(1, 0)
+>>> b
+array([[0, 1, 2]])
+>>> b.shape
+(1, 3)
+>>> c = a.squeeze()
+>>> c
+array([0, 1, 2])
+>>> c.shape
+(3,)
 ```
 
 
@@ -83,8 +105,9 @@ $$
 \begin{aligned}
 {\rm Cov}(X,Y)&={\rm E}[(X-{\rm E}[X])(Y-{\rm E}[Y])]=E[XY]-{\rm E}[X]{\rm E}[Y]\\
 &=\frac{1}{n}\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)
-\end{aligned}\tag{1}
+\end{aligned}
 $$
+
 ### 3.2 协方差矩阵
 
 协方差矩阵（Covariance matrix）记录的是是多个变量，两两之间的协方差。以符号$\sum$表示。
@@ -93,7 +116,7 @@ $$
 
 以上就是协方差矩阵。
 
-一般我们对于含有M个样本、N个 属性的数据，矩阵存储形状为$M\times N$。但在计算协方差矩阵时，**我们所关注的变量是属性而不是样本**，因此需要对矩阵进行转置。
+一般我们对于含有M个样本、N个 属性的数据，矩阵存储形状为$M\times N​$。但在计算协方差矩阵时，**我们所关注的变量是属性而不是样本**，因此需要对矩阵进行转置。
 
 在NumPy中计算协方差矩阵的函数为：
 
@@ -101,7 +124,7 @@ $$
 numpy.cov(m, y=None, rowvar=True, bias=False, ddof=None, fweights=None, aweights=None)
 ```
 
-**注意参数ddof**，delta degree of freedom，这里默认值使用无偏估计，即自由度为$n-1$；若设定ddof=0，则计算的是样本平均，即自由度为$n$。参见下面这段代码。
+注意参数ddof，delta degree of freedom，**协方差默认使用无偏估计，ddof=1**，即自由度为$n-1$；若设定参数 ddof=0，则计算的是样本平均，即自由度为$n$。参见下面这段代码。
 
 ``` python
 >>> a = np.array([[1,2,3],[2,4,6]])
@@ -118,9 +141,33 @@ array([[0.66666667, 1.33333333],
 
 
 
-## 4 矩阵的转置&行列式&逆
+## 4 均值&标准差
 
-### 4.1 矩阵的转置（Transpose）
+计算均值与标准差 standard deviation。
+
+均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i​$
+
+标准差，$\delta = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^n(x_i-\mu)^2}​$
+
+注意 np.std() **默认使用有偏估计 ，ddof=0**，若需要计算无偏估计，则要设定参数 ddof=1。
+
+```python
+>>> x = np.arange(4)
+>>> x
+array([0, 1, 2, 3])
+>>> np.mean(x)
+1.5
+>>> np.std(x)
+1.118033988749895
+>>> np.std(x, ddof=1)
+1.2909944487358056
+```
+
+
+
+## 5 矩阵的转置&行列式&逆
+
+### 5.1 矩阵的转置（Transpose）
 
 ``` python
 >>> a=np.arange(6).reshape(2,3)
@@ -134,7 +181,7 @@ array([[0, 3],
        [2, 5]])
 ```
 
-### 4.2 矩阵的行列式（Determinant）
+### 5.2 矩阵的行列式（Determinant）
 
 ``` python
 >>> a=np.arange(4).reshape(2,2)
@@ -145,7 +192,7 @@ array([[0, 1],
 -2.0
 ```
 
-### 4.3 矩阵的逆（Inverse）
+### 5.3 矩阵的逆（Inverse）
 
 对一个$n$阶方阵$A$，其逆矩阵$A^{-1}$满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$为$n$阶单位矩阵。
 
@@ -165,7 +212,7 @@ array([[1., 0.],
 
 
 
-## 5 计算两点距离
+## 6 计算两点距离
 
 两点构成一个向量，可以通过向量的范数来计算两点距离。
 
@@ -194,6 +241,6 @@ numpy.linalg.norm(x, ord=None, axis=None, keepdims=False)
 
 
 
-## 6 TBD
+## 7 TBD
 
 つづく
