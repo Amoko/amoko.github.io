@@ -97,11 +97,11 @@ array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904])
 
 计算均值 mean 与标准差 standard deviation。
 
-均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i$
+均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i​$
 
-标准差，$\delta = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^n(x_i-\mu)^2}$
+标准差，$\sigma = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^n(x_i-\mu)^2}$
 
-$\star$ 注意 np.std() **默认使用有偏估计 ，ddof=0，即自由度为 $n$**；
+$\star​$ 注意 np.std() **默认使用有偏估计 ，ddof=0，即自由度为 $n​$**；
 
 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。
 
