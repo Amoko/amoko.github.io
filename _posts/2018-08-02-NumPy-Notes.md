@@ -7,7 +7,7 @@ tags: [machine learning,]
 # NumPy Notes
 {:.no_toc}
 
-> 一些NumPy笔记 ，Updated on Mar 25, 2019
+> 一些NumPy笔记 ，Updated on Apr 27, 2019
 
 * toc
 {:toc}
@@ -97,11 +97,11 @@ array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904])
 
 计算均值 mean 与标准差 standard deviation。
 
-均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i​$
+均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i$
 
 标准差，$\sigma = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^n(x_i-\mu)^2}$
 
-$\star​$ 注意 np.std() **默认使用有偏估计 ，ddof=0，即自由度为 $n​$**；
+$\star$ 注意 np.std() **默认使用有偏估计 ，ddof=0，即自由度为 $n$**；
 
 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。
 
@@ -170,9 +170,11 @@ array([[0.25, 1.  ],
 
 
 
-## 5 矩阵的转置&行列式&逆
+## 5 矩阵性质
 
 ### 5.1 矩阵的转置（Transpose）
+
+计算矩阵矩阵 $A$ 的转置矩阵 $A^T$。
 
 ``` python
 >>> a=np.arange(6).reshape(2,3)
@@ -186,20 +188,26 @@ array([[0, 3],
        [2, 5]])
 ```
 
-### 5.2 矩阵的行列式（Determinant）
+### 5.2 矩阵的秩（Rank）
 
-``` python
->>> a=np.arange(4).reshape(2,2)
->>> a
-array([[0, 1],
-       [2, 3]])
->>> np.linalg.det(a)
--2.0
+矩阵 $A$ 的秩 $rank(A)$ 代表矩阵中线性无关向量的个数，行秩与列秩相等。
+
+```python
+a1 = np.array([[1, 2], [1, 2], [1, 2]])
+r1 = np.linalg.matrix_rank(a1)
+print(r1)
+# 1
+a2 = np.array([[1, 2], [1, 3], [1, 4]])
+r2 = np.linalg.matrix_rank(a2)
+print(r2)
+# 2
 ```
 
 ### 5.3 矩阵的逆（Inverse）
 
-对一个$n$阶方阵$A$，其逆矩阵$A^{-1}$满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$为$n$阶单位矩阵。
+可逆矩阵是针对**方阵**而言的。
+
+对一个 $n$ 阶方阵 $A$，其逆矩阵 $A^{-1}$ 满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$ 为 $n$ 阶单位矩阵。
 
 ``` python
 >>> a=np.arange(4).reshape(2,2)
@@ -215,9 +223,45 @@ array([[1., 0.],
        [0., 1.]])
 ```
 
+### 5.4 矩阵的行列式（Determinant）
+
+矩阵的行列式是针对**方阵**而言的。
+
+对一个 $n$ 阶方阵 $A$，以下叙述等价：
+
+- 矩阵 $A$ 的行列式 $\vert A \vert\neq0$
+- 矩阵 $A$ 可逆
+- 矩阵 $A$ 满秩，即 $rank(A)=n$
+- 矩阵 $A$ 为非奇异矩阵（nonsingular matrix）
+
+```python
+>>> a=np.arange(4).reshape(2,2)
+>>> a
+array([[0, 1],
+       [2, 3]])
+>>> np.linalg.det(a)
+-2.0
+```
 
 
-## 6 计算两点距离
+
+## 6 解线性方程组
+
+使用Numpy解线性方程组 $AX=b$。
+
+限制条件是矩阵 $A$ 必须为方阵，且为非奇异矩阵。
+
+```python
+a = np.array([[1, 2], [1, 3]])
+b = np.array([1, 2])
+x = np.linalg.solve(a,b)
+print(x)
+#[-1.  1.]
+```
+
+
+
+## 7 计算两点距离
 
 两点构成一个向量，可以通过向量的范数来计算两点距离。
 
@@ -246,6 +290,6 @@ numpy.linalg.norm(x, ord=None, axis=None, keepdims=False)
 
 
 
-## 7 TBD
+## 8 TBD
 
 つづく
