@@ -6,9 +6,19 @@ tags: [dev config,]
 
 # OpenCV Configuration, Python & C++
 
-## 1 Python
+## 1 Linux + Python
 
-### 1.1 安装
+```shell
+# 1 not using cv.imshow()
+pip install opencv-python
+# 2 using cv.imshow(), but can't read video files
+conda remove opencv
+conda install -c menpo opencv
+```
+
+## 2 Win 10 + Python
+
+### 2.1 安装
 >版本：Win 10 + Python 3.7 + OpenCV 3.4.3 
 >
 >时间：2018.11.17
@@ -16,7 +26,7 @@ tags: [dev config,]
 1. 安装Anaconda3，[官网下载页面](https://www.anaconda.com/download/)；
 2. 安装OpenCV，[UCI下载页面](https://www.lfd.uci.edu/~gohlke/pythonlibs/ )，选择opencv_python-3.4.3-cp37-cp37m-win_amd64.whl下载，使用pip本地安装即可。
 
-### 1.2 Canny边缘检测demo
+### 2.2 Canny边缘检测demo
 
 ``` python
 import cv2
@@ -36,9 +46,9 @@ plt.xticks([]), plt.yticks([])
 plt.show()
 ```
 
-## 2 C++
+## 3 Win 10 + C++
 
-### 2.1 安装
+### 3.1 安装
 
 >版本：Win 10 + VS 2013 + OpenCV 2.4.13
 >
@@ -46,7 +56,7 @@ plt.show()
 
 OpenCV 发布页面，[OpenCV releases](https://opencv.org/releases.html)，选择2.4.13- winpack下载，双击解压即可。
 
-### 2.2 配置项目
+### 3.2 配置项目
 
 注意，我的 opencv-2.4.13.exe 解压目录为 <code>D:\opencv</code>，请根据你的目录修改路径。
 
@@ -97,7 +107,7 @@ OpenCV 发布页面，[OpenCV releases](https://opencv.org/releases.html)，选�
 
   x86/x64平台问题，检查环境变量与项目配置中，所使用的是哪一个版本。
 
-### 2.3 Canny边缘检测demo
+### 3.3 Canny边缘检测demo
 
 ```c++
 #include <opencv2/core/core.hpp>

@@ -7,7 +7,7 @@ tags: [machine learning,]
 # NumPy Notes
 {:.no_toc}
 
-> 一些NumPy笔记 ，Updated on Apr 27, 2019
+> 一些NumPy笔记 ，Updated on Jun 12, 2019
 
 * toc
 {:toc}
@@ -23,7 +23,7 @@ array([[ 0,  1,  2,  3],
        [ 4,  5,  6,  7],
        [ 8,  9, 10, 11],
        [12, 13, 14, 15]])
->>> b = a[1:3][:,range(1, 3)]
+>>> b = a[1:3, 1:3]
 >>> b
 array([[ 5,  6],
        [ 9, 10]])
