@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Linux, Git, etc. | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Linux, Git, etc." />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Updated on Jun 10, 2019 1 Linux 1.1 切换用户 # root sudo -i # 个人用户 su username 1.2 进程相关 # 查看全部进程 ps -ef # 查看指定用户进程 ps -u username # 杀死进程 kill -9 pid # 后台启动进程，且关闭终端后此进程不会被杀死 nohup command &amp; 1.3 文件相关 # 该变文件权限 chmod 777 xx # 改变文件夹所有者 chown -R java:java dir # 查看文本文件 cat 1.txt | grep xxx head -n 10 xx tail -n 10 xx tail -f xx # 新建空文件、更新时间戳 touch 1.txt # 解压文件 tar -xvf xx.tar unzip xx.zip # 压缩文件 tar -cvf xx.tar /xxx # 从文件列表压缩文件 cat list.txt | xargs tar -cvfz list.tar.gz 1.4 软装安装 # ubuntu local sudo dpkg -i xxx.deb # ubuntu remote sudo apt-get install xxx # centos remote yum -y install vim* 1.5 编译动态链接库 g++ -fPIC -shared -o ligsig.so signature.cpp 1.6 etc. # 系统版本 uname -v uname -m &amp;&amp; cat /etc/*release # 统计硬盘 df -h # 统计文件夹 du -h --max-depth=1 # 统计文件个数 ls | wc -l # GPU watch -n 2 nvidia-smi # ip ifconfig | grep inet # cpu # cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l # net netstat -lntp # 查找可执行文件位置 which python 2 Git 官方在线文档 设置用户信息 git config --global user.name &quot;xxx&quot; git config --global user.email yyy@zzz.com 创建本地仓库 # 从远程获取 git clone https://github.com/Amoko/CBA.git # 或者本地新建 git init 基本操作 # 素质三连 git add README.md git commit -m &quot;add README&quot; git push origin master # 仅移除跟踪 git rm --cached 1.txt # 彻底移除文件 git rm 1.txt # 重命名 git mv 1.txt 2.txt # 撤销commit git log # 找到需要回滚到的commitid git reset commitid # 回滚 # 将远程仓库同步到本地 git pull origin master 添加、删除远程仓库 git remote add origin https://github.com/Amoko/CBA.git git remote rm origin" />
+<meta property="og:description" content="Updated on Jun 10, 2019 1 Linux 1.1 切换用户 # root sudo -i # 个人用户 su username 1.2 进程相关 # 查看全部进程 ps -ef # 查看指定用户进程 ps -u username # 杀死进程 kill -9 pid # 后台启动进程，且关闭终端后此进程不会被杀死 nohup command &amp; 1.3 文件相关 # 该变文件权限 chmod 777 xx # 改变文件夹所有者 chown -R java:java dir # 查看文本文件 cat 1.txt | grep xxx head -n 10 xx tail -n 10 xx tail -f xx # 新建空文件、更新时间戳 touch 1.txt # 解压文件 tar -xvf xx.tar unzip xx.zip # 压缩文件 tar -cvf xx.tar /xxx # 从文件列表压缩文件 cat list.txt | xargs tar -cvfz list.tar.gz 1.4 软装安装 # ubuntu local sudo dpkg -i xxx.deb # ubuntu remote sudo apt-get install xxx # centos remote yum -y install vim* 1.5 编译动态链接库 g++ -fPIC -shared -o ligsig.so signature.cpp 1.6 etc. # 系统版本 uname -v uname -m &amp;&amp; cat /etc/*release # 统计硬盘 df -h # 统计文件夹 du -h --max-depth=1 # 统计文件个数 ls | wc -l # GPU watch -n 2 nvidia-smi # ip ifconfig | grep inet # cpu # cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l # net netstat -lntp # 查找可执行文件位置 which python 2 Git 官方在线文档 设置用户信息 git config --global user.name &quot;xxx&quot; git config --global user.email yyy@zzz.com 创建本地仓库 # 从远程获取 git clone https://github.com/Amoko/CBA.git # 或者本地新建 git init 基本操作 # 素质三连 git add README.md git commit -m &quot;add README&quot; git push origin master # 仅移除跟踪 git rm --cached 1.txt # 彻底移除文件 git rm 1.txt # 重命名 git mv 1.txt 2.txt # 撤销commit git log # 找到需要回滚到的commitid git reset commitid # 回滚 # 将远程仓库同步到本地 git pull origin master 添加、删除远程仓库 git remote add origin https://github.com/Amoko/CBA.git git remote rm origin" />
+<link rel="canonical" href="http://localhost:4000/2018/10/30/Terminal.html" />
+<meta property="og:url" content="http://localhost:4000/2018/10/30/Terminal.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-30T00:00:00-07:00" />
+<script type="application/ld+json">
+{"description":"Updated on Jun 10, 2019 1 Linux 1.1 切换用户 # root sudo -i # 个人用户 su username 1.2 进程相关 # 查看全部进程 ps -ef # 查看指定用户进程 ps -u username # 杀死进程 kill -9 pid # 后台启动进程，且关闭终端后此进程不会被杀死 nohup command &amp; 1.3 文件相关 # 该变文件权限 chmod 777 xx # 改变文件夹所有者 chown -R java:java dir # 查看文本文件 cat 1.txt | grep xxx head -n 10 xx tail -n 10 xx tail -f xx # 新建空文件、更新时间戳 touch 1.txt # 解压文件 tar -xvf xx.tar unzip xx.zip # 压缩文件 tar -cvf xx.tar /xxx # 从文件列表压缩文件 cat list.txt | xargs tar -cvfz list.tar.gz 1.4 软装安装 # ubuntu local sudo dpkg -i xxx.deb # ubuntu remote sudo apt-get install xxx # centos remote yum -y install vim* 1.5 编译动态链接库 g++ -fPIC -shared -o ligsig.so signature.cpp 1.6 etc. # 系统版本 uname -v uname -m &amp;&amp; cat /etc/*release # 统计硬盘 df -h # 统计文件夹 du -h --max-depth=1 # 统计文件个数 ls | wc -l # GPU watch -n 2 nvidia-smi # ip ifconfig | grep inet # cpu # cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l # net netstat -lntp # 查找可执行文件位置 which python 2 Git 官方在线文档 设置用户信息 git config --global user.name &quot;xxx&quot; git config --global user.email yyy@zzz.com 创建本地仓库 # 从远程获取 git clone https://github.com/Amoko/CBA.git # 或者本地新建 git init 基本操作 # 素质三连 git add README.md git commit -m &quot;add README&quot; git push origin master # 仅移除跟踪 git rm --cached 1.txt # 彻底移除文件 git rm 1.txt # 重命名 git mv 1.txt 2.txt # 撤销commit git log # 找到需要回滚到的commitid git reset commitid # 回滚 # 将远程仓库同步到本地 git pull origin master 添加、删除远程仓库 git remote add origin https://github.com/Amoko/CBA.git git remote rm origin","@type":"BlogPosting","url":"http://localhost:4000/2018/10/30/Terminal.html","headline":"Linux, Git, etc.","dateModified":"2018-10-30T00:00:00-07:00","datePublished":"2018-10-30T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/10/30/Terminal.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <blockquote>
+  <p>Updated on Jun 10, 2019</p>
+</blockquote>
+
+<h2 id="1-linux">1 Linux</h2>
+
+<h3 id="11-切换用户">1.1 切换用户</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># root</span>
+<span class="nb">sudo</span> <span class="nt">-i</span>
+<span class="c"># 个人用户</span>
+su username
+</code></pre></div></div>
+
+<h3 id="12-进程相关">1.2 进程相关</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 查看全部进程</span>
+ps <span class="nt">-ef</span>
+<span class="c"># 查看指定用户进程</span>
+ps <span class="nt">-u</span> username
+<span class="c"># 杀死进程</span>
+<span class="nb">kill</span> <span class="nt">-9</span> pid
+<span class="c"># 后台启动进程，且关闭终端后此进程不会被杀死</span>
+nohup <span class="nb">command</span> &amp;
+</code></pre></div></div>
+
+<h3 id="13-文件相关">1.3 文件相关</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 该变文件权限</span>
+chmod 777 xx
+<span class="c"># 改变文件夹所有者</span>
+chown <span class="nt">-R</span> java:java dir
+<span class="c"># 查看文本文件</span>
+<span class="nb">cat </span>1.txt | <span class="nb">grep </span>xxx
+head <span class="nt">-n</span> 10 xx
+tail <span class="nt">-n</span> 10 xx
+tail <span class="nt">-f</span> xx
+<span class="c"># 新建空文件、更新时间戳</span>
+touch 1.txt
+<span class="c"># 解压文件</span>
+<span class="nb">tar</span> <span class="nt">-xvf</span> xx.tar
+unzip xx.zip
+<span class="c"># 压缩文件</span>
+<span class="nb">tar</span> <span class="nt">-cvf</span> xx.tar /xxx 
+<span class="c"># 从文件列表压缩文件</span>
+<span class="nb">cat </span>list.txt | xargs <span class="nb">tar</span> <span class="nt">-cvfz</span> list.tar.gz
+</code></pre></div></div>
+
+<h3 id="14-软装安装">1.4 软装安装</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ubuntu local</span>
+<span class="nb">sudo </span>dpkg <span class="nt">-i</span> xxx.deb
+<span class="c"># ubuntu remote</span>
+<span class="nb">sudo </span>apt-get install xxx
+<span class="c"># centos remote</span>
+yum <span class="nt">-y</span> install vim<span class="k">*</span>
+</code></pre></div></div>
+
+<h3 id="15-编译动态链接库">1.5 编译动态链接库</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g++ <span class="nt">-fPIC</span> <span class="nt">-shared</span> <span class="nt">-o</span> ligsig.so signature.cpp
+</code></pre></div></div>
+
+<h3 id="16-etc">1.6 etc.</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 系统版本</span>
+uname <span class="nt">-v</span>
+uname <span class="nt">-m</span> <span class="o">&amp;&amp;</span> <span class="nb">cat</span> /etc/<span class="k">*</span>release
+<span class="c"># 统计硬盘</span>
+df <span class="nt">-h</span>
+<span class="c"># 统计文件夹</span>
+du <span class="nt">-h</span> <span class="nt">--max-depth</span><span class="o">=</span>1
+<span class="c"># 统计文件个数</span>
+<span class="nb">ls</span> | wc <span class="nt">-l</span>
+<span class="c"># GPU</span>
+watch <span class="nt">-n</span> 2 nvidia-smi
+<span class="c"># ip</span>
+ifconfig | <span class="nb">grep </span>inet
+<span class="c"># cpu #</span>
+<span class="nb">cat</span> /proc/cpuinfo| <span class="nb">grep</span> <span class="s2">"processor"</span>| wc <span class="nt">-l</span>
+<span class="c"># net</span>
+netstat <span class="nt">-lntp</span>
+<span class="c"># 查找可执行文件位置</span>
+which python
+</code></pre></div></div>
+
+<h2 id="2-git">2 Git</h2>
+
+<p><a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git">官方在线文档</a></p>
+
+<p>设置用户信息</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"xxx"</span>
+git config <span class="nt">--global</span> user.email yyy@zzz.com
+</code></pre></div></div>
+
+<p>创建本地仓库</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 从远程获取</span>
+git clone https://github.com/Amoko/CBA.git
+<span class="c"># 或者本地新建</span>
+git init
+</code></pre></div></div>
+<p>基本操作</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 素质三连</span>
+git add README.md
+git commit <span class="nt">-m</span> <span class="s2">"add README"</span>
+git push origin master
+
+<span class="c"># 仅移除跟踪</span>
+git rm <span class="nt">--cached</span> 1.txt
+<span class="c"># 彻底移除文件</span>
+git rm 1.txt
+<span class="c"># 重命名</span>
+git mv 1.txt 2.txt
+
+<span class="c"># 撤销commit</span>
+git log <span class="c"># 找到需要回滚到的commitid</span>
+git reset commitid <span class="c"># 回滚</span>
+
+<span class="c"># 将远程仓库同步到本地</span>
+git pull origin master
+</code></pre></div></div>
+
+<p>添加、删除远程仓库</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin https://github.com/Amoko/CBA.git
+git remote rm origin
+</code></pre></div></div>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

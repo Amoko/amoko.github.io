@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Jekyll Configuration On Ubuntu | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Jekyll Configuration On Ubuntu" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Jekyll Configuration On Ubuntu Jekyll 是一个静态网页生成器，Github Pages 支持以 Jekyll 来组织你的博客。 首先，你无需本地安装 Jekyll，就可以直接在 Github 编辑你的博客仓库。 但是，当你想要对博客进行大量改动时，本地修改通过后再推送到 Github 是更好的方式。 此篇博客是在 Ubuntu 上使用 Jekyll 的一个记录。 1 Installation 1.1 安装 Ruby2.3 在安装 Jekyll 前，需要先解决 Ruby 依赖。 Ruby 2.3 安装命令如下： sudo apt-add-repository ppa:brightbox/ruby-ng sudo apt-get update sudo apt-get install ruby2.3 ruby2.3-dev 验证 Ruby 版本 ruby -v # ruby 2.3.8p459 (2018-10-18 revision 65136) [x86_64-linux-gnu] 1.2 安装 Jekyll &amp; Bundler 命令如下： sudo gem install jekyll bundler OK，完了。 2 Starts 2.1 新建 Jekyll 项目 jekyll new myblog 2.2 启动服务 cd myblog bundle exec jekyll serve 然后就可以访问 Jekyll 项目网页了，http://localhost:4000 3 Conect with Github Pages 3.1 克隆仓库到本地 git clone https://github.com/Amoko/amoko.github.io 3.2 新建Gemfile文件，文件内容如下 source &#39;https://rubygems.org&#39; gem &#39;github-pages&#39;, group: :jekyll_plugins 3.3 运行命令 bundle install 然后我在这里遇到一个问题，nokogiri 依赖安装失败； 查看日志发现缺少”zlib.h”文件，需要安装 zlib1g-dev sudo apt-get install zlib1g-dev 然而又遇到如下问题，“zlib1g-dev : 依赖: zlib1g (= 1:1.2.3.4.dfsg-3ubuntu4) 但是 1:1.2.8.dfsg-1ubuntu1 已安装”，解决方法是将 zlib1g 降级； sudo apt install zlib1g=1:1.2.3.4.dfsg-3ubuntu4 问题解决，不过第二个问题仅在 Ubuntu 14.04上出现过，切换到 Ubuntu 16.04没有出现该问题。 3.4 启动服务 同じ bundle exec jekyll serve 4 Liquid语法 待补充 5 TBC では、十分近づくがよい！ Reference [1] Quickstart Jekyll [2] Ruby 2.3 Ubuntu packages [3] Setting up your GitHub Pages site locally with Jekyll" />
+<meta property="og:description" content="Jekyll Configuration On Ubuntu Jekyll 是一个静态网页生成器，Github Pages 支持以 Jekyll 来组织你的博客。 首先，你无需本地安装 Jekyll，就可以直接在 Github 编辑你的博客仓库。 但是，当你想要对博客进行大量改动时，本地修改通过后再推送到 Github 是更好的方式。 此篇博客是在 Ubuntu 上使用 Jekyll 的一个记录。 1 Installation 1.1 安装 Ruby2.3 在安装 Jekyll 前，需要先解决 Ruby 依赖。 Ruby 2.3 安装命令如下： sudo apt-add-repository ppa:brightbox/ruby-ng sudo apt-get update sudo apt-get install ruby2.3 ruby2.3-dev 验证 Ruby 版本 ruby -v # ruby 2.3.8p459 (2018-10-18 revision 65136) [x86_64-linux-gnu] 1.2 安装 Jekyll &amp; Bundler 命令如下： sudo gem install jekyll bundler OK，完了。 2 Starts 2.1 新建 Jekyll 项目 jekyll new myblog 2.2 启动服务 cd myblog bundle exec jekyll serve 然后就可以访问 Jekyll 项目网页了，http://localhost:4000 3 Conect with Github Pages 3.1 克隆仓库到本地 git clone https://github.com/Amoko/amoko.github.io 3.2 新建Gemfile文件，文件内容如下 source &#39;https://rubygems.org&#39; gem &#39;github-pages&#39;, group: :jekyll_plugins 3.3 运行命令 bundle install 然后我在这里遇到一个问题，nokogiri 依赖安装失败； 查看日志发现缺少”zlib.h”文件，需要安装 zlib1g-dev sudo apt-get install zlib1g-dev 然而又遇到如下问题，“zlib1g-dev : 依赖: zlib1g (= 1:1.2.3.4.dfsg-3ubuntu4) 但是 1:1.2.8.dfsg-1ubuntu1 已安装”，解决方法是将 zlib1g 降级； sudo apt install zlib1g=1:1.2.3.4.dfsg-3ubuntu4 问题解决，不过第二个问题仅在 Ubuntu 14.04上出现过，切换到 Ubuntu 16.04没有出现该问题。 3.4 启动服务 同じ bundle exec jekyll serve 4 Liquid语法 待补充 5 TBC では、十分近づくがよい！ Reference [1] Quickstart Jekyll [2] Ruby 2.3 Ubuntu packages [3] Setting up your GitHub Pages site locally with Jekyll" />
+<link rel="canonical" href="http://localhost:4000/2018/12/20/Jekyll.html" />
+<meta property="og:url" content="http://localhost:4000/2018/12/20/Jekyll.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-20T00:00:00-08:00" />
+<script type="application/ld+json">
+{"description":"Jekyll Configuration On Ubuntu Jekyll 是一个静态网页生成器，Github Pages 支持以 Jekyll 来组织你的博客。 首先，你无需本地安装 Jekyll，就可以直接在 Github 编辑你的博客仓库。 但是，当你想要对博客进行大量改动时，本地修改通过后再推送到 Github 是更好的方式。 此篇博客是在 Ubuntu 上使用 Jekyll 的一个记录。 1 Installation 1.1 安装 Ruby2.3 在安装 Jekyll 前，需要先解决 Ruby 依赖。 Ruby 2.3 安装命令如下： sudo apt-add-repository ppa:brightbox/ruby-ng sudo apt-get update sudo apt-get install ruby2.3 ruby2.3-dev 验证 Ruby 版本 ruby -v # ruby 2.3.8p459 (2018-10-18 revision 65136) [x86_64-linux-gnu] 1.2 安装 Jekyll &amp; Bundler 命令如下： sudo gem install jekyll bundler OK，完了。 2 Starts 2.1 新建 Jekyll 项目 jekyll new myblog 2.2 启动服务 cd myblog bundle exec jekyll serve 然后就可以访问 Jekyll 项目网页了，http://localhost:4000 3 Conect with Github Pages 3.1 克隆仓库到本地 git clone https://github.com/Amoko/amoko.github.io 3.2 新建Gemfile文件，文件内容如下 source &#39;https://rubygems.org&#39; gem &#39;github-pages&#39;, group: :jekyll_plugins 3.3 运行命令 bundle install 然后我在这里遇到一个问题，nokogiri 依赖安装失败； 查看日志发现缺少”zlib.h”文件，需要安装 zlib1g-dev sudo apt-get install zlib1g-dev 然而又遇到如下问题，“zlib1g-dev : 依赖: zlib1g (= 1:1.2.3.4.dfsg-3ubuntu4) 但是 1:1.2.8.dfsg-1ubuntu1 已安装”，解决方法是将 zlib1g 降级； sudo apt install zlib1g=1:1.2.3.4.dfsg-3ubuntu4 问题解决，不过第二个问题仅在 Ubuntu 14.04上出现过，切换到 Ubuntu 16.04没有出现该问题。 3.4 启动服务 同じ bundle exec jekyll serve 4 Liquid语法 待补充 5 TBC では、十分近づくがよい！ Reference [1] Quickstart Jekyll [2] Ruby 2.3 Ubuntu packages [3] Setting up your GitHub Pages site locally with Jekyll","@type":"BlogPosting","url":"http://localhost:4000/2018/12/20/Jekyll.html","headline":"Jekyll Configuration On Ubuntu","dateModified":"2018-12-20T00:00:00-08:00","datePublished":"2018-12-20T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/12/20/Jekyll.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="jekyll-configuration-on-ubuntu">Jekyll Configuration On Ubuntu</h1>
+
+<p>Jekyll 是一个静态网页生成器，Github Pages 支持以 Jekyll 来组织你的博客。</p>
+
+<p>首先，你无需本地安装 Jekyll，就可以直接在 Github 编辑你的博客仓库。</p>
+
+<p>但是，当你想要对博客进行大量改动时，本地修改通过后再推送到 Github 是更好的方式。</p>
+
+<p>此篇博客是在 Ubuntu 上使用 Jekyll 的一个记录。</p>
+
+<h2 id="1-installation">1 Installation</h2>
+
+<h3 id="11-安装-ruby23">1.1 安装 Ruby2.3</h3>
+
+<p>在安装 Jekyll 前，需要先解决 Ruby 依赖。</p>
+
+<p>Ruby 2.3 安装命令如下：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-add-repository ppa:brightbox/ruby-ng
+<span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get install ruby2.3 ruby2.3-dev
+</code></pre></div></div>
+
+<p>验证 Ruby 版本</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby <span class="nt">-v</span>
+<span class="c"># ruby 2.3.8p459 (2018-10-18 revision 65136) [x86_64-linux-gnu]</span>
+</code></pre></div></div>
+
+<h3 id="12-安装-jekyll--bundler">1.2 安装 Jekyll &amp; Bundler</h3>
+
+<p>命令如下：</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>gem install jekyll bundler
+</code></pre></div></div>
+
+<p>OK，完了。</p>
+
+<h2 id="2-starts">2 Starts</h2>
+
+<h3 id="21-新建-jekyll-项目">2.1 新建 Jekyll 项目</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll new myblog
+</code></pre></div></div>
+
+<h3 id="22-启动服务">2.2 启动服务</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>myblog
+bundle <span class="nb">exec </span>jekyll serve
+</code></pre></div></div>
+
+<p>然后就可以访问 Jekyll 项目网页了，<a href="http://localhost:4000/">http://localhost:4000</a></p>
+
+<h2 id="3-conect-with-github-pages">3 Conect with Github Pages</h2>
+
+<h3 id="31-克隆仓库到本地">3.1 克隆仓库到本地</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/Amoko/amoko.github.io
+</code></pre></div></div>
+
+<h3 id="32-新建gemfile文件文件内容如下">3.2 新建Gemfile文件，文件内容如下</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source 'https://rubygems.org'
+
+gem 'github-pages', group: :jekyll_plugins
+</code></pre></div></div>
+
+<h3 id="33-运行命令">3.3 运行命令</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle install
+</code></pre></div></div>
+
+<p>然后我在这里遇到一个问题，nokogiri 依赖安装失败；</p>
+
+<p>查看日志发现缺少”zlib.h”文件，需要安装 zlib1g-dev</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get install zlib1g-dev
+</code></pre></div></div>
+
+<p>然而又遇到如下问题，“zlib1g-dev : 依赖: zlib1g (= 1:1.2.3.4.dfsg-3ubuntu4) 但是 1:1.2.8.dfsg-1ubuntu1 已安装”，解决方法是将 zlib1g 降级；</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install zlib1g=1:1.2.3.4.dfsg-3ubuntu4
+</code></pre></div></div>
+
+<p>问题解决，不过第二个问题仅在 Ubuntu 14.04上出现过，切换到 Ubuntu 16.04没有出现该问题。</p>
+
+<h3 id="34-启动服务">3.4 启动服务</h3>
+
+<p>同じ</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve
+</code></pre></div></div>
+
+<h2 id="4-liquid语法">4 Liquid语法</h2>
+
+<p>待补充</p>
+
+<h2 id="5-tbc">5 TBC</h2>
+
+<p>では、十分近づくがよい！</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] <a href="https://jekyllrb.com/docs/">Quickstart Jekyll</a></p>
+
+<p>[2] <a href="https://www.brightbox.com/blog/2016/01/06/ruby-2-3-ubuntu-packages/">Ruby 2.3 Ubuntu packages</a></p>
+
+<p>[3] <a href="https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/">Setting up your GitHub Pages site locally with Jekyll</a></p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Affine, Perspective Transformation | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Affine, Perspective Transformation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Affine, Perspective Transformation 1 仿射变换 仿射变换是在二维空间上对图像进行平移、缩放、旋转、shear 和镜像5个操作的组合。 仿射变换后，相交线之间的角度可能发生变化（shear），但平行线之间的关系保持不变。 因为仿射变换是在二维空间中进行的，所以至少需要3个点才能构造一个 $2\times3$ 的仿射变换矩阵。 仿射变换矩阵中各个元素的作用见下图： 求出仿射变换矩阵 $M$ 后，与点 $P(x, y)$ 进行矩阵乘法，就得到仿射变换后的点 $P’(x’,y’)$。 将点 $p(0,0)$ 通过仿射变换矩阵在 $x,y$ 方向上分别平移1，2个单位。 将点 $p(0,1)$ 通过仿射变换矩阵绕原点旋转$90^{\circ}$。 2 透视变换 “一个简单的例子，你用手电筒往墙上打光。 如果手电筒和墙面垂直，打出来的光是圆，有倾斜角度就是椭圆。离墙面近光环就小点，离得远光环就大点。 但手电筒本身是固定不变的，只是不同的透视变换有不同的结果。” 透视变换就是通过投影的方式，把当前平面上的图像映射到另外一个平面。 因为透视变换是在三维空间中进行的，所以至少需要4个点才能构造一个一个 $3\times3$ 的透视变换矩阵。 透视变换矩阵没有直观的理解，就不做解释辽。 3 OpenCV中调用 import cv2 as cv import numpy as np import matplotlib.pyplot as plt img = cv.imread(&#39;circle.jpg&#39;) # affine pts1 = np.float32([[0,0], [3200,0], [0,3200]]) pts2 = np.float32([[2400,200], [3200,0], [0,3200]]) M = cv.getAffineTransform(pts1,pts2) dst = cv.warpAffine(img,M,(3200,3200)) plt.imshow(dst, cmap=plt.cm.gray) plt.show() # perspective pts1 = np.float32([[0,0], [3200,0], [0,3200], [3200, 3200]]) pts2 = np.float32([[800,200], [3200,0], [0,3200], [3000, 3000]]) M = cv.getPerspectiveTransform(pts1,pts2) dst = cv.warpPerspective(img,M,(3200,3200)) plt.imshow(dst, cmap=plt.cm.gray) plt.show() Reference [1] Wikipedia Affine transformation [2] OpenCV Geometric Transformations of Images [2] 仿射变换与投影变换 - houkai" />
+<meta property="og:description" content="Affine, Perspective Transformation 1 仿射变换 仿射变换是在二维空间上对图像进行平移、缩放、旋转、shear 和镜像5个操作的组合。 仿射变换后，相交线之间的角度可能发生变化（shear），但平行线之间的关系保持不变。 因为仿射变换是在二维空间中进行的，所以至少需要3个点才能构造一个 $2\times3$ 的仿射变换矩阵。 仿射变换矩阵中各个元素的作用见下图： 求出仿射变换矩阵 $M$ 后，与点 $P(x, y)$ 进行矩阵乘法，就得到仿射变换后的点 $P’(x’,y’)$。 将点 $p(0,0)$ 通过仿射变换矩阵在 $x,y$ 方向上分别平移1，2个单位。 将点 $p(0,1)$ 通过仿射变换矩阵绕原点旋转$90^{\circ}$。 2 透视变换 “一个简单的例子，你用手电筒往墙上打光。 如果手电筒和墙面垂直，打出来的光是圆，有倾斜角度就是椭圆。离墙面近光环就小点，离得远光环就大点。 但手电筒本身是固定不变的，只是不同的透视变换有不同的结果。” 透视变换就是通过投影的方式，把当前平面上的图像映射到另外一个平面。 因为透视变换是在三维空间中进行的，所以至少需要4个点才能构造一个一个 $3\times3$ 的透视变换矩阵。 透视变换矩阵没有直观的理解，就不做解释辽。 3 OpenCV中调用 import cv2 as cv import numpy as np import matplotlib.pyplot as plt img = cv.imread(&#39;circle.jpg&#39;) # affine pts1 = np.float32([[0,0], [3200,0], [0,3200]]) pts2 = np.float32([[2400,200], [3200,0], [0,3200]]) M = cv.getAffineTransform(pts1,pts2) dst = cv.warpAffine(img,M,(3200,3200)) plt.imshow(dst, cmap=plt.cm.gray) plt.show() # perspective pts1 = np.float32([[0,0], [3200,0], [0,3200], [3200, 3200]]) pts2 = np.float32([[800,200], [3200,0], [0,3200], [3000, 3000]]) M = cv.getPerspectiveTransform(pts1,pts2) dst = cv.warpPerspective(img,M,(3200,3200)) plt.imshow(dst, cmap=plt.cm.gray) plt.show() Reference [1] Wikipedia Affine transformation [2] OpenCV Geometric Transformations of Images [2] 仿射变换与投影变换 - houkai" />
+<link rel="canonical" href="http://localhost:4000/2019/02/13/Affine-Perspective.html" />
+<meta property="og:url" content="http://localhost:4000/2019/02/13/Affine-Perspective.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-02-13T00:00:00-08:00" />
+<script type="application/ld+json">
+{"description":"Affine, Perspective Transformation 1 仿射变换 仿射变换是在二维空间上对图像进行平移、缩放、旋转、shear 和镜像5个操作的组合。 仿射变换后，相交线之间的角度可能发生变化（shear），但平行线之间的关系保持不变。 因为仿射变换是在二维空间中进行的，所以至少需要3个点才能构造一个 $2\\times3$ 的仿射变换矩阵。 仿射变换矩阵中各个元素的作用见下图： 求出仿射变换矩阵 $M$ 后，与点 $P(x, y)$ 进行矩阵乘法，就得到仿射变换后的点 $P’(x’,y’)$。 将点 $p(0,0)$ 通过仿射变换矩阵在 $x,y$ 方向上分别平移1，2个单位。 将点 $p(0,1)$ 通过仿射变换矩阵绕原点旋转$90^{\\circ}$。 2 透视变换 “一个简单的例子，你用手电筒往墙上打光。 如果手电筒和墙面垂直，打出来的光是圆，有倾斜角度就是椭圆。离墙面近光环就小点，离得远光环就大点。 但手电筒本身是固定不变的，只是不同的透视变换有不同的结果。” 透视变换就是通过投影的方式，把当前平面上的图像映射到另外一个平面。 因为透视变换是在三维空间中进行的，所以至少需要4个点才能构造一个一个 $3\\times3$ 的透视变换矩阵。 透视变换矩阵没有直观的理解，就不做解释辽。 3 OpenCV中调用 import cv2 as cv import numpy as np import matplotlib.pyplot as plt img = cv.imread(&#39;circle.jpg&#39;) # affine pts1 = np.float32([[0,0], [3200,0], [0,3200]]) pts2 = np.float32([[2400,200], [3200,0], [0,3200]]) M = cv.getAffineTransform(pts1,pts2) dst = cv.warpAffine(img,M,(3200,3200)) plt.imshow(dst, cmap=plt.cm.gray) plt.show() # perspective pts1 = np.float32([[0,0], [3200,0], [0,3200], [3200, 3200]]) pts2 = np.float32([[800,200], [3200,0], [0,3200], [3000, 3000]]) M = cv.getPerspectiveTransform(pts1,pts2) dst = cv.warpPerspective(img,M,(3200,3200)) plt.imshow(dst, cmap=plt.cm.gray) plt.show() Reference [1] Wikipedia Affine transformation [2] OpenCV Geometric Transformations of Images [2] 仿射变换与投影变换 - houkai","@type":"BlogPosting","url":"http://localhost:4000/2019/02/13/Affine-Perspective.html","headline":"Affine, Perspective Transformation","dateModified":"2019-02-13T00:00:00-08:00","datePublished":"2019-02-13T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/02/13/Affine-Perspective.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="affine-perspective-transformation">Affine, Perspective Transformation</h1>
+
+<p><img src="/img/ap.png" alt="" /></p>
+
+<h2 id="1-仿射变换">1 仿射变换</h2>
+
+<p>仿射变换是在二维空间上对图像进行平移、缩放、旋转、shear 和镜像5个操作的组合。</p>
+
+<p>仿射变换后，相交线之间的角度可能发生变化（shear），但平行线之间的关系保持不变。</p>
+
+<p>因为仿射变换是在二维空间中进行的，所以至少需要3个点才能构造一个 $2\times3$ 的仿射变换矩阵。</p>
+
+<p>仿射变换矩阵中各个元素的作用见下图：</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/2D_affine_transformation_matrix.svg/500px-2D_affine_transformation_matrix.svg.png" alt="" /></p>
+
+<p>求出仿射变换矩阵 $M$ 后，与点 $P(x, y)$ 进行矩阵乘法，就得到仿射变换后的点 $P’(x’,y’)$。</p>
+
+<script type="math/tex; mode=display">M \cdot
+\begin{bmatrix}
+x\\y\\1
+\end{bmatrix}=
+\begin{bmatrix}
+x'\\y'
+\end{bmatrix}</script>
+
+<ul>
+  <li>将点 $p(0,0)$ 通过仿射变换矩阵在 $x,y$ 方向上分别平移1，2个单位。</li>
+</ul>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+1 & 0 & 1\\
+0 & 1 & 2
+\end{bmatrix}\cdot
+\begin{bmatrix}
+0\\0\\1
+\end{bmatrix}=
+\begin{bmatrix}
+1\\2
+\end{bmatrix} %]]></script>
+
+<ul>
+  <li>将点 $p(0,1)$ 通过仿射变换矩阵绕原点旋转$90^{\circ}$。</li>
+</ul>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+0 & 1 & 0\\
+-1 & 0 & 0
+\end{bmatrix}\cdot
+\begin{bmatrix}
+0\\1\\1
+\end{bmatrix}=
+\begin{bmatrix}
+1\\0
+\end{bmatrix} %]]></script>
+
+<h2 id="2-透视变换">2 透视变换</h2>
+
+<p><em>“一个简单的例子，你用手电筒往墙上打光。</em></p>
+
+<p><em>如果手电筒和墙面垂直，打出来的光是圆，有倾斜角度就是椭圆。离墙面近光环就小点，离得远光环就大点。</em></p>
+
+<p><em>但手电筒本身是固定不变的，只是不同的透视变换有不同的结果。”</em></p>
+
+<p>透视变换就是通过投影的方式，把当前平面上的图像映射到另外一个平面。</p>
+
+<p>因为透视变换是在三维空间中进行的，所以至少需要4个点才能构造一个一个 $3\times3$ 的透视变换矩阵。</p>
+
+<p>透视变换矩阵没有直观的理解，就不做解释辽。</p>
+
+<h2 id="3-opencv中调用">3 OpenCV中调用</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span> <span class="k">as</span> <span class="n">cv</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'circle.jpg'</span><span class="p">)</span>
+<span class="c"># affine</span>
+<span class="n">pts1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">3200</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3200</span><span class="p">]])</span>
+<span class="n">pts2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">2400</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">3200</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3200</span><span class="p">]])</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">getAffineTransform</span><span class="p">(</span><span class="n">pts1</span><span class="p">,</span><span class="n">pts2</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">M</span><span class="p">,(</span><span class="mi">3200</span><span class="p">,</span><span class="mi">3200</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c"># perspective</span>
+<span class="n">pts1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">3200</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3200</span><span class="p">],</span> <span class="p">[</span><span class="mi">3200</span><span class="p">,</span> <span class="mi">3200</span><span class="p">]])</span>
+<span class="n">pts2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">([[</span><span class="mi">800</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">3200</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3200</span><span class="p">],</span> <span class="p">[</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">]])</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">getPerspectiveTransform</span><span class="p">(</span><span class="n">pts1</span><span class="p">,</span><span class="n">pts2</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">warpPerspective</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">M</span><span class="p">,(</span><span class="mi">3200</span><span class="p">,</span><span class="mi">3200</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">gray</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] <a href="https://en.wikipedia.org/wiki/Affine_transformation">Wikipedia Affine transformation</a></p>
+
+<p>[2] <a href="https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_geometric_transformations/py_geometric_transformations.html">OpenCV Geometric Transformations of Images</a></p>
+
+<p>[2] <a href="https://www.cnblogs.com/houkai/p/6660272.html">仿射变换与投影变换 - houkai</a></p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

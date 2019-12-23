@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>NumPy Notes | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="NumPy Notes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="NumPy Notes 一些NumPy笔记 ，Updated on Jun 12, 2019 1 切片&amp;变形 2 特征值&amp;特征向量 3 均值&amp;标准差 4 协方差矩阵 4.1 协方差 4.2 协方差矩阵 5 矩阵性质 5.1 矩阵的转置（Transpose） 5.2 矩阵的秩（Rank） 5.3 矩阵的逆（Inverse） 5.4 矩阵的行列式（Determinant） 6 解线性方程组 7 计算两点距离 8 TBD 1 切片&amp;变形 取 numpy 矩阵的子行列 &gt;&gt;&gt; a = np.arange(16).reshape(4, 4) &gt;&gt;&gt; a array([[ 0, 1, 2, 3], [ 4, 5, 6, 7], [ 8, 9, 10, 11], [12, 13, 14, 15]]) &gt;&gt;&gt; b = a[1:3, 1:3] &gt;&gt;&gt; b array([[ 5, 6], [ 9, 10]]) 改变 numpy 矩阵 shape &gt;&gt;&gt; a = np.arange(3).reshape(-1, 1) &gt;&gt;&gt; a array([[0], [1], [2]]) &gt;&gt;&gt; a.shape (3, 1) &gt;&gt;&gt; b = a.transpose(1, 0) &gt;&gt;&gt; b array([[0, 1, 2]]) &gt;&gt;&gt; b.shape (1, 3) &gt;&gt;&gt; c = a.squeeze() &gt;&gt;&gt; c array([0, 1, 2]) &gt;&gt;&gt; c.shape (3,) 2 特征值&amp;特征向量 对一个$n$阶方阵$A$，其一组特征值$\lambda$和特征向量$v$满足以下等式：$Av=\lambda v$。 在NumPy中计算方阵的特征值、特征向量的函数为: # linear algebra eigen numpy.linalg.eig(a) 返回值是两个array，依次为特征值，特征向量（注意特征向量在返回值中以列存储）。参见下面这段代码。 &gt;&gt;&gt; a = np.arange(16).reshape(4,4) &gt;&gt;&gt; a array([[ 0, 1, 2, 3], [ 4, 5, 6, 7], [ 8, 9, 10, 11], [12, 13, 14, 15]]) &gt;&gt;&gt; values, vectors = np.linalg.eig(a) &gt;&gt;&gt; values array([ 3.24642492e+01, -2.46424920e+00, 1.92979794e-15, -4.09576009e-16]) &gt;&gt;&gt; vectors array([[-0.11417645, -0.7327781 , 0.54500164, 0.00135151], [-0.3300046 , -0.28974835, -0.68602671, 0.40644504], [-0.54583275, 0.15328139, -0.2629515 , -0.8169446 ], [-0.76166089, 0.59631113, 0.40397657, 0.40914805]]) # check equaion &gt;&gt;&gt; A_Ve = np.dot(a,vectors[:,0]) &gt;&gt;&gt; A_Ve array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904]) &gt;&gt;&gt; lam_Ve = np.dot(values[0], vectors[:,0]) &gt;&gt;&gt; lam_Ve array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904]) 3 均值&amp;标准差 计算均值 mean 与标准差 standard deviation。 均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i$ 标准差，$\sigma = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^n(x_i-\mu)^2}$ $\star$ 注意 np.std() 默认使用有偏估计 ，ddof=0，即自由度为 $n$； 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。 $\star$ 注意方差/标准差衡量的是变量的离散程度，所以会受到数据 scale 的影响。 &gt;&gt;&gt; np.mean([1,2,3]) 2.0 &gt;&gt;&gt; np.std([0,1]) 0.5 &gt;&gt;&gt; np.std([0,4]) 2.0 &gt;&gt;&gt; np.std([0,4], ddof=1) 2.8284271247461903 4 协方差矩阵 4.1 协方差 协方差（Covariance）用于衡量两个变量之间的总体误差，反映两变量间线性相关程度。 对随机变量$X={x_1,x_2,\cdots,x_n}$ 和 $Y={y_1,y_2,\cdots,y_n}$，协方差 ${\rm Cov}(X,Y)$ 定义如下： 4.2 协方差矩阵 协方差矩阵（Covariance matrix）记录的是是多个变量，两两之间的协方差。协方差矩阵以符号 $\sum$ 表示。 其$i,j$位置的元素，即是第 $i$ 个变量与第 $j$ 个变量之间的协方差。公式定义如下：$\sum_{ij}=Cov(X_i,X_j)$。 因此对角线上的元素是方差，对角线以外的元素才是狭义上的协方差。 在计算协方差矩阵时，如果你所关注的变量是属性而不是样本，则需要对矩阵进行转置。 在NumPy中计算协方差矩阵的函数为： numpy.cov(m, y=None, rowvar=True, bias=False, ddof=None, fweights=None, aweights=None) 参数 ddof 是 delta degree of freedom的缩写，即自由度差。 $\star$ 注意 np.cov() 默认使用无偏估计 ，ddof=1，即自由度为 $n-1$； 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。 参见下面这段代码。 &gt;&gt;&gt; np.cov([[0,1], [0,4]]) array([[0.5, 2. ], [2. , 8. ]]) &gt;&gt;&gt; np.cov([[0,1], [0,4]], ddof=0) array([[0.25, 1. ], [1. , 4. ]]) 5 矩阵性质 5.1 矩阵的转置（Transpose） 计算矩阵矩阵 $A$ 的转置矩阵 $A^T$。 &gt;&gt;&gt; a=np.arange(6).reshape(2,3) &gt;&gt;&gt; a array([[0, 1, 2], [3, 4, 5]]) &gt;&gt;&gt; aT=a.T &gt;&gt;&gt; aT array([[0, 3], [1, 4], [2, 5]]) 5.2 矩阵的秩（Rank） 矩阵 $A$ 的秩 $rank(A)$ 代表矩阵中线性无关向量的个数，行秩与列秩相等。 a1 = np.array([[1, 2], [1, 2], [1, 2]]) r1 = np.linalg.matrix_rank(a1) print(r1) # 1 a2 = np.array([[1, 2], [1, 3], [1, 4]]) r2 = np.linalg.matrix_rank(a2) print(r2) # 2 5.3 矩阵的逆（Inverse） 可逆矩阵是针对方阵而言的。 对一个 $n$ 阶方阵 $A$，其逆矩阵 $A^{-1}$ 满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$ 为 $n$ 阶单位矩阵。 &gt;&gt;&gt; a=np.arange(4).reshape(2,2) &gt;&gt;&gt; a array([[0, 1], [2, 3]]) &gt;&gt;&gt; aI=np.linalg.inv(a) &gt;&gt;&gt; aI array([[-1.5, 0.5], [ 1. , 0. ]]) &gt;&gt;&gt; np.dot(a,aI) array([[1., 0.], [0., 1.]]) 5.4 矩阵的行列式（Determinant） 矩阵的行列式是针对方阵而言的。 对一个 $n$ 阶方阵 $A$，以下叙述等价： 矩阵 $A$ 的行列式 $\vert A \vert\neq0$ 矩阵 $A$ 可逆 矩阵 $A$ 满秩，即 $rank(A)=n$ 矩阵 $A$ 为非奇异矩阵（nonsingular matrix） &gt;&gt;&gt; a=np.arange(4).reshape(2,2) &gt;&gt;&gt; a array([[0, 1], [2, 3]]) &gt;&gt;&gt; np.linalg.det(a) -2.0 6 解线性方程组 使用Numpy解线性方程组 $AX=b$。 限制条件是矩阵 $A$ 必须为方阵，且为非奇异矩阵。 a = np.array([[1, 2], [1, 3]]) b = np.array([1, 2]) x = np.linalg.solve(a,b) print(x) #[-1. 1.] 7 计算两点距离 两点构成一个向量，可以通过向量的范数来计算两点距离。 在NumPy中计算矩阵、向量范数的函数为： numpy.linalg.norm(x, ord=None, axis=None, keepdims=False) 默认值 ord=2，对应L2范数，即常用的欧式距离；ord=1 对应L1范数，即曼哈顿距离；ord=0 对应L0范数。 参见下面示例。 &gt;&gt;&gt; a = np.array([1, 1]) &gt;&gt;&gt; b = np.array([4, 5]) &gt;&gt;&gt; np.linalg.norm(a-b) 5.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=0) 2.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=1) 7.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=2) 5.0 8 TBD つづく" />
+<meta property="og:description" content="NumPy Notes 一些NumPy笔记 ，Updated on Jun 12, 2019 1 切片&amp;变形 2 特征值&amp;特征向量 3 均值&amp;标准差 4 协方差矩阵 4.1 协方差 4.2 协方差矩阵 5 矩阵性质 5.1 矩阵的转置（Transpose） 5.2 矩阵的秩（Rank） 5.3 矩阵的逆（Inverse） 5.4 矩阵的行列式（Determinant） 6 解线性方程组 7 计算两点距离 8 TBD 1 切片&amp;变形 取 numpy 矩阵的子行列 &gt;&gt;&gt; a = np.arange(16).reshape(4, 4) &gt;&gt;&gt; a array([[ 0, 1, 2, 3], [ 4, 5, 6, 7], [ 8, 9, 10, 11], [12, 13, 14, 15]]) &gt;&gt;&gt; b = a[1:3, 1:3] &gt;&gt;&gt; b array([[ 5, 6], [ 9, 10]]) 改变 numpy 矩阵 shape &gt;&gt;&gt; a = np.arange(3).reshape(-1, 1) &gt;&gt;&gt; a array([[0], [1], [2]]) &gt;&gt;&gt; a.shape (3, 1) &gt;&gt;&gt; b = a.transpose(1, 0) &gt;&gt;&gt; b array([[0, 1, 2]]) &gt;&gt;&gt; b.shape (1, 3) &gt;&gt;&gt; c = a.squeeze() &gt;&gt;&gt; c array([0, 1, 2]) &gt;&gt;&gt; c.shape (3,) 2 特征值&amp;特征向量 对一个$n$阶方阵$A$，其一组特征值$\lambda$和特征向量$v$满足以下等式：$Av=\lambda v$。 在NumPy中计算方阵的特征值、特征向量的函数为: # linear algebra eigen numpy.linalg.eig(a) 返回值是两个array，依次为特征值，特征向量（注意特征向量在返回值中以列存储）。参见下面这段代码。 &gt;&gt;&gt; a = np.arange(16).reshape(4,4) &gt;&gt;&gt; a array([[ 0, 1, 2, 3], [ 4, 5, 6, 7], [ 8, 9, 10, 11], [12, 13, 14, 15]]) &gt;&gt;&gt; values, vectors = np.linalg.eig(a) &gt;&gt;&gt; values array([ 3.24642492e+01, -2.46424920e+00, 1.92979794e-15, -4.09576009e-16]) &gt;&gt;&gt; vectors array([[-0.11417645, -0.7327781 , 0.54500164, 0.00135151], [-0.3300046 , -0.28974835, -0.68602671, 0.40644504], [-0.54583275, 0.15328139, -0.2629515 , -0.8169446 ], [-0.76166089, 0.59631113, 0.40397657, 0.40914805]]) # check equaion &gt;&gt;&gt; A_Ve = np.dot(a,vectors[:,0]) &gt;&gt;&gt; A_Ve array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904]) &gt;&gt;&gt; lam_Ve = np.dot(values[0], vectors[:,0]) &gt;&gt;&gt; lam_Ve array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904]) 3 均值&amp;标准差 计算均值 mean 与标准差 standard deviation。 均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i$ 标准差，$\sigma = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^n(x_i-\mu)^2}$ $\star$ 注意 np.std() 默认使用有偏估计 ，ddof=0，即自由度为 $n$； 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。 $\star$ 注意方差/标准差衡量的是变量的离散程度，所以会受到数据 scale 的影响。 &gt;&gt;&gt; np.mean([1,2,3]) 2.0 &gt;&gt;&gt; np.std([0,1]) 0.5 &gt;&gt;&gt; np.std([0,4]) 2.0 &gt;&gt;&gt; np.std([0,4], ddof=1) 2.8284271247461903 4 协方差矩阵 4.1 协方差 协方差（Covariance）用于衡量两个变量之间的总体误差，反映两变量间线性相关程度。 对随机变量$X={x_1,x_2,\cdots,x_n}$ 和 $Y={y_1,y_2,\cdots,y_n}$，协方差 ${\rm Cov}(X,Y)$ 定义如下： 4.2 协方差矩阵 协方差矩阵（Covariance matrix）记录的是是多个变量，两两之间的协方差。协方差矩阵以符号 $\sum$ 表示。 其$i,j$位置的元素，即是第 $i$ 个变量与第 $j$ 个变量之间的协方差。公式定义如下：$\sum_{ij}=Cov(X_i,X_j)$。 因此对角线上的元素是方差，对角线以外的元素才是狭义上的协方差。 在计算协方差矩阵时，如果你所关注的变量是属性而不是样本，则需要对矩阵进行转置。 在NumPy中计算协方差矩阵的函数为： numpy.cov(m, y=None, rowvar=True, bias=False, ddof=None, fweights=None, aweights=None) 参数 ddof 是 delta degree of freedom的缩写，即自由度差。 $\star$ 注意 np.cov() 默认使用无偏估计 ，ddof=1，即自由度为 $n-1$； 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。 参见下面这段代码。 &gt;&gt;&gt; np.cov([[0,1], [0,4]]) array([[0.5, 2. ], [2. , 8. ]]) &gt;&gt;&gt; np.cov([[0,1], [0,4]], ddof=0) array([[0.25, 1. ], [1. , 4. ]]) 5 矩阵性质 5.1 矩阵的转置（Transpose） 计算矩阵矩阵 $A$ 的转置矩阵 $A^T$。 &gt;&gt;&gt; a=np.arange(6).reshape(2,3) &gt;&gt;&gt; a array([[0, 1, 2], [3, 4, 5]]) &gt;&gt;&gt; aT=a.T &gt;&gt;&gt; aT array([[0, 3], [1, 4], [2, 5]]) 5.2 矩阵的秩（Rank） 矩阵 $A$ 的秩 $rank(A)$ 代表矩阵中线性无关向量的个数，行秩与列秩相等。 a1 = np.array([[1, 2], [1, 2], [1, 2]]) r1 = np.linalg.matrix_rank(a1) print(r1) # 1 a2 = np.array([[1, 2], [1, 3], [1, 4]]) r2 = np.linalg.matrix_rank(a2) print(r2) # 2 5.3 矩阵的逆（Inverse） 可逆矩阵是针对方阵而言的。 对一个 $n$ 阶方阵 $A$，其逆矩阵 $A^{-1}$ 满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$ 为 $n$ 阶单位矩阵。 &gt;&gt;&gt; a=np.arange(4).reshape(2,2) &gt;&gt;&gt; a array([[0, 1], [2, 3]]) &gt;&gt;&gt; aI=np.linalg.inv(a) &gt;&gt;&gt; aI array([[-1.5, 0.5], [ 1. , 0. ]]) &gt;&gt;&gt; np.dot(a,aI) array([[1., 0.], [0., 1.]]) 5.4 矩阵的行列式（Determinant） 矩阵的行列式是针对方阵而言的。 对一个 $n$ 阶方阵 $A$，以下叙述等价： 矩阵 $A$ 的行列式 $\vert A \vert\neq0$ 矩阵 $A$ 可逆 矩阵 $A$ 满秩，即 $rank(A)=n$ 矩阵 $A$ 为非奇异矩阵（nonsingular matrix） &gt;&gt;&gt; a=np.arange(4).reshape(2,2) &gt;&gt;&gt; a array([[0, 1], [2, 3]]) &gt;&gt;&gt; np.linalg.det(a) -2.0 6 解线性方程组 使用Numpy解线性方程组 $AX=b$。 限制条件是矩阵 $A$ 必须为方阵，且为非奇异矩阵。 a = np.array([[1, 2], [1, 3]]) b = np.array([1, 2]) x = np.linalg.solve(a,b) print(x) #[-1. 1.] 7 计算两点距离 两点构成一个向量，可以通过向量的范数来计算两点距离。 在NumPy中计算矩阵、向量范数的函数为： numpy.linalg.norm(x, ord=None, axis=None, keepdims=False) 默认值 ord=2，对应L2范数，即常用的欧式距离；ord=1 对应L1范数，即曼哈顿距离；ord=0 对应L0范数。 参见下面示例。 &gt;&gt;&gt; a = np.array([1, 1]) &gt;&gt;&gt; b = np.array([4, 5]) &gt;&gt;&gt; np.linalg.norm(a-b) 5.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=0) 2.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=1) 7.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=2) 5.0 8 TBD つづく" />
+<link rel="canonical" href="http://localhost:4000/2018/08/02/NumPy-Notes.html" />
+<meta property="og:url" content="http://localhost:4000/2018/08/02/NumPy-Notes.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-08-02T00:00:00-07:00" />
+<script type="application/ld+json">
+{"description":"NumPy Notes 一些NumPy笔记 ，Updated on Jun 12, 2019 1 切片&amp;变形 2 特征值&amp;特征向量 3 均值&amp;标准差 4 协方差矩阵 4.1 协方差 4.2 协方差矩阵 5 矩阵性质 5.1 矩阵的转置（Transpose） 5.2 矩阵的秩（Rank） 5.3 矩阵的逆（Inverse） 5.4 矩阵的行列式（Determinant） 6 解线性方程组 7 计算两点距离 8 TBD 1 切片&amp;变形 取 numpy 矩阵的子行列 &gt;&gt;&gt; a = np.arange(16).reshape(4, 4) &gt;&gt;&gt; a array([[ 0, 1, 2, 3], [ 4, 5, 6, 7], [ 8, 9, 10, 11], [12, 13, 14, 15]]) &gt;&gt;&gt; b = a[1:3, 1:3] &gt;&gt;&gt; b array([[ 5, 6], [ 9, 10]]) 改变 numpy 矩阵 shape &gt;&gt;&gt; a = np.arange(3).reshape(-1, 1) &gt;&gt;&gt; a array([[0], [1], [2]]) &gt;&gt;&gt; a.shape (3, 1) &gt;&gt;&gt; b = a.transpose(1, 0) &gt;&gt;&gt; b array([[0, 1, 2]]) &gt;&gt;&gt; b.shape (1, 3) &gt;&gt;&gt; c = a.squeeze() &gt;&gt;&gt; c array([0, 1, 2]) &gt;&gt;&gt; c.shape (3,) 2 特征值&amp;特征向量 对一个$n$阶方阵$A$，其一组特征值$\\lambda$和特征向量$v$满足以下等式：$Av=\\lambda v$。 在NumPy中计算方阵的特征值、特征向量的函数为: # linear algebra eigen numpy.linalg.eig(a) 返回值是两个array，依次为特征值，特征向量（注意特征向量在返回值中以列存储）。参见下面这段代码。 &gt;&gt;&gt; a = np.arange(16).reshape(4,4) &gt;&gt;&gt; a array([[ 0, 1, 2, 3], [ 4, 5, 6, 7], [ 8, 9, 10, 11], [12, 13, 14, 15]]) &gt;&gt;&gt; values, vectors = np.linalg.eig(a) &gt;&gt;&gt; values array([ 3.24642492e+01, -2.46424920e+00, 1.92979794e-15, -4.09576009e-16]) &gt;&gt;&gt; vectors array([[-0.11417645, -0.7327781 , 0.54500164, 0.00135151], [-0.3300046 , -0.28974835, -0.68602671, 0.40644504], [-0.54583275, 0.15328139, -0.2629515 , -0.8169446 ], [-0.76166089, 0.59631113, 0.40397657, 0.40914805]]) # check equaion &gt;&gt;&gt; A_Ve = np.dot(a,vectors[:,0]) &gt;&gt;&gt; A_Ve array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904]) &gt;&gt;&gt; lam_Ve = np.dot(values[0], vectors[:,0]) &gt;&gt;&gt; lam_Ve array([ -3.70665277, -10.71335153, -17.72005028, -24.72674904]) 3 均值&amp;标准差 计算均值 mean 与标准差 standard deviation。 均值，$\\mu=\\cfrac{1}{n}\\sum_{i=1}^nx_i$ 标准差，$\\sigma = \\sqrt{\\cfrac{1}{n-1}\\sum_{i=1}^n(x_i-\\mu)^2}$ $\\star$ 注意 np.std() 默认使用有偏估计 ，ddof=0，即自由度为 $n$； 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。 $\\star$ 注意方差/标准差衡量的是变量的离散程度，所以会受到数据 scale 的影响。 &gt;&gt;&gt; np.mean([1,2,3]) 2.0 &gt;&gt;&gt; np.std([0,1]) 0.5 &gt;&gt;&gt; np.std([0,4]) 2.0 &gt;&gt;&gt; np.std([0,4], ddof=1) 2.8284271247461903 4 协方差矩阵 4.1 协方差 协方差（Covariance）用于衡量两个变量之间的总体误差，反映两变量间线性相关程度。 对随机变量$X={x_1,x_2,\\cdots,x_n}$ 和 $Y={y_1,y_2,\\cdots,y_n}$，协方差 ${\\rm Cov}(X,Y)$ 定义如下： 4.2 协方差矩阵 协方差矩阵（Covariance matrix）记录的是是多个变量，两两之间的协方差。协方差矩阵以符号 $\\sum$ 表示。 其$i,j$位置的元素，即是第 $i$ 个变量与第 $j$ 个变量之间的协方差。公式定义如下：$\\sum_{ij}=Cov(X_i,X_j)$。 因此对角线上的元素是方差，对角线以外的元素才是狭义上的协方差。 在计算协方差矩阵时，如果你所关注的变量是属性而不是样本，则需要对矩阵进行转置。 在NumPy中计算协方差矩阵的函数为： numpy.cov(m, y=None, rowvar=True, bias=False, ddof=None, fweights=None, aweights=None) 参数 ddof 是 delta degree of freedom的缩写，即自由度差。 $\\star$ 注意 np.cov() 默认使用无偏估计 ，ddof=1，即自由度为 $n-1$； 若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。 参见下面这段代码。 &gt;&gt;&gt; np.cov([[0,1], [0,4]]) array([[0.5, 2. ], [2. , 8. ]]) &gt;&gt;&gt; np.cov([[0,1], [0,4]], ddof=0) array([[0.25, 1. ], [1. , 4. ]]) 5 矩阵性质 5.1 矩阵的转置（Transpose） 计算矩阵矩阵 $A$ 的转置矩阵 $A^T$。 &gt;&gt;&gt; a=np.arange(6).reshape(2,3) &gt;&gt;&gt; a array([[0, 1, 2], [3, 4, 5]]) &gt;&gt;&gt; aT=a.T &gt;&gt;&gt; aT array([[0, 3], [1, 4], [2, 5]]) 5.2 矩阵的秩（Rank） 矩阵 $A$ 的秩 $rank(A)$ 代表矩阵中线性无关向量的个数，行秩与列秩相等。 a1 = np.array([[1, 2], [1, 2], [1, 2]]) r1 = np.linalg.matrix_rank(a1) print(r1) # 1 a2 = np.array([[1, 2], [1, 3], [1, 4]]) r2 = np.linalg.matrix_rank(a2) print(r2) # 2 5.3 矩阵的逆（Inverse） 可逆矩阵是针对方阵而言的。 对一个 $n$ 阶方阵 $A$，其逆矩阵 $A^{-1}$ 满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$ 为 $n$ 阶单位矩阵。 &gt;&gt;&gt; a=np.arange(4).reshape(2,2) &gt;&gt;&gt; a array([[0, 1], [2, 3]]) &gt;&gt;&gt; aI=np.linalg.inv(a) &gt;&gt;&gt; aI array([[-1.5, 0.5], [ 1. , 0. ]]) &gt;&gt;&gt; np.dot(a,aI) array([[1., 0.], [0., 1.]]) 5.4 矩阵的行列式（Determinant） 矩阵的行列式是针对方阵而言的。 对一个 $n$ 阶方阵 $A$，以下叙述等价： 矩阵 $A$ 的行列式 $\\vert A \\vert\\neq0$ 矩阵 $A$ 可逆 矩阵 $A$ 满秩，即 $rank(A)=n$ 矩阵 $A$ 为非奇异矩阵（nonsingular matrix） &gt;&gt;&gt; a=np.arange(4).reshape(2,2) &gt;&gt;&gt; a array([[0, 1], [2, 3]]) &gt;&gt;&gt; np.linalg.det(a) -2.0 6 解线性方程组 使用Numpy解线性方程组 $AX=b$。 限制条件是矩阵 $A$ 必须为方阵，且为非奇异矩阵。 a = np.array([[1, 2], [1, 3]]) b = np.array([1, 2]) x = np.linalg.solve(a,b) print(x) #[-1. 1.] 7 计算两点距离 两点构成一个向量，可以通过向量的范数来计算两点距离。 在NumPy中计算矩阵、向量范数的函数为： numpy.linalg.norm(x, ord=None, axis=None, keepdims=False) 默认值 ord=2，对应L2范数，即常用的欧式距离；ord=1 对应L1范数，即曼哈顿距离；ord=0 对应L0范数。 参见下面示例。 &gt;&gt;&gt; a = np.array([1, 1]) &gt;&gt;&gt; b = np.array([4, 5]) &gt;&gt;&gt; np.linalg.norm(a-b) 5.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=0) 2.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=1) 7.0 &gt;&gt;&gt; np.linalg.norm(a-b, ord=2) 5.0 8 TBD つづく","@type":"BlogPosting","url":"http://localhost:4000/2018/08/02/NumPy-Notes.html","headline":"NumPy Notes","dateModified":"2018-08-02T00:00:00-07:00","datePublished":"2018-08-02T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/08/02/NumPy-Notes.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 class="no_toc" id="numpy-notes">NumPy Notes</h1>
+
+<blockquote>
+  <p>一些NumPy笔记 ，Updated on Jun 12, 2019</p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#1-切片变形" id="markdown-toc-1-切片变形">1 切片&amp;变形</a></li>
+  <li><a href="#2-特征值特征向量" id="markdown-toc-2-特征值特征向量">2 特征值&amp;特征向量</a></li>
+  <li><a href="#3-均值标准差" id="markdown-toc-3-均值标准差">3 均值&amp;标准差</a></li>
+  <li><a href="#4-协方差矩阵" id="markdown-toc-4-协方差矩阵">4 协方差矩阵</a>    <ul>
+      <li><a href="#41-协方差" id="markdown-toc-41-协方差">4.1 协方差</a></li>
+      <li><a href="#42-协方差矩阵" id="markdown-toc-42-协方差矩阵">4.2 协方差矩阵</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-矩阵性质" id="markdown-toc-5-矩阵性质">5 矩阵性质</a>    <ul>
+      <li><a href="#51-矩阵的转置transpose" id="markdown-toc-51-矩阵的转置transpose">5.1 矩阵的转置（Transpose）</a></li>
+      <li><a href="#52-矩阵的秩rank" id="markdown-toc-52-矩阵的秩rank">5.2 矩阵的秩（Rank）</a></li>
+      <li><a href="#53-矩阵的逆inverse" id="markdown-toc-53-矩阵的逆inverse">5.3 矩阵的逆（Inverse）</a></li>
+      <li><a href="#54-矩阵的行列式determinant" id="markdown-toc-54-矩阵的行列式determinant">5.4 矩阵的行列式（Determinant）</a></li>
+    </ul>
+  </li>
+  <li><a href="#6-解线性方程组" id="markdown-toc-6-解线性方程组">6 解线性方程组</a></li>
+  <li><a href="#7-计算两点距离" id="markdown-toc-7-计算两点距离">7 计算两点距离</a></li>
+  <li><a href="#8-tbd" id="markdown-toc-8-tbd">8 TBD</a></li>
+</ul>
+
+<h2 id="1-切片变形">1 切片&amp;变形</h2>
+
+<p>取 numpy 矩阵的子行列</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+</code></pre></div></div>
+
+<p>改变 numpy 矩阵 shape</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span>
+<span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span>
+<span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="o">.</span><span class="n">shape</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,)</span>
+</code></pre></div></div>
+
+<h2 id="2-特征值特征向量">2 特征值&amp;特征向量</h2>
+
+<p>对一个$n$阶方阵$A$，其一组特征值$\lambda$和特征向量$v$满足以下等式：$Av=\lambda v$。</p>
+
+<p>在NumPy中计算方阵的特征值、特征向量的函数为:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># linear algebra eigen</span>
+<span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>返回值是两个array，依次为特征值，特征向量（<strong>注意特征向量在返回值中以列存储</strong>）。参见下面这段代码。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span>  <span class="mi">7</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">values</span><span class="p">,</span> <span class="n">vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">values</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">3.24642492e+01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.46424920e+00</span><span class="p">,</span>  <span class="mf">1.92979794e-15</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.09576009e-16</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">vectors</span>
+<span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.11417645</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.7327781</span> <span class="p">,</span>  <span class="mf">0.54500164</span><span class="p">,</span>  <span class="mf">0.00135151</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.3300046</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.28974835</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.68602671</span><span class="p">,</span>  <span class="mf">0.40644504</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.54583275</span><span class="p">,</span>  <span class="mf">0.15328139</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2629515</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.8169446</span> <span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.76166089</span><span class="p">,</span>  <span class="mf">0.59631113</span><span class="p">,</span>  <span class="mf">0.40397657</span><span class="p">,</span>  <span class="mf">0.40914805</span><span class="p">]])</span>
+<span class="c"># check equaion</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">A_Ve</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">vectors</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">A_Ve</span>
+<span class="n">array</span><span class="p">([</span> <span class="o">-</span><span class="mf">3.70665277</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.71335153</span><span class="p">,</span> <span class="o">-</span><span class="mf">17.72005028</span><span class="p">,</span> <span class="o">-</span><span class="mf">24.72674904</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lam_Ve</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vectors</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lam_Ve</span>
+<span class="n">array</span><span class="p">([</span> <span class="o">-</span><span class="mf">3.70665277</span><span class="p">,</span> <span class="o">-</span><span class="mf">10.71335153</span><span class="p">,</span> <span class="o">-</span><span class="mf">17.72005028</span><span class="p">,</span> <span class="o">-</span><span class="mf">24.72674904</span><span class="p">])</span>
+</code></pre></div></div>
+
+<h2 id="3-均值标准差">3 均值&amp;标准差</h2>
+
+<p>计算均值 mean 与标准差 standard deviation。</p>
+
+<p>均值，$\mu=\cfrac{1}{n}\sum_{i=1}^nx_i$</p>
+
+<p>标准差，$\sigma = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^n(x_i-\mu)^2}$</p>
+
+<p>$\star$ 注意 np.std() <strong>默认使用有偏估计 ，ddof=0，即自由度为 $n$</strong>；</p>
+
+<p>若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。</p>
+
+<p>$\star$ 注意方差/标准差衡量的是变量的离散程度，所以会受到数据 scale 的影响。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="mf">2.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="mf">0.5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="mf">2.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="mf">2.8284271247461903</span>
+</code></pre></div></div>
+
+<h2 id="4-协方差矩阵">4 协方差矩阵</h2>
+
+<h3 id="41-协方差">4.1 协方差</h3>
+
+<p>协方差（Covariance）用于衡量两个变量之间的总体误差，反映两变量间线性相关程度。</p>
+
+<p>对随机变量$X={x_1,x_2,\cdots,x_n}$ 和 $Y={y_1,y_2,\cdots,y_n}$，协方差 ${\rm Cov}(X,Y)$ 定义如下：</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+{\rm Cov}(X,Y)&={\rm E}[(X-{\rm E}[X])(Y-{\rm E}[Y])]=E[XY]-{\rm E}[X]{\rm E}[Y]\\
+&=\frac{1}{n}\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)
+\end{aligned} %]]></script>
+
+<h3 id="42-协方差矩阵">4.2 协方差矩阵</h3>
+
+<p>协方差矩阵（Covariance matrix）记录的是是多个变量，两两之间的协方差。协方差矩阵以符号 $\sum$ 表示。</p>
+
+<p>其$i,j$位置的元素，即是第 $i$ 个变量与第 $j$ 个变量之间的协方差。公式定义如下：$\sum_{ij}=Cov(X_i,X_j)$。</p>
+
+<p>因此<strong>对角线上的元素是方差</strong>，对角线以外的元素才是狭义上的协方差。</p>
+
+<p>在计算协方差矩阵时，<strong>如果你所关注的变量是属性而不是样本，则需要对矩阵进行转置</strong>。</p>
+
+<p>在NumPy中计算协方差矩阵的函数为：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numpy</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fweights</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">aweights</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>参数 ddof 是 delta degree of freedom的缩写，即自由度差。</p>
+
+<p>$\star$ 注意 np.cov() <strong>默认使用无偏估计 ，ddof=1，即自由度为 $n-1$</strong>；</p>
+
+<p>若需要计算无偏估计，即自由度为 $n-1$，则要设定参数 ddof=1。</p>
+
+<p>参见下面这段代码。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+<span class="n">array</span><span class="p">([[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.</span> <span class="p">],</span>
+       <span class="p">[</span><span class="mf">2.</span> <span class="p">,</span> <span class="mf">8.</span> <span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">]],</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">1.</span>  <span class="p">],</span>
+       <span class="p">[</span><span class="mf">1.</span>  <span class="p">,</span> <span class="mf">4.</span>  <span class="p">]])</span>
+</code></pre></div></div>
+
+<h2 id="5-矩阵性质">5 矩阵性质</h2>
+
+<h3 id="51-矩阵的转置transpose">5.1 矩阵的转置（Transpose）</h3>
+
+<p>计算矩阵矩阵 $A$ 的转置矩阵 $A^T$。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">aT</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">T</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">aT</span>
+<span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+</code></pre></div></div>
+
+<h3 id="52-矩阵的秩rank">5.2 矩阵的秩（Rank）</h3>
+
+<p>矩阵 $A$ 的秩 $rank(A)$ 代表矩阵中线性无关向量的个数，行秩与列秩相等。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="n">r1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
+<span class="c"># 1</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">a2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+<span class="c"># 2</span>
+</code></pre></div></div>
+
+<h3 id="53-矩阵的逆inverse">5.3 矩阵的逆（Inverse）</h3>
+
+<p>可逆矩阵是针对<strong>方阵</strong>而言的。</p>
+
+<p>对一个 $n$ 阶方阵 $A$，其逆矩阵 $A^{-1}$ 满足以下等式：$AA^{-1}=A^{-1}A=I_n$，$I_n$ 为 $n$ 阶单位矩阵。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">aI</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">aI</span>
+<span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">1.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">aI</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+</code></pre></div></div>
+
+<h3 id="54-矩阵的行列式determinant">5.4 矩阵的行列式（Determinant）</h3>
+
+<p>矩阵的行列式是针对<strong>方阵</strong>而言的。</p>
+
+<p>对一个 $n$ 阶方阵 $A$，以下叙述等价：</p>
+
+<ul>
+  <li>矩阵 $A$ 的行列式 $\vert A \vert\neq0$</li>
+  <li>矩阵 $A$ 可逆</li>
+  <li>矩阵 $A$ 满秩，即 $rank(A)=n$</li>
+  <li>矩阵 $A$ 为非奇异矩阵（nonsingular matrix）</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">-</span><span class="mf">2.0</span>
+</code></pre></div></div>
+
+<h2 id="6-解线性方程组">6 解线性方程组</h2>
+
+<p>使用Numpy解线性方程组 $AX=b$。</p>
+
+<p>限制条件是矩阵 $A$ 必须为方阵，且为非奇异矩阵。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c">#[-1.  1.]</span>
+</code></pre></div></div>
+
+<h2 id="7-计算两点距离">7 计算两点距离</h2>
+
+<p>两点构成一个向量，可以通过向量的范数来计算两点距离。</p>
+
+<p>在NumPy中计算矩阵、向量范数的函数为：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>默认值</strong> ord=2，对应L2范数，即常用的欧式距离；ord=1 对应L1范数，即曼哈顿距离；ord=0 对应L0范数。</p>
+
+<p>参见下面示例。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>
+<span class="mf">5.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="mf">2.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="mf">7.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="mf">5.0</span>
+</code></pre></div></div>
+
+<h2 id="8-tbd">8 TBD</h2>
+
+<p>つづく</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>
