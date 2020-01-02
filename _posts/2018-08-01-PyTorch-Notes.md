@@ -6,13 +6,27 @@ tags: [machine learning,]
 
 # PyTorch Notes
 
-> 一些PyTorch笔记 ，Updated on Mar 22，2019
+> Updated on Nov 19，2019
+
+## 0 Install
+
+国内安装需要添加清华源加速
+
+```shell
+# 添加清华源
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+conda config --set show_channel_urls yes
+# 安装
+conda install pytorch torchvision cudatoolkit=9.0
+```
 
 
 
 ## 1 CrossEntropyLoss & Softmax
 
-因为PyTorch在CrossEntropyLoss损失函数中整合了Softmax激活函数，所以对于多分类神经网络，最后一层不需要添加激活函数，只要设定神经元个数为类别个数即可。
+因为 PyTorch 在 CrossEntropyLoss 损失函数中整合了 Softmax 激活函数，所以对于多分类神经网络，最后一层不需要添加激活函数，只要设定神经元个数为类别个数即可。
 ```python
 class Net(nn.Module):
     def __init__(self):
@@ -36,7 +50,7 @@ loss = criterion(outputs, labels)
 predicted = torch.max(outputs.data, 1)[1]
 ```
 
-## 2 数据归一化
+## 2 归一化
 
 ```python
 from torchvision import transforms
@@ -44,7 +58,7 @@ transform = transforms.Compose(
             [transforms.ToTensor(),transforms.Normalize((0.1307,), (0.3081,))])
 ```
 
-PyTorch在数据预处理时使用参数 transform 来定义对数据的归一化方式，将原始值域为 $[0,255]$ 的numpy数据矩阵转换为值域为 $[0,1]$ 的Tensor。
+PyTorch在数据预处理时使用参数 transform 来定义对数据的归一化方式，将原始值域为 $[0,255]$ 的 numpy.ndarray 转换为值域为 $[0,1]$ 的Tensor。
 
 这里面有两个操作，第一个<code>transforms.ToTensor()</code>是 Min-Max 归一化；
 
@@ -73,8 +87,6 @@ tensor([[[-1.0463, -0.7237],
 ```
 
 
-
-
 ## 3 参数dim
 
 PyTorch中的参数dim，就是NumPy中的参数axis，参考下面两个函数定义：
@@ -101,8 +113,6 @@ tensor([[ 5.,  2.,  9.],
 >>> c
 (tensor([ 9.,  7.]), tensor([ 2,  0]))
 ```
-
-
 
 ## 4 TBC
 
