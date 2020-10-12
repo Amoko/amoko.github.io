@@ -38,6 +38,7 @@ $$
 $$
 
 L2范数，也称为欧几里得范数，为参数向量元素绝对值平方和再开方。以L2范数作为正则项，防止参数过拟合到某个特征上。例如 ridge regression 就是在线性回归的基础上加L2范数作为正则项。
+
 $$
 \lVert x \rVert_2 =\sqrt{ \sum_i x_i^2}\tag{2}
 $$
@@ -49,10 +50,13 @@ $$
 从ERM的角度考虑，拟合数据最好的模型，即似然函数值$\hat L$最大的模型是最好的。那么从SRM的角度考虑，是寻求一个模型复杂度与拟合数据之间的最佳平衡。以SRM策略为目标的评分准则，常用的有AIC、BIC评分。
 
 Akaike Information Criterion 由![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/38px-Flag_of_Japan.svg.png)日本人<ruby>赤池<rt>あかいけ</rt></ruby>（ Akaike）于1974年提出，$k$是模型参数的个数，$\hat L$是似然函数值，AIC评分越小模型越好。
+
 $$
 {\rm AIC}=2k-2\ln(\hat L)\tag{3}
 $$
+
 Bayesian Information Criterion 由Schwarz 于1978年提出，$k$是模型参数的个数，$n$是样本数量，$\hat L$是似然函数值，BIC评分越小模型越好。对比AIC，BIC的改进是考虑了样本数量$n$，大数据量时，惩罚项更大。
+
 $$
 {\rm BIC}=k\ln(n)-2\ln(\hat L)\tag{4}
 $$

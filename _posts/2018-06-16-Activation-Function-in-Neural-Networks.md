@@ -95,6 +95,7 @@ GELU函数可以近似如下：$f(x)\approx x*\sigma(1.702x)$，$\sigma(x)$ 为s
 ### 5 Swish函数
 
 Swish 是 Google 17年的一个工作，通过强化学习进行激活函数的搜索，因在 EfficientNet 中的应用而被CV领域广泛采用，数学表达式如下：
+
 $$
 f(x)=x\cdot\sigma(x)\tag{6}
 $$
@@ -143,6 +144,7 @@ Softmax函数常用于多分类神经网络的最后一层，对输出向量进�
 将一个元素为任意实数的 $n$ 维向量 $\vec{z}$ 压缩为一个同为 $n$ 维的向量 $\vec{a}$，向量$\vec{a}$中原始值域范围为[0, 1]，且元素和为1。Softmax归一化会放大原始输入值之间的差异。
 
 数学形式如下：
+
 $$
 a_i(\vec{z})=\cfrac{e^{z_i}}{\sum_{j=1}^n e^{z_j}}，{\rm for}\quad i=1,\dots,n\tag{7}
 $$

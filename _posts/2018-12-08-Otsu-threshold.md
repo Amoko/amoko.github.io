@@ -45,12 +45,14 @@ Id est, from quantity to quality.
 **类间方差**
 
 阈值为 $t$ 时，类间方差 $\delta_t$ 定义如下：
+
 $$
 \begin{aligned}
 \delta_t^2 &= w_0(\mu_0-\mu)^2 + w_1(\mu_1-\mu)^2 \\
 &= w_0w_1(\mu_0-\mu_1)^2
 \end{aligned}\tag{1}
 $$
+
 $p_i$，灰度值 $i$ 占比；$\mu=\sum_0^{255} ip_i$，全图灰度均值。
 
 $w_0=\sum_0^{t}p_i$，黑色像素占比；$\mu_0=\cfrac{\sum_0^tip_i}{w_0}$，黑色像素灰度均值。
