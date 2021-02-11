@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Deep learning その 1、Activation Function | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Deep learning その 1、Activation Function" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Deep learning その 1: Activation Function 神经网络中，一个节点的激活函数定义了此节点输入与输出之间的映射关系。 0 Perception 神经网络（Neural Networks）与感知机（Perceptron）很大的区别，或者说改进就在于激活函数的不同。 简单介绍一下，感知机由美国心理学家Frank Rosenblatt 于1958年提出，是一种处理二分类问题的线性模型，同时也是SVM、Logistics回归和神经网络的基础。模型如下： 对于线性不可分的数据，感知机模型无法收敛。因为感知机的激活函数$f(x)$是Sign函数是线性的。Sign函数，也称单位跃迁函数，常用形式如下： 而神经网络常使用如Sigmoid、Tanh、ReLU等非线性函数作为神经元的激活函数。 为什么要使用非线性的激活函数，因为若激活函数为线性，则无论神经网络有多少层，输出都是输入的线性组合，多层没有任何意义。因此引入非线性的激活函数，神经网络才有理论上拟合任意函数的能力。 1 Sigmoid函数 Sigmoid函数，也称S型函数，形式如下： Sigmoid函数将任意范围内的输入映射在[0, 1]区间内。优点是求导简单，$f’(x)=f(x)(1-f(x))$。 但缺点是因为S型函数的关系，在输入值较大或较小时梯度值过小。 import math def sigmoid(x): return 1.0 / (1 + math.exp(-x)) def sg(x): f = sigmoid(x) g = f * (1 - f) print(&#39;x={:2d}, g={:.4f}&#39;.format(x, g)) for i in range(0, 11, 2): sg(i) &#39;&#39;&#39; x= 0, g=0.2500 x= 2, g=0.1050 x= 4, g=0.0177 x= 6, g=0.0025 x= 8, g=0.0003 x=10, g=0.0000 &#39;&#39;&#39; 2 Tanh函数 Tanh函数，即双曲正切函数，形式如下： Tanh函数与Sigmoid函数同为S型函数，区别是其将输出映射在[-1, 1]区间内。 3 ReLU函数 线性整流函数（Rectified Linear Unit）,也称斜坡函数，形式如下： 现在广泛使用的是ReLU函数，其优点是收敛速度更快，避免了梯度消失，计算简单，缺点是比较脆弱。 4 Softmax函数 Softmax函数是Sigmoid函数的泛化，常用于多分类神经网络的最后一层。 Softmax函数的作用是将输出向量归一化，并且让归一化后的值大的更大、小的更小。 将一个元素为任意实数的$n$维向量$\vec{z}$压缩为一个同为$n$维的向量$\vec{a}$，向量$\vec{a}$中每一个元素范围为(0, 1)，且所有元素和为1。常用形式如下： Reference [1] Wikipedia Activation Function [2] 从感知机到深度神经网络-机器之心 [3] 深度学习-从线性到非线性-徐阿衡" />
+<meta property="og:description" content="Deep learning その 1: Activation Function 神经网络中，一个节点的激活函数定义了此节点输入与输出之间的映射关系。 0 Perception 神经网络（Neural Networks）与感知机（Perceptron）很大的区别，或者说改进就在于激活函数的不同。 简单介绍一下，感知机由美国心理学家Frank Rosenblatt 于1958年提出，是一种处理二分类问题的线性模型，同时也是SVM、Logistics回归和神经网络的基础。模型如下： 对于线性不可分的数据，感知机模型无法收敛。因为感知机的激活函数$f(x)$是Sign函数是线性的。Sign函数，也称单位跃迁函数，常用形式如下： 而神经网络常使用如Sigmoid、Tanh、ReLU等非线性函数作为神经元的激活函数。 为什么要使用非线性的激活函数，因为若激活函数为线性，则无论神经网络有多少层，输出都是输入的线性组合，多层没有任何意义。因此引入非线性的激活函数，神经网络才有理论上拟合任意函数的能力。 1 Sigmoid函数 Sigmoid函数，也称S型函数，形式如下： Sigmoid函数将任意范围内的输入映射在[0, 1]区间内。优点是求导简单，$f’(x)=f(x)(1-f(x))$。 但缺点是因为S型函数的关系，在输入值较大或较小时梯度值过小。 import math def sigmoid(x): return 1.0 / (1 + math.exp(-x)) def sg(x): f = sigmoid(x) g = f * (1 - f) print(&#39;x={:2d}, g={:.4f}&#39;.format(x, g)) for i in range(0, 11, 2): sg(i) &#39;&#39;&#39; x= 0, g=0.2500 x= 2, g=0.1050 x= 4, g=0.0177 x= 6, g=0.0025 x= 8, g=0.0003 x=10, g=0.0000 &#39;&#39;&#39; 2 Tanh函数 Tanh函数，即双曲正切函数，形式如下： Tanh函数与Sigmoid函数同为S型函数，区别是其将输出映射在[-1, 1]区间内。 3 ReLU函数 线性整流函数（Rectified Linear Unit）,也称斜坡函数，形式如下： 现在广泛使用的是ReLU函数，其优点是收敛速度更快，避免了梯度消失，计算简单，缺点是比较脆弱。 4 Softmax函数 Softmax函数是Sigmoid函数的泛化，常用于多分类神经网络的最后一层。 Softmax函数的作用是将输出向量归一化，并且让归一化后的值大的更大、小的更小。 将一个元素为任意实数的$n$维向量$\vec{z}$压缩为一个同为$n$维的向量$\vec{a}$，向量$\vec{a}$中每一个元素范围为(0, 1)，且所有元素和为1。常用形式如下： Reference [1] Wikipedia Activation Function [2] 从感知机到深度神经网络-机器之心 [3] 深度学习-从线性到非线性-徐阿衡" />
+<link rel="canonical" href="http://localhost:4000/2018/06/16/Activation-Function-in-Neural-Networks.html" />
+<meta property="og:url" content="http://localhost:4000/2018/06/16/Activation-Function-in-Neural-Networks.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-06-16T00:00:00-07:00" />
+<script type="application/ld+json">
+{"description":"Deep learning その 1: Activation Function 神经网络中，一个节点的激活函数定义了此节点输入与输出之间的映射关系。 0 Perception 神经网络（Neural Networks）与感知机（Perceptron）很大的区别，或者说改进就在于激活函数的不同。 简单介绍一下，感知机由美国心理学家Frank Rosenblatt 于1958年提出，是一种处理二分类问题的线性模型，同时也是SVM、Logistics回归和神经网络的基础。模型如下： 对于线性不可分的数据，感知机模型无法收敛。因为感知机的激活函数$f(x)$是Sign函数是线性的。Sign函数，也称单位跃迁函数，常用形式如下： 而神经网络常使用如Sigmoid、Tanh、ReLU等非线性函数作为神经元的激活函数。 为什么要使用非线性的激活函数，因为若激活函数为线性，则无论神经网络有多少层，输出都是输入的线性组合，多层没有任何意义。因此引入非线性的激活函数，神经网络才有理论上拟合任意函数的能力。 1 Sigmoid函数 Sigmoid函数，也称S型函数，形式如下： Sigmoid函数将任意范围内的输入映射在[0, 1]区间内。优点是求导简单，$f’(x)=f(x)(1-f(x))$。 但缺点是因为S型函数的关系，在输入值较大或较小时梯度值过小。 import math def sigmoid(x): return 1.0 / (1 + math.exp(-x)) def sg(x): f = sigmoid(x) g = f * (1 - f) print(&#39;x={:2d}, g={:.4f}&#39;.format(x, g)) for i in range(0, 11, 2): sg(i) &#39;&#39;&#39; x= 0, g=0.2500 x= 2, g=0.1050 x= 4, g=0.0177 x= 6, g=0.0025 x= 8, g=0.0003 x=10, g=0.0000 &#39;&#39;&#39; 2 Tanh函数 Tanh函数，即双曲正切函数，形式如下： Tanh函数与Sigmoid函数同为S型函数，区别是其将输出映射在[-1, 1]区间内。 3 ReLU函数 线性整流函数（Rectified Linear Unit）,也称斜坡函数，形式如下： 现在广泛使用的是ReLU函数，其优点是收敛速度更快，避免了梯度消失，计算简单，缺点是比较脆弱。 4 Softmax函数 Softmax函数是Sigmoid函数的泛化，常用于多分类神经网络的最后一层。 Softmax函数的作用是将输出向量归一化，并且让归一化后的值大的更大、小的更小。 将一个元素为任意实数的$n$维向量$\\vec{z}$压缩为一个同为$n$维的向量$\\vec{a}$，向量$\\vec{a}$中每一个元素范围为(0, 1)，且所有元素和为1。常用形式如下： Reference [1] Wikipedia Activation Function [2] 从感知机到深度神经网络-机器之心 [3] 深度学习-从线性到非线性-徐阿衡","@type":"BlogPosting","url":"http://localhost:4000/2018/06/16/Activation-Function-in-Neural-Networks.html","headline":"Deep learning その 1、Activation Function","dateModified":"2018-06-16T00:00:00-07:00","datePublished":"2018-06-16T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/06/16/Activation-Function-in-Neural-Networks.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="deep-learning-その-1-activation-function">Deep learning その 1: Activation Function</h1>
+
+<blockquote>
+  <p>神经网络中，一个节点的<strong>激活函数</strong>定义了此节点输入与输出之间的映射关系。</p>
+</blockquote>
+
+<h3 id="0-perception">0 Perception</h3>
+
+<p>神经网络（Neural Networks）与感知机（Perceptron）很大的区别，或者说改进就在于<strong>激活函数</strong>的不同。</p>
+
+<p>简单介绍一下，感知机由<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/38px-Flag_of_the_United_States.svg.png" alt="" />美国心理学家Frank Rosenblatt 于1958年提出，是一种处理二分类问题的线性模型，同时也是SVM、Logistics回归和神经网络的基础。模型如下：</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Perceptron.svg/750px-Perceptron.svg.png" alt="" /></p>
+
+<p>对于线性不可分的数据，感知机模型无法收敛。因为感知机的激活函数$f(x)$是Sign函数是线性的。Sign函数，也称单位跃迁函数，常用形式如下：
+<script type="math/tex">f(x)={\rm sign}(x)=\begin{cases}+1,x>0\\-1,x\leq0\end{cases}\tag{1}</script>
+而神经网络常使用如Sigmoid、Tanh、ReLU等非线性函数作为神经元的激活函数。</p>
+
+<p>为什么要使用非线性的激活函数，因为<strong>若激活函数为线性，则无论神经网络有多少层，输出都是输入的线性组合，多层没有任何意义</strong>。因此引入非线性的激活函数，神经网络才有理论上拟合任意函数的能力。</p>
+
+<h3 id="1-sigmoid函数">1 Sigmoid函数</h3>
+
+<p>Sigmoid函数，也称S型函数，形式如下：</p>
+
+<script type="math/tex; mode=display">f(x)=\frac{1}{1+e^{-x}}\tag{2}</script>
+
+<p>Sigmoid函数将任意范围内的输入映射在[0, 1]区间内。优点是求导简单，$f’(x)=f(x)(1-f(x))$。</p>
+
+<p>但缺点是因为S型函数的关系，在输入值较大或较小时梯度值过小。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">sg</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'x={:2d}, g={:.4f}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">g</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">sg</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="s">'''
+x= 0, g=0.2500
+x= 2, g=0.1050
+x= 4, g=0.0177
+x= 6, g=0.0025
+x= 8, g=0.0003
+x=10, g=0.0000
+'''</span>
+</code></pre></div></div>
+
+<h3 id="2-tanh函数">2 Tanh函数</h3>
+
+<p>Tanh函数，即双曲正切函数，形式如下：
+<script type="math/tex">f(x)=\tanh(x)=\frac{\sinh(x)}{\cosh(x)}=\frac{e^x-e^{-x}}{e^x+e^{-x}}\tag{3}</script></p>
+
+<p>Tanh函数与Sigmoid函数同为S型函数，区别是其将输出映射在[-1, 1]区间内。</p>
+
+<h3 id="3-relu函数">3 ReLU函数</h3>
+
+<p>线性整流函数（Rectified Linear Unit）,也称斜坡函数，形式如下：
+<script type="math/tex">f(x)=\max(0,x)\tag{4}</script></p>
+
+<p>现在广泛使用的是ReLU函数，其优点是收敛速度更快，避免了梯度消失，计算简单，缺点是比较脆弱。</p>
+
+<h3 id="4-softmax函数">4 Softmax函数</h3>
+
+<p>Softmax函数是Sigmoid函数的泛化，常用于多分类神经网络的最后一层。</p>
+
+<p>Softmax函数的作用是将输出向量归一化，并且让归一化后的值大的更大、小的更小。</p>
+
+<p>将一个元素为任意实数的$n$维向量$\vec{z}$压缩为一个同为$n$维的向量$\vec{a}$，向量$\vec{a}$中每一个元素范围为(0, 1)，且所有元素和为1。常用形式如下：</p>
+
+<script type="math/tex; mode=display">a_i(\vec{z})=\cfrac{e^{z_i}}{\sum_{j=1}^n e^{z_j}}，{\rm for}\quad i=1,\dots,n\tag{5}</script>
+
+<h3 id="reference">Reference</h3>
+
+<p>[1] <a href="https://en.wikipedia.org/wiki/Activation_function">Wikipedia Activation Function</a></p>
+
+<p>[2] <a href="https://www.jiqizhixin.com/articles/2018-01-15-2">从感知机到深度神经网络-机器之心</a></p>
+
+<p>[3] <a href="http://www.shuang0420.com/2017/01/21/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E4%BB%8E%E7%BA%BF%E6%80%A7%E5%88%B0%E9%9D%9E%E7%BA%BF%E6%80%A7/">深度学习-从线性到非线性-徐阿衡</a></p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

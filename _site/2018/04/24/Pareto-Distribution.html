@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Pareto Distribution | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Pareto Distribution" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pareto Distribution 高斯分布 Gaussian Distribution 与帕累托分布 Pareto Distribution 并列为两大主导自然和人类世界的概率分布。 高斯分布 根据中心极限定理，大量独立随机变量的均值收敛于高斯分布。 比如男性（或女性）的身高分布、等等。高斯分布的概率密度函数及钟形函数曲线如下 帕累托分布 高斯分布的本质是独立性，而对于以社会性为本质的人类，某些属性在个体之间的独立性是不存在的。 所以在人类群体中，出现最多的往往是帕累托分布，比如个人财富、期刊引用量、社交媒体上的KOL，图书销售情况等。 帕累托分布，也称幂律分布，由 意大利人Vilfredo Pareto于19世纪末提出。 其概率密度函数及函数曲线（J型）如下，$x_m$是$x$所能取到的最小值 对于帕累托分布的出现，美国社会学家 Robert Merton 于1968年提出了马太效应 Matthew Effect进行解释。 Robert认为，在正反馈机制作用下，个体所获得的初始优势会不断滚雪球，最终强者愈强，弱者愈弱，出现帕累托分布。 马太效应的名称源自圣经新约。 For to every one who has will more be given, and he will have abundance; but from him who has not, even what he has will be taken away. —Matthew 25:29 因为凡有的，还要加给他，叫他有余；没有的，连他所有的也要夺过来。 —马太福音 25:29 结合LiNGAM中的非高斯性? LiNGAM中的非高斯性指的是变量还是噪声？体现在哪里。 路径依赖 v.s. 马尔科夫链 以社畜の作息为例，我们有三个变量 $S$: sleep early，$G$: get up early，$A$: arrive at office on time。 马尔科夫链如下 虽然$A$的状态是由$G$直接决定的，但从路径依赖的考虑，从$S$开始干预所付出的成本是最小的，更容易达成目标。 如果说做不到从$S$开始干预，也只能从$G$下手了。" />
+<meta property="og:description" content="Pareto Distribution 高斯分布 Gaussian Distribution 与帕累托分布 Pareto Distribution 并列为两大主导自然和人类世界的概率分布。 高斯分布 根据中心极限定理，大量独立随机变量的均值收敛于高斯分布。 比如男性（或女性）的身高分布、等等。高斯分布的概率密度函数及钟形函数曲线如下 帕累托分布 高斯分布的本质是独立性，而对于以社会性为本质的人类，某些属性在个体之间的独立性是不存在的。 所以在人类群体中，出现最多的往往是帕累托分布，比如个人财富、期刊引用量、社交媒体上的KOL，图书销售情况等。 帕累托分布，也称幂律分布，由 意大利人Vilfredo Pareto于19世纪末提出。 其概率密度函数及函数曲线（J型）如下，$x_m$是$x$所能取到的最小值 对于帕累托分布的出现，美国社会学家 Robert Merton 于1968年提出了马太效应 Matthew Effect进行解释。 Robert认为，在正反馈机制作用下，个体所获得的初始优势会不断滚雪球，最终强者愈强，弱者愈弱，出现帕累托分布。 马太效应的名称源自圣经新约。 For to every one who has will more be given, and he will have abundance; but from him who has not, even what he has will be taken away. —Matthew 25:29 因为凡有的，还要加给他，叫他有余；没有的，连他所有的也要夺过来。 —马太福音 25:29 结合LiNGAM中的非高斯性? LiNGAM中的非高斯性指的是变量还是噪声？体现在哪里。 路径依赖 v.s. 马尔科夫链 以社畜の作息为例，我们有三个变量 $S$: sleep early，$G$: get up early，$A$: arrive at office on time。 马尔科夫链如下 虽然$A$的状态是由$G$直接决定的，但从路径依赖的考虑，从$S$开始干预所付出的成本是最小的，更容易达成目标。 如果说做不到从$S$开始干预，也只能从$G$下手了。" />
+<link rel="canonical" href="http://localhost:4000/2018/04/24/Pareto-Distribution.html" />
+<meta property="og:url" content="http://localhost:4000/2018/04/24/Pareto-Distribution.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-04-24T00:00:00-07:00" />
+<script type="application/ld+json">
+{"description":"Pareto Distribution 高斯分布 Gaussian Distribution 与帕累托分布 Pareto Distribution 并列为两大主导自然和人类世界的概率分布。 高斯分布 根据中心极限定理，大量独立随机变量的均值收敛于高斯分布。 比如男性（或女性）的身高分布、等等。高斯分布的概率密度函数及钟形函数曲线如下 帕累托分布 高斯分布的本质是独立性，而对于以社会性为本质的人类，某些属性在个体之间的独立性是不存在的。 所以在人类群体中，出现最多的往往是帕累托分布，比如个人财富、期刊引用量、社交媒体上的KOL，图书销售情况等。 帕累托分布，也称幂律分布，由 意大利人Vilfredo Pareto于19世纪末提出。 其概率密度函数及函数曲线（J型）如下，$x_m$是$x$所能取到的最小值 对于帕累托分布的出现，美国社会学家 Robert Merton 于1968年提出了马太效应 Matthew Effect进行解释。 Robert认为，在正反馈机制作用下，个体所获得的初始优势会不断滚雪球，最终强者愈强，弱者愈弱，出现帕累托分布。 马太效应的名称源自圣经新约。 For to every one who has will more be given, and he will have abundance; but from him who has not, even what he has will be taken away. —Matthew 25:29 因为凡有的，还要加给他，叫他有余；没有的，连他所有的也要夺过来。 —马太福音 25:29 结合LiNGAM中的非高斯性? LiNGAM中的非高斯性指的是变量还是噪声？体现在哪里。 路径依赖 v.s. 马尔科夫链 以社畜の作息为例，我们有三个变量 $S$: sleep early，$G$: get up early，$A$: arrive at office on time。 马尔科夫链如下 虽然$A$的状态是由$G$直接决定的，但从路径依赖的考虑，从$S$开始干预所付出的成本是最小的，更容易达成目标。 如果说做不到从$S$开始干预，也只能从$G$下手了。","@type":"BlogPosting","url":"http://localhost:4000/2018/04/24/Pareto-Distribution.html","headline":"Pareto Distribution","dateModified":"2018-04-24T00:00:00-07:00","datePublished":"2018-04-24T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/04/24/Pareto-Distribution.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="pareto-distribution">Pareto Distribution</h1>
+
+<p>高斯分布 Gaussian Distribution 与帕累托分布 Pareto Distribution 并列为两大主导自然和人类世界的概率分布。</p>
+
+<h3 id="高斯分布">高斯分布</h3>
+
+<p>根据中心极限定理，大量独立随机变量的均值收敛于高斯分布。</p>
+
+<p>比如男性（或女性）的身高分布、等等。高斯分布的概率密度函数及钟形函数曲线如下
+<script type="math/tex">f(x|\mu,\sigma^2)=\cfrac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\tag{1}</script></p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Normal_Distribution_PDF.svg/525px-Normal_Distribution_PDF.svg.png" alt="" /></p>
+
+<h3 id="帕累托分布">帕累托分布</h3>
+
+<p>高斯分布的本质是独立性，而对于以社会性为本质的人类，某些属性在个体之间的独立性是不存在的。</p>
+
+<p>所以在人类群体中，出现最多的往往是帕累托分布，比如个人财富、期刊引用量、社交媒体上的KOL，图书销售情况等。</p>
+
+<p>帕累托分布，也称幂律分布，由 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/38px-Flag_of_Italy.svg.png" alt="" /> 意大利人Vilfredo Pareto于19世纪末提出。</p>
+
+<p>其概率密度函数及函数曲线（J型）如下，$x_m$是$x$所能取到的最小值
+<script type="math/tex">f(x|\alpha)=\frac {\alpha x_m^\alpha}{x^{\alpha +1}}\tag{2}</script></p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Probability_density_function_of_Pareto_distribution.svg/488px-Probability_density_function_of_Pareto_distribution.svg.png" alt="" /></p>
+
+<p>对于帕累托分布的出现，美国社会学家 Robert Merton 于1968年提出了马太效应 Matthew Effect进行解释。</p>
+
+<p>Robert认为，在正反馈机制作用下，个体所获得的初始优势会不断滚雪球，最终强者愈强，弱者愈弱，出现帕累托分布。</p>
+
+<p>马太效应的名称源自圣经新约。</p>
+
+<blockquote>
+  <p>For to every one who has will more be given, and he will have abundance; but from him who has not, even what he has will be taken away.</p>
+
+  <p>—Matthew 25:29</p>
+
+  <p>因为凡有的，还要加给他，叫他有余；没有的，连他所有的也要夺过来。</p>
+
+  <p>—马太福音 25:29</p>
+</blockquote>
+
+<h3 id="结合lingam中的非高斯性">结合LiNGAM中的非高斯性?</h3>
+
+<p>LiNGAM中的非高斯性指的是变量还是噪声？体现在哪里。</p>
+
+<h3 id="路径依赖-vs-马尔科夫链">路径依赖 v.s. 马尔科夫链</h3>
+
+<p>以社畜の作息为例，我们有三个变量 $S$: sleep early，$G$: get up early，$A$: arrive at office on time。</p>
+
+<p>马尔科夫链如下
+<script type="math/tex">S\rightarrow G\rightarrow A</script></p>
+
+<p>虽然$A$的状态是由$G$直接决定的，但从路径依赖的考虑，从$S$开始干预所付出的成本是最小的，更容易达成目标。</p>
+
+<p>如果说做不到从$S$开始干预，也只能从$G$下手了。</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

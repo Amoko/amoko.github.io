@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>OpenCV Configuration, Python &amp; C++ | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="OpenCV Configuration, Python &amp; C++" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="OpenCV Configuration, Python &amp; C++ 1 Linux + Python # 1 not using cv.imshow() pip install opencv-python # 2 using cv.imshow(), but can&#39;t read video files conda remove opencv conda install -c menpo opencv 2 Win 10 + Python 2.1 安装 版本：Win 10 + Python 3.7 + OpenCV 3.4.3 时间：2018.11.17 安装Anaconda3，官网下载页面； 安装OpenCV，UCI下载页面，选择opencv_python-3.4.3-cp37-cp37m-win_amd64.whl下载，使用pip本地安装即可。 2.2 Canny边缘检测demo import cv2 import matplotlib.pyplot as plt img = cv2.imread(&#39;tower.jpg&#39;) edge = cv2.Canny(img,100,200) plt.subplot(121) plt.imshow(img) plt.title(&#39;Original Image&#39;) plt.xticks([]), plt.yticks([]) plt.subplot(122) plt.imshow(edge) plt.title(&#39;Edge Image&#39;) plt.xticks([]), plt.yticks([]) plt.show() 3 Win 10 + C++ 3.1 安装 版本：Win 10 + VS 2013 + OpenCV 2.4.13 时间：2018.11.17 OpenCV 发布页面，OpenCV releases，选择2.4.13- winpack下载，双击解压即可。 3.2 配置项目 注意，我的 opencv-2.4.13.exe 解压目录为 D:\opencv，请根据你的目录修改路径。 添加环境变量 path中添加 D:\opencv\build\x86\vc12\bin; 配置项目目录 选择 Project - Properties - VC++ Directories Include Directories 中添加 D:\opencv\build\include; Library Directories 中添加 D:\opencv\build\x86\vc12\lib; 配置链接 选择 Project - Properties - Linker - Input Additional Dependencies 中添加下列内容。（默认是debug模式，） opencv_ml2413d.lib opencv_calib3d2413d.lib opencv_contrib2413d.lib opencv_core2413d.lib opencv_features2d2413d.lib opencv_flann2413d.lib opencv_gpu2413d.lib opencv_highgui2413d.lib opencv_imgproc2413d.lib opencv_legacy2413d.lib opencv_objdetect2413d.lib opencv_ts2413d.lib opencv_video2413d.lib opencv_nonfree2413d.lib opencv_ocl2413d.lib opencv_photo2413d.lib opencv_stitching2413d.lib opencv_superres2413d.lib opencv_videostab2413d.lib tips 项目编译通过，Debug阶段报错，“应用程序无法正常启动(0xc000007b)”。 x86/x64平台问题，检查环境变量与项目配置中，所使用的是哪一个版本。 3.3 Canny边缘检测demo #include &lt;opencv2/core/core.hpp&gt; #include &lt;opencv2/highgui/highgui.hpp&gt; #include &lt;opencv2/imgproc/imgproc.hpp&gt; using namespace cv; int main() { Mat src, edge; src = imread(&quot;1.jpg&quot;); // Canny edge Canny(src, edge, 100, 200); imshow(&quot;Canny edge&quot;, edge); waitKey(0); return 0; }" />
+<meta property="og:description" content="OpenCV Configuration, Python &amp; C++ 1 Linux + Python # 1 not using cv.imshow() pip install opencv-python # 2 using cv.imshow(), but can&#39;t read video files conda remove opencv conda install -c menpo opencv 2 Win 10 + Python 2.1 安装 版本：Win 10 + Python 3.7 + OpenCV 3.4.3 时间：2018.11.17 安装Anaconda3，官网下载页面； 安装OpenCV，UCI下载页面，选择opencv_python-3.4.3-cp37-cp37m-win_amd64.whl下载，使用pip本地安装即可。 2.2 Canny边缘检测demo import cv2 import matplotlib.pyplot as plt img = cv2.imread(&#39;tower.jpg&#39;) edge = cv2.Canny(img,100,200) plt.subplot(121) plt.imshow(img) plt.title(&#39;Original Image&#39;) plt.xticks([]), plt.yticks([]) plt.subplot(122) plt.imshow(edge) plt.title(&#39;Edge Image&#39;) plt.xticks([]), plt.yticks([]) plt.show() 3 Win 10 + C++ 3.1 安装 版本：Win 10 + VS 2013 + OpenCV 2.4.13 时间：2018.11.17 OpenCV 发布页面，OpenCV releases，选择2.4.13- winpack下载，双击解压即可。 3.2 配置项目 注意，我的 opencv-2.4.13.exe 解压目录为 D:\opencv，请根据你的目录修改路径。 添加环境变量 path中添加 D:\opencv\build\x86\vc12\bin; 配置项目目录 选择 Project - Properties - VC++ Directories Include Directories 中添加 D:\opencv\build\include; Library Directories 中添加 D:\opencv\build\x86\vc12\lib; 配置链接 选择 Project - Properties - Linker - Input Additional Dependencies 中添加下列内容。（默认是debug模式，） opencv_ml2413d.lib opencv_calib3d2413d.lib opencv_contrib2413d.lib opencv_core2413d.lib opencv_features2d2413d.lib opencv_flann2413d.lib opencv_gpu2413d.lib opencv_highgui2413d.lib opencv_imgproc2413d.lib opencv_legacy2413d.lib opencv_objdetect2413d.lib opencv_ts2413d.lib opencv_video2413d.lib opencv_nonfree2413d.lib opencv_ocl2413d.lib opencv_photo2413d.lib opencv_stitching2413d.lib opencv_superres2413d.lib opencv_videostab2413d.lib tips 项目编译通过，Debug阶段报错，“应用程序无法正常启动(0xc000007b)”。 x86/x64平台问题，检查环境变量与项目配置中，所使用的是哪一个版本。 3.3 Canny边缘检测demo #include &lt;opencv2/core/core.hpp&gt; #include &lt;opencv2/highgui/highgui.hpp&gt; #include &lt;opencv2/imgproc/imgproc.hpp&gt; using namespace cv; int main() { Mat src, edge; src = imread(&quot;1.jpg&quot;); // Canny edge Canny(src, edge, 100, 200); imshow(&quot;Canny edge&quot;, edge); waitKey(0); return 0; }" />
+<link rel="canonical" href="http://localhost:4000/2018/11/17/OpenCV-Config.html" />
+<meta property="og:url" content="http://localhost:4000/2018/11/17/OpenCV-Config.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-17T00:00:00-08:00" />
+<script type="application/ld+json">
+{"description":"OpenCV Configuration, Python &amp; C++ 1 Linux + Python # 1 not using cv.imshow() pip install opencv-python # 2 using cv.imshow(), but can&#39;t read video files conda remove opencv conda install -c menpo opencv 2 Win 10 + Python 2.1 安装 版本：Win 10 + Python 3.7 + OpenCV 3.4.3 时间：2018.11.17 安装Anaconda3，官网下载页面； 安装OpenCV，UCI下载页面，选择opencv_python-3.4.3-cp37-cp37m-win_amd64.whl下载，使用pip本地安装即可。 2.2 Canny边缘检测demo import cv2 import matplotlib.pyplot as plt img = cv2.imread(&#39;tower.jpg&#39;) edge = cv2.Canny(img,100,200) plt.subplot(121) plt.imshow(img) plt.title(&#39;Original Image&#39;) plt.xticks([]), plt.yticks([]) plt.subplot(122) plt.imshow(edge) plt.title(&#39;Edge Image&#39;) plt.xticks([]), plt.yticks([]) plt.show() 3 Win 10 + C++ 3.1 安装 版本：Win 10 + VS 2013 + OpenCV 2.4.13 时间：2018.11.17 OpenCV 发布页面，OpenCV releases，选择2.4.13- winpack下载，双击解压即可。 3.2 配置项目 注意，我的 opencv-2.4.13.exe 解压目录为 D:\\opencv，请根据你的目录修改路径。 添加环境变量 path中添加 D:\\opencv\\build\\x86\\vc12\\bin; 配置项目目录 选择 Project - Properties - VC++ Directories Include Directories 中添加 D:\\opencv\\build\\include; Library Directories 中添加 D:\\opencv\\build\\x86\\vc12\\lib; 配置链接 选择 Project - Properties - Linker - Input Additional Dependencies 中添加下列内容。（默认是debug模式，） opencv_ml2413d.lib opencv_calib3d2413d.lib opencv_contrib2413d.lib opencv_core2413d.lib opencv_features2d2413d.lib opencv_flann2413d.lib opencv_gpu2413d.lib opencv_highgui2413d.lib opencv_imgproc2413d.lib opencv_legacy2413d.lib opencv_objdetect2413d.lib opencv_ts2413d.lib opencv_video2413d.lib opencv_nonfree2413d.lib opencv_ocl2413d.lib opencv_photo2413d.lib opencv_stitching2413d.lib opencv_superres2413d.lib opencv_videostab2413d.lib tips 项目编译通过，Debug阶段报错，“应用程序无法正常启动(0xc000007b)”。 x86/x64平台问题，检查环境变量与项目配置中，所使用的是哪一个版本。 3.3 Canny边缘检测demo #include &lt;opencv2/core/core.hpp&gt; #include &lt;opencv2/highgui/highgui.hpp&gt; #include &lt;opencv2/imgproc/imgproc.hpp&gt; using namespace cv; int main() { Mat src, edge; src = imread(&quot;1.jpg&quot;); // Canny edge Canny(src, edge, 100, 200); imshow(&quot;Canny edge&quot;, edge); waitKey(0); return 0; }","@type":"BlogPosting","url":"http://localhost:4000/2018/11/17/OpenCV-Config.html","headline":"OpenCV Configuration, Python &amp; C++","dateModified":"2018-11-17T00:00:00-08:00","datePublished":"2018-11-17T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/11/17/OpenCV-Config.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="opencv-configuration-python--c">OpenCV Configuration, Python &amp; C++</h1>
+
+<h2 id="1-linux--python">1 Linux + Python</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 1 not using cv.imshow()</span>
+pip install opencv-python
+<span class="c"># 2 using cv.imshow(), but can't read video files</span>
+conda remove opencv
+conda install <span class="nt">-c</span> menpo opencv
+</code></pre></div></div>
+
+<h2 id="2-win-10--python">2 Win 10 + Python</h2>
+
+<h3 id="21-安装">2.1 安装</h3>
+<blockquote>
+  <p>版本：Win 10 + Python 3.7 + OpenCV 3.4.3</p>
+
+  <p>时间：2018.11.17</p>
+</blockquote>
+
+<ol>
+  <li>安装Anaconda3，<a href="https://www.anaconda.com/download/">官网下载页面</a>；</li>
+  <li>安装OpenCV，<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/">UCI下载页面</a>，选择opencv_python-3.4.3-cp37-cp37m-win_amd64.whl下载，使用pip本地安装即可。</li>
+</ol>
+
+<h3 id="22-canny边缘检测demo">2.2 Canny边缘检测demo</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'tower.jpg'</span><span class="p">)</span>
+<span class="n">edge</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Original Image'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([]),</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Edge Image'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([]),</span> <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="3-win-10--c">3 Win 10 + C++</h2>
+
+<h3 id="31-安装">3.1 安装</h3>
+
+<blockquote>
+  <p>版本：Win 10 + VS 2013 + OpenCV 2.4.13</p>
+
+  <p>时间：2018.11.17</p>
+</blockquote>
+
+<p>OpenCV 发布页面，<a href="https://opencv.org/releases.html">OpenCV releases</a>，选择2.4.13- winpack下载，双击解压即可。</p>
+
+<h3 id="32-配置项目">3.2 配置项目</h3>
+
+<p>注意，我的 opencv-2.4.13.exe 解压目录为 <code>D:\opencv</code>，请根据你的目录修改路径。</p>
+
+<ol>
+  <li>
+    <p>添加环境变量</p>
+
+    <p>path中添加 <code> D:\opencv\build\x86\vc12\bin;</code></p>
+  </li>
+  <li>
+    <p>配置项目目录</p>
+
+    <p>选择 Project - Properties - VC++ Directories</p>
+
+    <p>Include Directories 中添加 <code>D:\opencv\build\include;</code></p>
+
+    <p>Library Directories 中添加 <code>D:\opencv\build\x86\vc12\lib;</code></p>
+  </li>
+  <li>
+    <p>配置链接</p>
+
+    <p>选择 Project - Properties - Linker - Input</p>
+
+    <p>Additional Dependencies 中添加下列内容。（默认是debug模式，）</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opencv_ml2413d.lib
+opencv_calib3d2413d.lib
+opencv_contrib2413d.lib
+opencv_core2413d.lib
+opencv_features2d2413d.lib
+opencv_flann2413d.lib
+opencv_gpu2413d.lib
+opencv_highgui2413d.lib
+opencv_imgproc2413d.lib
+opencv_legacy2413d.lib
+opencv_objdetect2413d.lib
+opencv_ts2413d.lib
+opencv_video2413d.lib
+opencv_nonfree2413d.lib
+opencv_ocl2413d.lib
+opencv_photo2413d.lib
+opencv_stitching2413d.lib
+opencv_superres2413d.lib
+opencv_videostab2413d.lib
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><strong>tips</strong></p>
+
+<ul>
+  <li>
+    <p>项目编译通过，Debug阶段报错，“应用程序无法正常启动(0xc000007b)”。</p>
+
+    <p>x86/x64平台问题，检查环境变量与项目配置中，所使用的是哪一个版本。</p>
+  </li>
+</ul>
+
+<h3 id="33-canny边缘检测demo">3.3 Canny边缘检测demo</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;opencv2/core/core.hpp&gt;
+#include &lt;opencv2/highgui/highgui.hpp&gt;
+#include &lt;opencv2/imgproc/imgproc.hpp&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">cv</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">Mat</span> <span class="n">src</span><span class="p">,</span> <span class="n">edge</span><span class="p">;</span>
+	<span class="n">src</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s">"1.jpg"</span><span class="p">);</span>
+    <span class="c1">// Canny edge
+</span>    <span class="n">Canny</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">edge</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+	<span class="n">imshow</span><span class="p">(</span><span class="s">"Canny edge"</span><span class="p">,</span> <span class="n">edge</span><span class="p">);</span>
+	<span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>
