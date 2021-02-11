@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Python Notes | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Python Notes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Python Notes Updated on Jan 16, 2019 1 Syntax 1.1 格式化输出 1.2 对象复制 1.3 fun with True &amp; 1 1.4 list sort 1.5 iterate through tow list 1.5 inf 2 IO 2.1 读写文本文件 2.2 文件批处理三连 3 etc. 3.1 Execute 3.2 生成随机01比特串 4 TBC 1 Syntax 1.1 格式化输出 &gt;&gt;&gt; no = 74 &gt;&gt;&gt; year = 1984 &gt;&gt;&gt; s = &quot;Soldier %04d, welcome to %d.&quot; % (no, year) &gt;&gt;&gt; s &#39;Soldier 0074, welcome to 1984.&#39; # d代表十进制数据，4是最小输出字符数，用0填充。 1.2 对象复制 int , str 数据类型可以直接使用 = &gt;&gt;&gt; s1 = &quot;nice&quot; &gt;&gt;&gt; s2 = s1 &gt;&gt;&gt; s1 += &quot; tits&quot; &gt;&gt;&gt; s2 += &quot; boobs&quot; &gt;&gt;&gt; s1 &#39;nice tits&#39; &gt;&gt;&gt; s2 &#39;nice boobs&#39; list 数据类型则不能使用 =，要使用 copy 模块 import copy # 一维数组可以使用list()或copy() a = [1, 2, 3] b = list(a) b = copy.copy(a) # 高维数组必须使用deepcopy() a = [[1, 2], [3, 4]] b = copy.deepcopy(a) 1.3 fun with True &amp; 1 &gt;&gt;&gt; type(True) &lt;class &#39;bool&#39;&gt; &gt;&gt;&gt; type(1) &lt;class &#39;int&#39;&gt; &gt;&gt;&gt; 1 == True True &gt;&gt;&gt; 1 ^ True 0 &gt;&gt;&gt; 0 ^ True 1 1.4 list sort 对 list 进行排序 &gt;&gt;&gt; li = [[2, 6.6], [4, 5]] &gt;&gt;&gt; li.sort(key=lambda e:e[1]) &gt;&gt;&gt; li [[4, 5], [2, 6.6]] &gt;&gt;&gt; li.sort(key=lambda e:e[1], reverse=True) &gt;&gt;&gt; li [[2, 6.6], [4, 5]] # sort 默认升序排序，reverse 逆序 1.5 iterate through tow list 同步遍历两个 list &gt;&gt;&gt; la = [1, 2, 3, 4] &gt;&gt;&gt; lb = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;] &gt;&gt;&gt; for e1, e2 in zip(la, lb): ... print(e1, e2) 1 a 2 b 3 c 1.5 inf Python 中的无穷小与无穷大 &gt;&gt;&gt; float(&#39;-inf&#39;) &lt; -999 True &gt;&gt;&gt; 999 &lt; float(&#39;inf&#39;) True &gt;&gt;&gt; float(&#39;-inf&#39;) == float(&#39;inf&#39;) False 2 IO 2.1 读写文本文件 li = [&quot;The Beatles&quot;, &quot;David Bowie&quot;, &quot;Radiohead&quot;, &quot;Blur&quot;] # write with open(&quot;1.txt&quot;, &quot;w&quot;) as fp: for e in li: print(e) fp.write(e + &quot;\n&quot;) # read with open(&quot;1.txt&quot;, &quot;r&quot;) as fp: lines = fp.readlines() for line in lines: print(line.split()) 2.2 文件批处理三连 import os import shutil dirname = os.getcwd() filenamelist = os.listdir(dirname) i = 0 for name in filenamelist: if name[-4:] == &quot;.jpg&quot;: print(name) os.remove(name, str(i) + &quot;.jpg&quot;) os.remove(name) shutil.move(name,&quot;./small/&quot;) i += 1 3 etc. 3.1 Execute Python脚本可以在终端直接运行 python xxx.py Python某些内置的模块（如SimpleHTTPServer）也能够以脚本方式直接运行，需添加参数-m。 python -m SimpleHTTPServer 3.2 生成随机01比特串 不限定01比例 # A 使用 numpy import numpy as np li = np.random.randint(0,2,5) # B 使用 random.sample import random li = [0, 1] * 10 li = random.sample(li, 3) 限定01比例 # 使用 random.shuffle import random l0 = [0] * 2 l1 = [1] * 4 li = l0 + l1 random.shuffle(li) 4 TBC ゴールド・エクスペリエンス！" />
+<meta property="og:description" content="Python Notes Updated on Jan 16, 2019 1 Syntax 1.1 格式化输出 1.2 对象复制 1.3 fun with True &amp; 1 1.4 list sort 1.5 iterate through tow list 1.5 inf 2 IO 2.1 读写文本文件 2.2 文件批处理三连 3 etc. 3.1 Execute 3.2 生成随机01比特串 4 TBC 1 Syntax 1.1 格式化输出 &gt;&gt;&gt; no = 74 &gt;&gt;&gt; year = 1984 &gt;&gt;&gt; s = &quot;Soldier %04d, welcome to %d.&quot; % (no, year) &gt;&gt;&gt; s &#39;Soldier 0074, welcome to 1984.&#39; # d代表十进制数据，4是最小输出字符数，用0填充。 1.2 对象复制 int , str 数据类型可以直接使用 = &gt;&gt;&gt; s1 = &quot;nice&quot; &gt;&gt;&gt; s2 = s1 &gt;&gt;&gt; s1 += &quot; tits&quot; &gt;&gt;&gt; s2 += &quot; boobs&quot; &gt;&gt;&gt; s1 &#39;nice tits&#39; &gt;&gt;&gt; s2 &#39;nice boobs&#39; list 数据类型则不能使用 =，要使用 copy 模块 import copy # 一维数组可以使用list()或copy() a = [1, 2, 3] b = list(a) b = copy.copy(a) # 高维数组必须使用deepcopy() a = [[1, 2], [3, 4]] b = copy.deepcopy(a) 1.3 fun with True &amp; 1 &gt;&gt;&gt; type(True) &lt;class &#39;bool&#39;&gt; &gt;&gt;&gt; type(1) &lt;class &#39;int&#39;&gt; &gt;&gt;&gt; 1 == True True &gt;&gt;&gt; 1 ^ True 0 &gt;&gt;&gt; 0 ^ True 1 1.4 list sort 对 list 进行排序 &gt;&gt;&gt; li = [[2, 6.6], [4, 5]] &gt;&gt;&gt; li.sort(key=lambda e:e[1]) &gt;&gt;&gt; li [[4, 5], [2, 6.6]] &gt;&gt;&gt; li.sort(key=lambda e:e[1], reverse=True) &gt;&gt;&gt; li [[2, 6.6], [4, 5]] # sort 默认升序排序，reverse 逆序 1.5 iterate through tow list 同步遍历两个 list &gt;&gt;&gt; la = [1, 2, 3, 4] &gt;&gt;&gt; lb = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;] &gt;&gt;&gt; for e1, e2 in zip(la, lb): ... print(e1, e2) 1 a 2 b 3 c 1.5 inf Python 中的无穷小与无穷大 &gt;&gt;&gt; float(&#39;-inf&#39;) &lt; -999 True &gt;&gt;&gt; 999 &lt; float(&#39;inf&#39;) True &gt;&gt;&gt; float(&#39;-inf&#39;) == float(&#39;inf&#39;) False 2 IO 2.1 读写文本文件 li = [&quot;The Beatles&quot;, &quot;David Bowie&quot;, &quot;Radiohead&quot;, &quot;Blur&quot;] # write with open(&quot;1.txt&quot;, &quot;w&quot;) as fp: for e in li: print(e) fp.write(e + &quot;\n&quot;) # read with open(&quot;1.txt&quot;, &quot;r&quot;) as fp: lines = fp.readlines() for line in lines: print(line.split()) 2.2 文件批处理三连 import os import shutil dirname = os.getcwd() filenamelist = os.listdir(dirname) i = 0 for name in filenamelist: if name[-4:] == &quot;.jpg&quot;: print(name) os.remove(name, str(i) + &quot;.jpg&quot;) os.remove(name) shutil.move(name,&quot;./small/&quot;) i += 1 3 etc. 3.1 Execute Python脚本可以在终端直接运行 python xxx.py Python某些内置的模块（如SimpleHTTPServer）也能够以脚本方式直接运行，需添加参数-m。 python -m SimpleHTTPServer 3.2 生成随机01比特串 不限定01比例 # A 使用 numpy import numpy as np li = np.random.randint(0,2,5) # B 使用 random.sample import random li = [0, 1] * 10 li = random.sample(li, 3) 限定01比例 # 使用 random.shuffle import random l0 = [0] * 2 l1 = [1] * 4 li = l0 + l1 random.shuffle(li) 4 TBC ゴールド・エクスペリエンス！" />
+<link rel="canonical" href="http://localhost:4000/2018/10/29/Python.html" />
+<meta property="og:url" content="http://localhost:4000/2018/10/29/Python.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-10-29T00:00:00-07:00" />
+<script type="application/ld+json">
+{"description":"Python Notes Updated on Jan 16, 2019 1 Syntax 1.1 格式化输出 1.2 对象复制 1.3 fun with True &amp; 1 1.4 list sort 1.5 iterate through tow list 1.5 inf 2 IO 2.1 读写文本文件 2.2 文件批处理三连 3 etc. 3.1 Execute 3.2 生成随机01比特串 4 TBC 1 Syntax 1.1 格式化输出 &gt;&gt;&gt; no = 74 &gt;&gt;&gt; year = 1984 &gt;&gt;&gt; s = &quot;Soldier %04d, welcome to %d.&quot; % (no, year) &gt;&gt;&gt; s &#39;Soldier 0074, welcome to 1984.&#39; # d代表十进制数据，4是最小输出字符数，用0填充。 1.2 对象复制 int , str 数据类型可以直接使用 = &gt;&gt;&gt; s1 = &quot;nice&quot; &gt;&gt;&gt; s2 = s1 &gt;&gt;&gt; s1 += &quot; tits&quot; &gt;&gt;&gt; s2 += &quot; boobs&quot; &gt;&gt;&gt; s1 &#39;nice tits&#39; &gt;&gt;&gt; s2 &#39;nice boobs&#39; list 数据类型则不能使用 =，要使用 copy 模块 import copy # 一维数组可以使用list()或copy() a = [1, 2, 3] b = list(a) b = copy.copy(a) # 高维数组必须使用deepcopy() a = [[1, 2], [3, 4]] b = copy.deepcopy(a) 1.3 fun with True &amp; 1 &gt;&gt;&gt; type(True) &lt;class &#39;bool&#39;&gt; &gt;&gt;&gt; type(1) &lt;class &#39;int&#39;&gt; &gt;&gt;&gt; 1 == True True &gt;&gt;&gt; 1 ^ True 0 &gt;&gt;&gt; 0 ^ True 1 1.4 list sort 对 list 进行排序 &gt;&gt;&gt; li = [[2, 6.6], [4, 5]] &gt;&gt;&gt; li.sort(key=lambda e:e[1]) &gt;&gt;&gt; li [[4, 5], [2, 6.6]] &gt;&gt;&gt; li.sort(key=lambda e:e[1], reverse=True) &gt;&gt;&gt; li [[2, 6.6], [4, 5]] # sort 默认升序排序，reverse 逆序 1.5 iterate through tow list 同步遍历两个 list &gt;&gt;&gt; la = [1, 2, 3, 4] &gt;&gt;&gt; lb = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;] &gt;&gt;&gt; for e1, e2 in zip(la, lb): ... print(e1, e2) 1 a 2 b 3 c 1.5 inf Python 中的无穷小与无穷大 &gt;&gt;&gt; float(&#39;-inf&#39;) &lt; -999 True &gt;&gt;&gt; 999 &lt; float(&#39;inf&#39;) True &gt;&gt;&gt; float(&#39;-inf&#39;) == float(&#39;inf&#39;) False 2 IO 2.1 读写文本文件 li = [&quot;The Beatles&quot;, &quot;David Bowie&quot;, &quot;Radiohead&quot;, &quot;Blur&quot;] # write with open(&quot;1.txt&quot;, &quot;w&quot;) as fp: for e in li: print(e) fp.write(e + &quot;\\n&quot;) # read with open(&quot;1.txt&quot;, &quot;r&quot;) as fp: lines = fp.readlines() for line in lines: print(line.split()) 2.2 文件批处理三连 import os import shutil dirname = os.getcwd() filenamelist = os.listdir(dirname) i = 0 for name in filenamelist: if name[-4:] == &quot;.jpg&quot;: print(name) os.remove(name, str(i) + &quot;.jpg&quot;) os.remove(name) shutil.move(name,&quot;./small/&quot;) i += 1 3 etc. 3.1 Execute Python脚本可以在终端直接运行 python xxx.py Python某些内置的模块（如SimpleHTTPServer）也能够以脚本方式直接运行，需添加参数-m。 python -m SimpleHTTPServer 3.2 生成随机01比特串 不限定01比例 # A 使用 numpy import numpy as np li = np.random.randint(0,2,5) # B 使用 random.sample import random li = [0, 1] * 10 li = random.sample(li, 3) 限定01比例 # 使用 random.shuffle import random l0 = [0] * 2 l1 = [1] * 4 li = l0 + l1 random.shuffle(li) 4 TBC ゴールド・エクスペリエンス！","@type":"BlogPosting","url":"http://localhost:4000/2018/10/29/Python.html","headline":"Python Notes","dateModified":"2018-10-29T00:00:00-07:00","datePublished":"2018-10-29T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/10/29/Python.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 class="no_toc" id="python-notes">Python Notes</h1>
+
+<blockquote>
+  <p>Updated on Jan 16, 2019</p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#1-syntax" id="markdown-toc-1-syntax">1 Syntax</a>    <ul>
+      <li><a href="#11-格式化输出" id="markdown-toc-11-格式化输出">1.1 格式化输出</a></li>
+      <li><a href="#12-对象复制" id="markdown-toc-12-对象复制">1.2 对象复制</a></li>
+      <li><a href="#13-fun-with-true--1" id="markdown-toc-13-fun-with-true--1">1.3 fun with True &amp; 1</a></li>
+      <li><a href="#14-list-sort" id="markdown-toc-14-list-sort">1.4 list sort</a></li>
+      <li><a href="#15-iterate-through-tow-list" id="markdown-toc-15-iterate-through-tow-list">1.5 iterate through tow list</a></li>
+      <li><a href="#15-inf" id="markdown-toc-15-inf">1.5 inf</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-io" id="markdown-toc-2-io">2 IO</a>    <ul>
+      <li><a href="#21-读写文本文件" id="markdown-toc-21-读写文本文件">2.1 读写文本文件</a></li>
+      <li><a href="#22-文件批处理三连" id="markdown-toc-22-文件批处理三连">2.2 文件批处理三连</a></li>
+    </ul>
+  </li>
+  <li><a href="#3-etc" id="markdown-toc-3-etc">3 etc.</a>    <ul>
+      <li><a href="#31-execute" id="markdown-toc-31-execute">3.1 Execute</a></li>
+      <li><a href="#32-生成随机01比特串" id="markdown-toc-32-生成随机01比特串">3.2 生成随机01比特串</a></li>
+    </ul>
+  </li>
+  <li><a href="#4-tbc" id="markdown-toc-4-tbc">4 TBC</a></li>
+</ul>
+
+<h2 id="1-syntax">1 Syntax</h2>
+
+<h3 id="11-格式化输出">1.1 格式化输出</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">no</span> <span class="o">=</span> <span class="mi">74</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">1984</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"Soldier </span><span class="si">%04</span><span class="s">d, welcome to </span><span class="si">%</span><span class="s">d."</span> <span class="o">%</span> <span class="p">(</span><span class="n">no</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
+<span class="s">'Soldier 0074, welcome to 1984.'</span>
+<span class="c"># d代表十进制数据，4是最小输出字符数，用0填充。</span>
+</code></pre></div></div>
+
+<h3 id="12-对象复制">1.2 对象复制</h3>
+
+<p><code>int</code> , <code>str</code> 数据类型可以直接使用 <code>=</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">"nice"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">s1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span> <span class="o">+=</span> <span class="s">" tits"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span> <span class="o">+=</span> <span class="s">" boobs"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span>
+<span class="s">'nice tits'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span>
+<span class="s">'nice boobs'</span>
+</code></pre></div></div>
+
+<p><code>list</code> 数据类型则不能使用 <code>=</code>，要使用 copy 模块</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">copy</span>
+<span class="c"># 一维数组可以使用list()或copy()</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="c"># 高维数组必须使用deepcopy()</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="13-fun-with-true--1">1.3 fun with True &amp; 1</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">bool</span><span class="s">'&gt;</span><span class="err">
+</span><span class="s">&gt;&gt;&gt; type(1)</span><span class="err">
+</span><span class="s">&lt;class '</span><span class="nb">int</span><span class="s">'&gt;</span><span class="err">
+</span><span class="s">&gt;&gt;&gt; 1 == True</span><span class="err">
+</span><span class="s">True</span><span class="err">
+</span><span class="s">&gt;&gt;&gt; 1 ^ True</span><span class="err">
+</span><span class="s">0</span><span class="err">
+</span><span class="s">&gt;&gt;&gt; 0 ^ True</span><span class="err">
+</span><span class="s">1</span><span class="err">
+</span></code></pre></div></div>
+
+<h3 id="14-list-sort">1.4 list sort</h3>
+
+<p>对 <code>list</code> 进行排序</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">li</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">li</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">li</span>
+<span class="p">[[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">li</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">li</span>
+<span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="c"># sort 默认升序排序，reverse 逆序</span>
+</code></pre></div></div>
+
+<h3 id="15-iterate-through-tow-list">1.5 iterate through tow list</h3>
+
+<p>同步遍历两个 list</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">la</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lb</span> <span class="o">=</span> <span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">la</span><span class="p">,</span> <span class="n">lb</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
+<span class="mi">1</span> <span class="n">a</span>
+<span class="mi">2</span> <span class="n">b</span>
+<span class="mi">3</span> <span class="n">c</span>
+</code></pre></div></div>
+
+<h3 id="15-inf">1.5 inf</h3>
+
+<p>Python 中的无穷小与无穷大</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="s">'-inf'</span><span class="p">)</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">999</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">999</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="s">'-inf'</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s">'inf'</span><span class="p">)</span>
+<span class="bp">False</span>
+</code></pre></div></div>
+
+<h2 id="2-io">2 IO</h2>
+
+<h3 id="21-读写文本文件">2.1 读写文本文件</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">li</span> <span class="o">=</span> <span class="p">[</span><span class="s">"The Beatles"</span><span class="p">,</span> <span class="s">"David Bowie"</span><span class="p">,</span> <span class="s">"Radiohead"</span><span class="p">,</span> <span class="s">"Blur"</span><span class="p">]</span>
+<span class="c"># write</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"1.txt"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+	<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">li</span><span class="p">:</span>
+		<span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+		<span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">e</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+        
+<span class="c"># read</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"1.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h3 id="22-文件批处理三连">2.2 文件批处理三连</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+    
+<span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">filenamelist</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filenamelist</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span> <span class="o">==</span> <span class="s">".jpg"</span><span class="p">:</span>
+    	<span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">".jpg"</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    	<span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="s">"./small/"</span><span class="p">)</span> 
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h2 id="3-etc">3 etc.</h2>
+
+<h3 id="31-execute">3.1 Execute</h3>
+
+<p>Python脚本可以在终端直接运行</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">python</span> <span class="n">xxx</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div></div>
+
+<p>Python某些内置的模块（如SimpleHTTPServer）也能够以脚本方式直接运行，需添加参数-m。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> SimpleHTTPServer
+</code></pre></div></div>
+
+<h3 id="32-生成随机01比特串">3.2 生成随机01比特串</h3>
+
+<p>不限定01比例</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># A 使用 numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">li</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="c"># B 使用 random.sample</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">li</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="n">li</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>限定01比例</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用 random.shuffle</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">l0</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">li</span> <span class="o">=</span> <span class="n">l0</span> <span class="o">+</span> <span class="n">l1</span>
+<span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">li</span><span class="p">)</span> 
+</code></pre></div></div>
+
+<h2 id="4-tbc">4 TBC</h2>
+
+<p>ゴールド・エクスペリエンス！</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

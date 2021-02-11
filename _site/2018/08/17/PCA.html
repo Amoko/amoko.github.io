@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>PCA, The Classic | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="PCA, The Classic" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCA 主成分分析（Principal Component Analysis）是机器学习里一个基础的降维方法，由英国人Karl Pearson于1901年提出。其实现原理是通过正交化线性变换，将数据从原来的坐标系转换到新的坐标系，我自己的理解PCA本质是坐标系旋转。 新坐标系由数据分布所决定。第一个新坐标轴是原始数据中方差最大的方向；第二个新坐标轴选择与第一个坐标轴正交且方差最大的方向；重复此过程直至新坐标与原坐标维度（特征）数目相同。新坐标轴的重要程度依次递减，因此能够将降维的信息损失最小化。 1 PCA算法 以上是PCA的直观理解，具体到算法实现，如下4个步骤： 输入：数据矩阵$A$，矩阵形状$M\times N$，代表$M$个样本、$N$个维度。 计算转置矩阵$A^T$的协方差矩阵$\sum$（因为目标是特征而非样本，所以这里是矩阵$A$的转置）； 对协方差矩阵进行特征分解，$\sum=Q\Lambda Q^{-1}$； 将$\Lambda​$中的特征值降序排序，再将$Q​$中每列对应的特征向量重新排列后得到矩阵$P​$； 将数据转换到新的坐标系，$A’=AP$。 输出：新数据矩阵$A’$，矩阵形状$M\times N$，$N$个维度的主成分依次递减。 $\clubsuit$ 在NumPy中，如何计算协方差矩阵、进行方阵的特征值分解，参见我这篇笔记。$\rightarrow$ NumPy Notes 以上就是PCA算法的计算过程，非常简单。 从直观理解到算法实现之间的公式推导，待补充。 2 Python实现 2.1 调包淆 以iris数据集为例，使用sklearn中的PCA函数对比变换前后的数据维度。 # -*- coding: utf-8 -*- &quot;&quot;&quot; Created on Sun Aug 19 11:13:34 2018 @author: Yonji &quot;&quot;&quot; from sklearn import datasets from sklearn.decomposition import PCA import matplotlib.pyplot as plt # data iris = datasets.load_iris() X = iris.data y = iris.target target_names = iris.target_names # model pca = PCA() X_r = pca.fit(X).transform(X) # show result print(&#39;explained variance ratio (all 4 components): %s&#39; % str(pca.explained_variance_ratio_)) plt.subplot(121) colors = [&#39;navy&#39;, &#39;turquoise&#39;, &#39;darkorange&#39;] for color, i, target_name in zip(colors, [0, 1, 2], target_names): plt.scatter(X_r[y == i, 0], X_r[y == i, 1], color=color, label=target_name) plt.title(&#39;PCA axis 0 and 1&#39;) plt.legend() plt.subplot(122) colors = [&#39;navy&#39;, &#39;turquoise&#39;, &#39;darkorange&#39;] for color, i, target_name in zip(colors, [0, 1, 2], target_names): plt.scatter(X[y == i, 0], X[y == i, 1], color=color, label=target_name) plt.title(&#39;Original axis 0 and 1&#39;) plt.legend() plt.show() 结果如下图，左图是PCA的前两个主成分，右图是原始数据的前两个维度。 2.2 NumPy手动实现 以下是我自己写的PCA实现 import numpy as np def PCA_Yonji(X): # 1 cov = np.cov(X.T) # 2 va, ve = np.linalg.eig(cov) # 3 order = np.argsort(-va) P = ve[:,order] # 4 X_s = np.dot(X, P) # zero-center data m = np.mean(X_s, axis=0) X_s -= m return X_s 同样使用上面的iris数据集，验证的结果如下图。 对比sklearn中的PCA函数，我们自己写的这个版本，某些维度发生了符号反转，这是因为sklearn所使用的是奇异值分解（SVD），而非特征值分解（ED）。 3 Related Works 3.1 LDA 线性判别分析（Linear Discriminant Analysis），英国人Ronald Fisher于1936年提出的一个经典分类方法。 LDA和PCA的相同点在于，算法本质都是线性降维。不同的是PCA是为了降维而降维，而LDA的目标是分类。经过线性变换后，让数据在低维空间上的类内方差最小、类间方差最大。 3.2 AE 自动编码器（AutoEncoder），利用神经网络来进行非线性降维。设定隐层神经元少于输入维度，再将输入作为隐层神经元输出的拟合目标。それでは、编码过程は$Input \rightarrow HiddenLayer$です；解码过程は$HiddenLayer \rightarrow Output$です。 4 后记 Pearson, Fisher, Hinton，一种传承，天不生大英，万古如长夜。 Reference [1] Peter Harrington（2013）机器学习实战. 人民邮电出版社. 北京 [2] Wikipedia 主成分分析 [3] scikit-learn PCA [4] Hinton是如何理解PCA？-史春奇 [5] Wikipedia 线性判别分析 [6] Wikipedia オートエンコーダ" />
+<meta property="og:description" content="PCA 主成分分析（Principal Component Analysis）是机器学习里一个基础的降维方法，由英国人Karl Pearson于1901年提出。其实现原理是通过正交化线性变换，将数据从原来的坐标系转换到新的坐标系，我自己的理解PCA本质是坐标系旋转。 新坐标系由数据分布所决定。第一个新坐标轴是原始数据中方差最大的方向；第二个新坐标轴选择与第一个坐标轴正交且方差最大的方向；重复此过程直至新坐标与原坐标维度（特征）数目相同。新坐标轴的重要程度依次递减，因此能够将降维的信息损失最小化。 1 PCA算法 以上是PCA的直观理解，具体到算法实现，如下4个步骤： 输入：数据矩阵$A$，矩阵形状$M\times N$，代表$M$个样本、$N$个维度。 计算转置矩阵$A^T$的协方差矩阵$\sum$（因为目标是特征而非样本，所以这里是矩阵$A$的转置）； 对协方差矩阵进行特征分解，$\sum=Q\Lambda Q^{-1}$； 将$\Lambda​$中的特征值降序排序，再将$Q​$中每列对应的特征向量重新排列后得到矩阵$P​$； 将数据转换到新的坐标系，$A’=AP$。 输出：新数据矩阵$A’$，矩阵形状$M\times N$，$N$个维度的主成分依次递减。 $\clubsuit$ 在NumPy中，如何计算协方差矩阵、进行方阵的特征值分解，参见我这篇笔记。$\rightarrow$ NumPy Notes 以上就是PCA算法的计算过程，非常简单。 从直观理解到算法实现之间的公式推导，待补充。 2 Python实现 2.1 调包淆 以iris数据集为例，使用sklearn中的PCA函数对比变换前后的数据维度。 # -*- coding: utf-8 -*- &quot;&quot;&quot; Created on Sun Aug 19 11:13:34 2018 @author: Yonji &quot;&quot;&quot; from sklearn import datasets from sklearn.decomposition import PCA import matplotlib.pyplot as plt # data iris = datasets.load_iris() X = iris.data y = iris.target target_names = iris.target_names # model pca = PCA() X_r = pca.fit(X).transform(X) # show result print(&#39;explained variance ratio (all 4 components): %s&#39; % str(pca.explained_variance_ratio_)) plt.subplot(121) colors = [&#39;navy&#39;, &#39;turquoise&#39;, &#39;darkorange&#39;] for color, i, target_name in zip(colors, [0, 1, 2], target_names): plt.scatter(X_r[y == i, 0], X_r[y == i, 1], color=color, label=target_name) plt.title(&#39;PCA axis 0 and 1&#39;) plt.legend() plt.subplot(122) colors = [&#39;navy&#39;, &#39;turquoise&#39;, &#39;darkorange&#39;] for color, i, target_name in zip(colors, [0, 1, 2], target_names): plt.scatter(X[y == i, 0], X[y == i, 1], color=color, label=target_name) plt.title(&#39;Original axis 0 and 1&#39;) plt.legend() plt.show() 结果如下图，左图是PCA的前两个主成分，右图是原始数据的前两个维度。 2.2 NumPy手动实现 以下是我自己写的PCA实现 import numpy as np def PCA_Yonji(X): # 1 cov = np.cov(X.T) # 2 va, ve = np.linalg.eig(cov) # 3 order = np.argsort(-va) P = ve[:,order] # 4 X_s = np.dot(X, P) # zero-center data m = np.mean(X_s, axis=0) X_s -= m return X_s 同样使用上面的iris数据集，验证的结果如下图。 对比sklearn中的PCA函数，我们自己写的这个版本，某些维度发生了符号反转，这是因为sklearn所使用的是奇异值分解（SVD），而非特征值分解（ED）。 3 Related Works 3.1 LDA 线性判别分析（Linear Discriminant Analysis），英国人Ronald Fisher于1936年提出的一个经典分类方法。 LDA和PCA的相同点在于，算法本质都是线性降维。不同的是PCA是为了降维而降维，而LDA的目标是分类。经过线性变换后，让数据在低维空间上的类内方差最小、类间方差最大。 3.2 AE 自动编码器（AutoEncoder），利用神经网络来进行非线性降维。设定隐层神经元少于输入维度，再将输入作为隐层神经元输出的拟合目标。それでは、编码过程は$Input \rightarrow HiddenLayer$です；解码过程は$HiddenLayer \rightarrow Output$です。 4 后记 Pearson, Fisher, Hinton，一种传承，天不生大英，万古如长夜。 Reference [1] Peter Harrington（2013）机器学习实战. 人民邮电出版社. 北京 [2] Wikipedia 主成分分析 [3] scikit-learn PCA [4] Hinton是如何理解PCA？-史春奇 [5] Wikipedia 线性判别分析 [6] Wikipedia オートエンコーダ" />
+<link rel="canonical" href="http://localhost:4000/2018/08/17/PCA.html" />
+<meta property="og:url" content="http://localhost:4000/2018/08/17/PCA.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-08-17T00:00:00-07:00" />
+<script type="application/ld+json">
+{"description":"PCA 主成分分析（Principal Component Analysis）是机器学习里一个基础的降维方法，由英国人Karl Pearson于1901年提出。其实现原理是通过正交化线性变换，将数据从原来的坐标系转换到新的坐标系，我自己的理解PCA本质是坐标系旋转。 新坐标系由数据分布所决定。第一个新坐标轴是原始数据中方差最大的方向；第二个新坐标轴选择与第一个坐标轴正交且方差最大的方向；重复此过程直至新坐标与原坐标维度（特征）数目相同。新坐标轴的重要程度依次递减，因此能够将降维的信息损失最小化。 1 PCA算法 以上是PCA的直观理解，具体到算法实现，如下4个步骤： 输入：数据矩阵$A$，矩阵形状$M\\times N$，代表$M$个样本、$N$个维度。 计算转置矩阵$A^T$的协方差矩阵$\\sum$（因为目标是特征而非样本，所以这里是矩阵$A$的转置）； 对协方差矩阵进行特征分解，$\\sum=Q\\Lambda Q^{-1}$； 将$\\Lambda​$中的特征值降序排序，再将$Q​$中每列对应的特征向量重新排列后得到矩阵$P​$； 将数据转换到新的坐标系，$A’=AP$。 输出：新数据矩阵$A’$，矩阵形状$M\\times N$，$N$个维度的主成分依次递减。 $\\clubsuit$ 在NumPy中，如何计算协方差矩阵、进行方阵的特征值分解，参见我这篇笔记。$\\rightarrow$ NumPy Notes 以上就是PCA算法的计算过程，非常简单。 从直观理解到算法实现之间的公式推导，待补充。 2 Python实现 2.1 调包淆 以iris数据集为例，使用sklearn中的PCA函数对比变换前后的数据维度。 # -*- coding: utf-8 -*- &quot;&quot;&quot; Created on Sun Aug 19 11:13:34 2018 @author: Yonji &quot;&quot;&quot; from sklearn import datasets from sklearn.decomposition import PCA import matplotlib.pyplot as plt # data iris = datasets.load_iris() X = iris.data y = iris.target target_names = iris.target_names # model pca = PCA() X_r = pca.fit(X).transform(X) # show result print(&#39;explained variance ratio (all 4 components): %s&#39; % str(pca.explained_variance_ratio_)) plt.subplot(121) colors = [&#39;navy&#39;, &#39;turquoise&#39;, &#39;darkorange&#39;] for color, i, target_name in zip(colors, [0, 1, 2], target_names): plt.scatter(X_r[y == i, 0], X_r[y == i, 1], color=color, label=target_name) plt.title(&#39;PCA axis 0 and 1&#39;) plt.legend() plt.subplot(122) colors = [&#39;navy&#39;, &#39;turquoise&#39;, &#39;darkorange&#39;] for color, i, target_name in zip(colors, [0, 1, 2], target_names): plt.scatter(X[y == i, 0], X[y == i, 1], color=color, label=target_name) plt.title(&#39;Original axis 0 and 1&#39;) plt.legend() plt.show() 结果如下图，左图是PCA的前两个主成分，右图是原始数据的前两个维度。 2.2 NumPy手动实现 以下是我自己写的PCA实现 import numpy as np def PCA_Yonji(X): # 1 cov = np.cov(X.T) # 2 va, ve = np.linalg.eig(cov) # 3 order = np.argsort(-va) P = ve[:,order] # 4 X_s = np.dot(X, P) # zero-center data m = np.mean(X_s, axis=0) X_s -= m return X_s 同样使用上面的iris数据集，验证的结果如下图。 对比sklearn中的PCA函数，我们自己写的这个版本，某些维度发生了符号反转，这是因为sklearn所使用的是奇异值分解（SVD），而非特征值分解（ED）。 3 Related Works 3.1 LDA 线性判别分析（Linear Discriminant Analysis），英国人Ronald Fisher于1936年提出的一个经典分类方法。 LDA和PCA的相同点在于，算法本质都是线性降维。不同的是PCA是为了降维而降维，而LDA的目标是分类。经过线性变换后，让数据在低维空间上的类内方差最小、类间方差最大。 3.2 AE 自动编码器（AutoEncoder），利用神经网络来进行非线性降维。设定隐层神经元少于输入维度，再将输入作为隐层神经元输出的拟合目标。それでは、编码过程は$Input \\rightarrow HiddenLayer$です；解码过程は$HiddenLayer \\rightarrow Output$です。 4 后记 Pearson, Fisher, Hinton，一种传承，天不生大英，万古如长夜。 Reference [1] Peter Harrington（2013）机器学习实战. 人民邮电出版社. 北京 [2] Wikipedia 主成分分析 [3] scikit-learn PCA [4] Hinton是如何理解PCA？-史春奇 [5] Wikipedia 线性判别分析 [6] Wikipedia オートエンコーダ","@type":"BlogPosting","url":"http://localhost:4000/2018/08/17/PCA.html","headline":"PCA, The Classic","dateModified":"2018-08-17T00:00:00-07:00","datePublished":"2018-08-17T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/08/17/PCA.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="pca">PCA</h1>
+
+<p>主成分分析（Principal Component Analysis）是机器学习里一个基础的降维方法，由<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/30px-Flag_of_the_United_Kingdom.svg.png" alt="" />英国人Karl Pearson于1901年提出。其实现原理是通过正交化线性变换，将数据从原来的坐标系转换到新的坐标系，<strong>我自己的理解PCA本质是坐标系旋转</strong>。</p>
+
+<p>新坐标系由数据分布所决定。第一个新坐标轴是原始数据中方差最大的方向；第二个新坐标轴选择与第一个坐标轴正交且方差最大的方向；重复此过程直至新坐标与原坐标维度（特征）数目相同。<strong>新坐标轴的重要程度依次递减，因此能够将降维的信息损失最小化</strong>。</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/GaussianScatterPCA.svg/480px-GaussianScatterPCA.svg.png" alt="" /></p>
+
+<h2 id="1-pca算法">1 PCA算法</h2>
+
+<p>以上是PCA的直观理解，具体到算法实现，如下4个步骤：</p>
+
+<p><strong>输入</strong>：数据矩阵$A$，矩阵形状$M\times N$，代表$M$个样本、$N$个维度。</p>
+
+<ol>
+  <li>计算转置矩阵$A^T$的协方差矩阵$\sum$（因为目标是<strong>特征</strong>而非<strong>样本</strong>，所以这里是矩阵$A$的转置）；</li>
+  <li>对协方差矩阵进行特征分解，$\sum=Q\Lambda Q^{-1}$；</li>
+  <li>将$\Lambda​$中的特征值降序排序，再将$Q​$中每列对应的特征向量重新排列后得到矩阵$P​$；</li>
+  <li>将数据转换到新的坐标系，$A’=AP$。</li>
+</ol>
+
+<p><strong>输出</strong>：新数据矩阵$A’$，矩阵形状$M\times N$，$N$个维度的主成分依次递减。</p>
+
+<p>$\clubsuit$ 在NumPy中，如何计算<strong>协方差矩阵</strong>、进行<strong>方阵的特征值分解</strong>，参见我这篇笔记。$\rightarrow$ <a href="https://amoko.github.io/2018/08/02/NumPy-Notes.html">NumPy Notes</a></p>
+
+<p>以上就是PCA算法的计算过程，非常简单。</p>
+
+<p>从直观理解到算法实现之间的公式推导，待补充。</p>
+
+<h2 id="2-python实现">2 Python实现</h2>
+
+<h3 id="21-调包淆">2.1 调包淆</h3>
+
+<p>以iris数据集为例，使用sklearn中的PCA函数对比变换前后的数据维度。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
+<span class="s">"""
+Created on Sun Aug 19 11:13:34 2018
+@author: Yonji
+"""</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="c"># data</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">target_names</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span>
+
+<span class="c"># model</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
+<span class="n">X_r</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c"># show result</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'explained variance ratio (all 4 components): </span><span class="si">%</span><span class="s">s'</span>
+      <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">'navy'</span><span class="p">,</span> <span class="s">'turquoise'</span><span class="p">,</span> <span class="s">'darkorange'</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">target_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">target_names</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_r</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_r</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">target_name</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'PCA axis 0 and 1'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">'navy'</span><span class="p">,</span> <span class="s">'turquoise'</span><span class="p">,</span> <span class="s">'darkorange'</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">target_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">target_names</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">target_name</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Original axis 0 and 1'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>结果如下图，左图是PCA的前两个主成分，右图是原始数据的前两个维度。</p>
+
+<p><img src="/img/PCA.before.after.png" alt="" /></p>
+
+<h3 id="22-numpy手动实现">2.2 NumPy手动实现</h3>
+
+<p>以下是我自己写的PCA实现</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="k">def</span> <span class="nf">PCA_Yonji</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="c"># 1</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="c"># 2</span>
+    <span class="n">va</span><span class="p">,</span> <span class="n">ve</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+    <span class="c"># 3</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">va</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">ve</span><span class="p">[:,</span><span class="n">order</span><span class="p">]</span>
+    <span class="c"># 4</span>
+    <span class="n">X_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+    <span class="c"># zero-center data</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_s</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">X_s</span> <span class="o">-=</span> <span class="n">m</span>
+    <span class="k">return</span> <span class="n">X_s</span>
+</code></pre></div></div>
+
+<p>同样使用上面的iris数据集，验证的结果如下图。</p>
+
+<p>对比sklearn中的PCA函数，我们自己写的这个版本，<strong>某些维度发生了符号反转</strong>，这是因为sklearn所使用的是奇异值分解（SVD），而非特征值分解（ED）。</p>
+
+<p><img src="/img/PCA.SVD.ED.png" alt="" /></p>
+
+<h2 id="3-related-works">3 Related Works</h2>
+
+<h3 id="31-lda">3.1 LDA</h3>
+
+<p>线性判别分析（Linear Discriminant Analysis），<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/30px-Flag_of_the_United_Kingdom.svg.png" alt="" />英国人Ronald Fisher于1936年提出的一个经典分类方法。</p>
+
+<p>LDA和PCA的相同点在于，算法本质都是线性降维。不同的是PCA是为了降维而降维，而LDA的目标是分类。经过线性变换后，让数据在低维空间上的类内方差最小、类间方差最大。</p>
+
+<h3 id="32-ae">3.2 AE</h3>
+
+<p>自动编码器（AutoEncoder），利用神经网络来进行<strong>非线性降维</strong>。设定隐层神经元少于输入维度，再将输入作为隐层神经元输出的拟合目标。それでは、编码过程は$Input \rightarrow HiddenLayer$です；解码过程は$HiddenLayer \rightarrow Output$です。</p>
+
+<h2 id="4-后记">4 后记</h2>
+
+<p>Pearson, Fisher, Hinton，一种传承<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/30px-Flag_of_the_United_Kingdom.svg.png" alt="" />，天不生大英，万古如长夜。</p>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] Peter Harrington（2013）机器学习实战. 人民邮电出版社. 北京</p>
+
+<p>[2] <a href="https://ja.wikipedia.org/wiki/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90">Wikipedia 主成分分析</a></p>
+
+<p>[3] <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">scikit-learn PCA</a></p>
+
+<p>[4] <a href="https://cloud.tencent.com/developer/article/1185398">Hinton是如何理解PCA？-史春奇</a></p>
+
+<p>[5] <a href="https://zh.wikipedia.org/wiki/%E7%B7%9A%E6%80%A7%E5%88%A4%E5%88%A5%E5%88%86%E6%9E%90">Wikipedia 线性判别分析</a></p>
+
+<p>[6] <a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%83%88%E3%82%A8%E3%83%B3%E3%82%B3%E3%83%BC%E3%83%80">Wikipedia オートエンコーダ</a></p>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

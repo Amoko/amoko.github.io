@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Cycle GAN Notes | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Cycle GAN Notes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1 GAN &amp; Cycle GAN Ian Goodfellow 在2014年提出了原始的GAN模型，我这篇博客有初步介绍 $\rightarrow$ GAN Notes。 Cycle GAN是2017年ICCV上的一篇文章，以GAN为基础来实现图像的风格迁移，表现非常惊艳。 论文标题：Unpaired image-to-image translation using cycle-consistent adversarial networks. Github项目主页：Cycle GAN。 2 Motivation 原始GAN学习到的是随机噪声分布$Z$到真实数据分布$X$的映射：$G(z)\approx x$。 但GAN模型所生成的数据是不可控的，以MINIST数据集为例，GAN无法生成指定label的数字图片。 那么，如果将label作为条件信息也加入模型进行训练呢？这个思路就是 conditional GAN。 具体到图像风格迁移，基于conditional GAN的pix2pix已经可以完成这项任务，但代价是训练样本必须是两两配对的。 Cycle GAN对pix2pix的改进是解决了对训练样本的限制，即不需要两个domain的样本是两两配对的。 以上就是Cycle GAN这个工作的意义。 3 How? 3.1 基础架构 $X​$：来自domain $X​$的数据； $Y​$：来自domain $Y​$的数据； $G(X)$：生成器，用来自$X$的数据仿造$Y$； $D_Y$：判别器，判定数据来自$Y​$的概率； $F(Y)$：生成器，用来自$Y$的数据仿造$X$； $D_X$：判别器，判定数据来自$X$的概率； 需要注意，原始GAN以随机噪声作为生成器的输入。 而Cycle GAN生成器的输入是另一个域的数据，因此不再需要随机噪声。 3.2 思路 Cycle GAN的解决方案很简单，一个GAN不行，我两个GAN行不行？ 直观上，Cycle GAN就是训练两个GAN模型构成一个循环。 第一个GAN的生成器负责学习 $X\rightarrow Y$，第二个GAN的生成器负责学习 $Y\rightarrow X$。 然后保证数据在这个循环前后的一致性：$x\rightarrow G(x)\rightarrow F(G(x))\approx x$，$y\rightarrow F(y)\rightarrow G(F(y))\approx y$。 3.3 损失函数 对两个domain的数据${{X,Y}}$，学习过程分别是对称的两个循环：$F(G(x))\approx x$，$G(F(y))\approx y$。 这两个循环的损失函数定义为 cycle consistency loss，即循环一致性损失： 所以模型最终的Loss是两个GAN的Loss + 两个循环的Loss。 3.4 two details GAN的损失函数，用OLS取代MLE（即假设了误差服从高斯分布）。 原始GAN的优化目标： Cycle GAN的MSE loss： 使用有时延的$G(x)$来更新判别器。 4 Cycle GAN in PyTorch 作者公布了Cycle GAN的PyTorch源码，Github项目主页在此 $\rightarrow$ のPytorch Cycle GAN。 需要安装的两个额外库依赖 pip install dominate pip install visdom 下载数据集 bash ./datasets/download_cyclegan_dataset.sh vangogh2photo train &amp; test，参数设定及说明见 options 文件夹 # train python -m visdom.server python train.py --dataroot ./datasets/vangogh2photo --name vangoph_cyclegan --model cycle_gan --gpu_ids 0,1 --batch_size 8 --display_id -1 # test python test.py --dataroot ./datasets/vangogh2photo --name vangoph_cyclegan --model cycle_gan --gpu_ids 0,1 TBC 5 無駄無駄 このジョルノ・ジョバァーナには夢がある！" />
+<meta property="og:description" content="1 GAN &amp; Cycle GAN Ian Goodfellow 在2014年提出了原始的GAN模型，我这篇博客有初步介绍 $\rightarrow$ GAN Notes。 Cycle GAN是2017年ICCV上的一篇文章，以GAN为基础来实现图像的风格迁移，表现非常惊艳。 论文标题：Unpaired image-to-image translation using cycle-consistent adversarial networks. Github项目主页：Cycle GAN。 2 Motivation 原始GAN学习到的是随机噪声分布$Z$到真实数据分布$X$的映射：$G(z)\approx x$。 但GAN模型所生成的数据是不可控的，以MINIST数据集为例，GAN无法生成指定label的数字图片。 那么，如果将label作为条件信息也加入模型进行训练呢？这个思路就是 conditional GAN。 具体到图像风格迁移，基于conditional GAN的pix2pix已经可以完成这项任务，但代价是训练样本必须是两两配对的。 Cycle GAN对pix2pix的改进是解决了对训练样本的限制，即不需要两个domain的样本是两两配对的。 以上就是Cycle GAN这个工作的意义。 3 How? 3.1 基础架构 $X​$：来自domain $X​$的数据； $Y​$：来自domain $Y​$的数据； $G(X)$：生成器，用来自$X$的数据仿造$Y$； $D_Y$：判别器，判定数据来自$Y​$的概率； $F(Y)$：生成器，用来自$Y$的数据仿造$X$； $D_X$：判别器，判定数据来自$X$的概率； 需要注意，原始GAN以随机噪声作为生成器的输入。 而Cycle GAN生成器的输入是另一个域的数据，因此不再需要随机噪声。 3.2 思路 Cycle GAN的解决方案很简单，一个GAN不行，我两个GAN行不行？ 直观上，Cycle GAN就是训练两个GAN模型构成一个循环。 第一个GAN的生成器负责学习 $X\rightarrow Y$，第二个GAN的生成器负责学习 $Y\rightarrow X$。 然后保证数据在这个循环前后的一致性：$x\rightarrow G(x)\rightarrow F(G(x))\approx x$，$y\rightarrow F(y)\rightarrow G(F(y))\approx y$。 3.3 损失函数 对两个domain的数据${{X,Y}}$，学习过程分别是对称的两个循环：$F(G(x))\approx x$，$G(F(y))\approx y$。 这两个循环的损失函数定义为 cycle consistency loss，即循环一致性损失： 所以模型最终的Loss是两个GAN的Loss + 两个循环的Loss。 3.4 two details GAN的损失函数，用OLS取代MLE（即假设了误差服从高斯分布）。 原始GAN的优化目标： Cycle GAN的MSE loss： 使用有时延的$G(x)$来更新判别器。 4 Cycle GAN in PyTorch 作者公布了Cycle GAN的PyTorch源码，Github项目主页在此 $\rightarrow$ のPytorch Cycle GAN。 需要安装的两个额外库依赖 pip install dominate pip install visdom 下载数据集 bash ./datasets/download_cyclegan_dataset.sh vangogh2photo train &amp; test，参数设定及说明见 options 文件夹 # train python -m visdom.server python train.py --dataroot ./datasets/vangogh2photo --name vangoph_cyclegan --model cycle_gan --gpu_ids 0,1 --batch_size 8 --display_id -1 # test python test.py --dataroot ./datasets/vangogh2photo --name vangoph_cyclegan --model cycle_gan --gpu_ids 0,1 TBC 5 無駄無駄 このジョルノ・ジョバァーナには夢がある！" />
+<link rel="canonical" href="http://localhost:4000/2018/11/05/Cycle-GAN.html" />
+<meta property="og:url" content="http://localhost:4000/2018/11/05/Cycle-GAN.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-05T00:00:00-08:00" />
+<script type="application/ld+json">
+{"description":"1 GAN &amp; Cycle GAN Ian Goodfellow 在2014年提出了原始的GAN模型，我这篇博客有初步介绍 $\\rightarrow$ GAN Notes。 Cycle GAN是2017年ICCV上的一篇文章，以GAN为基础来实现图像的风格迁移，表现非常惊艳。 论文标题：Unpaired image-to-image translation using cycle-consistent adversarial networks. Github项目主页：Cycle GAN。 2 Motivation 原始GAN学习到的是随机噪声分布$Z$到真实数据分布$X$的映射：$G(z)\\approx x$。 但GAN模型所生成的数据是不可控的，以MINIST数据集为例，GAN无法生成指定label的数字图片。 那么，如果将label作为条件信息也加入模型进行训练呢？这个思路就是 conditional GAN。 具体到图像风格迁移，基于conditional GAN的pix2pix已经可以完成这项任务，但代价是训练样本必须是两两配对的。 Cycle GAN对pix2pix的改进是解决了对训练样本的限制，即不需要两个domain的样本是两两配对的。 以上就是Cycle GAN这个工作的意义。 3 How? 3.1 基础架构 $X​$：来自domain $X​$的数据； $Y​$：来自domain $Y​$的数据； $G(X)$：生成器，用来自$X$的数据仿造$Y$； $D_Y$：判别器，判定数据来自$Y​$的概率； $F(Y)$：生成器，用来自$Y$的数据仿造$X$； $D_X$：判别器，判定数据来自$X$的概率； 需要注意，原始GAN以随机噪声作为生成器的输入。 而Cycle GAN生成器的输入是另一个域的数据，因此不再需要随机噪声。 3.2 思路 Cycle GAN的解决方案很简单，一个GAN不行，我两个GAN行不行？ 直观上，Cycle GAN就是训练两个GAN模型构成一个循环。 第一个GAN的生成器负责学习 $X\\rightarrow Y$，第二个GAN的生成器负责学习 $Y\\rightarrow X$。 然后保证数据在这个循环前后的一致性：$x\\rightarrow G(x)\\rightarrow F(G(x))\\approx x$，$y\\rightarrow F(y)\\rightarrow G(F(y))\\approx y$。 3.3 损失函数 对两个domain的数据${{X,Y}}$，学习过程分别是对称的两个循环：$F(G(x))\\approx x$，$G(F(y))\\approx y$。 这两个循环的损失函数定义为 cycle consistency loss，即循环一致性损失： 所以模型最终的Loss是两个GAN的Loss + 两个循环的Loss。 3.4 two details GAN的损失函数，用OLS取代MLE（即假设了误差服从高斯分布）。 原始GAN的优化目标： Cycle GAN的MSE loss： 使用有时延的$G(x)$来更新判别器。 4 Cycle GAN in PyTorch 作者公布了Cycle GAN的PyTorch源码，Github项目主页在此 $\\rightarrow$ のPytorch Cycle GAN。 需要安装的两个额外库依赖 pip install dominate pip install visdom 下载数据集 bash ./datasets/download_cyclegan_dataset.sh vangogh2photo train &amp; test，参数设定及说明见 options 文件夹 # train python -m visdom.server python train.py --dataroot ./datasets/vangogh2photo --name vangoph_cyclegan --model cycle_gan --gpu_ids 0,1 --batch_size 8 --display_id -1 # test python test.py --dataroot ./datasets/vangogh2photo --name vangoph_cyclegan --model cycle_gan --gpu_ids 0,1 TBC 5 無駄無駄 このジョルノ・ジョバァーナには夢がある！","@type":"BlogPosting","url":"http://localhost:4000/2018/11/05/Cycle-GAN.html","headline":"Cycle GAN Notes","dateModified":"2018-11-05T00:00:00-08:00","datePublished":"2018-11-05T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/11/05/Cycle-GAN.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h2 id="1-gan--cycle-gan">1 GAN &amp; Cycle GAN</h2>
+
+<p>Ian Goodfellow 在2014年提出了原始的GAN模型，我这篇博客有初步介绍 $\rightarrow$ <a href="https://amoko.github.io/2018/10/31/GAN.html">GAN Notes</a>。</p>
+
+<p>Cycle GAN是2017年ICCV上的一篇文章，以GAN为基础来实现图像的风格迁移，表现非常惊艳。</p>
+
+<p>论文标题：Unpaired image-to-image translation using cycle-consistent adversarial networks.</p>
+
+<p>Github项目主页：<a href="https://junyanz.github.io/CycleGAN/">Cycle GAN</a>。</p>
+
+<h2 id="2-motivation">2 Motivation</h2>
+
+<p>原始GAN学习到的是<strong>随机噪声</strong>分布$Z$到<strong>真实数据</strong>分布$X$的映射：$G(z)\approx x$。</p>
+
+<p>但GAN模型所生成的数据是不可控的，以MINIST数据集为例，GAN无法生成指定label的数字图片。</p>
+
+<p>那么，如果将label作为条件信息也加入模型进行训练呢？这个思路就是 conditional GAN。</p>
+
+<p>具体到图像风格迁移，基于conditional GAN的pix2pix已经可以完成这项任务，但代价是训练样本必须是两两配对的。</p>
+
+<p><strong>Cycle GAN对pix2pix的改进是解决了对训练样本的限制，即不需要两个domain的样本是两两配对的。</strong></p>
+
+<p>以上就是Cycle GAN这个工作的意义。</p>
+
+<h2 id="3-how">3 How?</h2>
+
+<h3 id="31-基础架构">3.1 基础架构</h3>
+
+<ul>
+  <li>
+    <p>$X​$：来自domain $X​$的数据；</p>
+  </li>
+  <li>
+    <p>$Y​$：来自domain $Y​$的数据；</p>
+  </li>
+  <li>
+    <p>$G(X)$：生成器，用来自$X$的数据仿造$Y$；</p>
+  </li>
+  <li>
+    <p>$D_Y$：判别器，判定数据来自$Y​$的概率；</p>
+  </li>
+  <li>
+    <p>$F(Y)$：生成器，用来自$Y$的数据仿造$X$；</p>
+  </li>
+  <li>
+    <p>$D_X$：判别器，判定数据来自$X$的概率；</p>
+  </li>
+</ul>
+
+<p>需要注意，原始GAN以随机噪声作为生成器的输入。</p>
+
+<p>而Cycle GAN生成器的输入是另一个域的数据，因此<strong>不再需要随机噪声</strong>。</p>
+
+<h3 id="32-思路">3.2 思路</h3>
+
+<p>Cycle GAN的解决方案很简单，一个GAN不行，我两个GAN行不行？</p>
+
+<p>直观上，Cycle GAN就是训练两个GAN模型构成一个循环。</p>
+
+<p>第一个GAN的生成器负责学习 $X\rightarrow Y$，第二个GAN的生成器负责学习 $Y\rightarrow X$。</p>
+
+<p>然后保证数据在这个循环前后的一致性：$x\rightarrow G(x)\rightarrow F(G(x))\approx x$，$y\rightarrow F(y)\rightarrow G(F(y))\approx y$。</p>
+
+<h3 id="33-损失函数">3.3 损失函数</h3>
+
+<p><img src="/img/cycle_gan.PNG" alt="" /></p>
+
+<p>对两个domain的数据${{X,Y}}$，学习过程分别是对称的两个循环：$F(G(x))\approx x$，$G(F(y))\approx y$。</p>
+
+<p>这两个循环的损失函数定义为 cycle consistency loss，即循环一致性损失：</p>
+
+<script type="math/tex; mode=display">L_{cyc}(G,F)=E_{x\sim p_{data}(x)}[\Vert F(G(x))-x\Vert_1]+E_{y\sim p_{data}(y)}[\Vert G(F(y))-y\Vert_1]\tag{1}</script>
+
+<p>所以模型最终的Loss是两个GAN的Loss + 两个循环的Loss。
+<script type="math/tex">L(G,F,D_X,D_Y)=L_{GAN}(G,D_Y)+L_{GAN}(F,D_X)+L_{cyc}(G,F)\tag{2}</script></p>
+
+<h3 id="34-two-details">3.4 two details</h3>
+
+<ul>
+  <li>
+    <p>GAN的损失函数，用OLS取代MLE（即假设了误差服从高斯分布）。</p>
+
+    <p>原始GAN的优化目标：
+<script type="math/tex">\min_G \max_DV(D,G)=E_{x\sim p_r}[\log D(x)]+E_{x\sim p_g}[\log(1-D(x)]\tag{3}</script>
+Cycle GAN的MSE loss：
+<script type="math/tex">L_{GAN}(G,D_Y)=E_{x\sim p_r}[(1-D(x))^2]+E_{x\sim p_g}[D(x)^2]\tag{4}</script></p>
+  </li>
+  <li>
+    <p>使用有时延的$G(x)$来更新判别器。</p>
+  </li>
+</ul>
+
+<h2 id="4-cycle-gan-in-pytorch">4 Cycle GAN in PyTorch</h2>
+
+<p>作者公布了Cycle GAN的PyTorch源码，Github项目主页在此 $\rightarrow$ の<a href="https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix">Pytorch Cycle GAN</a>。</p>
+
+<p>需要安装的两个额外库依赖</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install dominate
+pip install visdom
+</code></pre></div></div>
+
+<p>下载数据集</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ./datasets/download_cyclegan_dataset.sh vangogh2photo
+</code></pre></div></div>
+
+<p>train &amp; test，参数设定及说明见 options 文件夹</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># train</span>
+python <span class="nt">-m</span> visdom.server
+python train.py <span class="nt">--dataroot</span> ./datasets/vangogh2photo <span class="nt">--name</span> vangoph_cyclegan <span class="nt">--model</span> cycle_gan <span class="nt">--gpu_ids</span> 0,1 <span class="nt">--batch_size</span> 8 <span class="nt">--display_id</span> <span class="nt">-1</span>
+<span class="c"># test</span>
+python test.py <span class="nt">--dataroot</span> ./datasets/vangogh2photo <span class="nt">--name</span> vangoph_cyclegan <span class="nt">--model</span> cycle_gan <span class="nt">--gpu_ids</span> 0,1
+</code></pre></div></div>
+
+<p>TBC</p>
+
+<h2 id="5-無駄無駄">5 無駄無駄</h2>
+
+<p>このジョルノ・ジョバァーナには夢がある！</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

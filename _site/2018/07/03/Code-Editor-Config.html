@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Sublime Text, Spyder Configuration | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Sublime Text, Spyder Configuration" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1 Sublime Text 3 1.1 添加新的Build System Tools - Build System- New Build System 粘贴以下配置（注意python安装路径） Linux { &quot;shell_cmd&quot;: &quot;/home/you/anaconda3/bin/python -u \&quot;$file\&quot;&quot;, &quot;selector&quot;: &quot;source.python&quot;, &quot;file_regex&quot;: &quot;^[ ]*File \&quot;(...*?)\&quot;, line ([0-9]*)&quot; } Windows { &quot;cmd&quot;: [&quot;C:/Users/you/Anaconda3/python&quot;, &quot;-u&quot;, &quot;$file&quot;], &quot;selector&quot;: &quot;source.python&quot;, &quot;file_regex&quot;: &quot;^\\s*File \&quot;(...*?)\&quot;, line ([0-9]*)&quot; } 1.2 添加sublimerge插件 Preferences - Package Control - Install Package 搜索 sublimerge 安装。 1.3 查看文件编码 Preference - Settings &quot;show_encoding&quot;: true, 2 Spyder 2.1 添加模块自动补全 ~\Anaconda3\Lib\site-packages\spyder\utils\introspection\module_completion.py 将需要自动补全的模块名添加到mods变量中。" />
+<meta property="og:description" content="1 Sublime Text 3 1.1 添加新的Build System Tools - Build System- New Build System 粘贴以下配置（注意python安装路径） Linux { &quot;shell_cmd&quot;: &quot;/home/you/anaconda3/bin/python -u \&quot;$file\&quot;&quot;, &quot;selector&quot;: &quot;source.python&quot;, &quot;file_regex&quot;: &quot;^[ ]*File \&quot;(...*?)\&quot;, line ([0-9]*)&quot; } Windows { &quot;cmd&quot;: [&quot;C:/Users/you/Anaconda3/python&quot;, &quot;-u&quot;, &quot;$file&quot;], &quot;selector&quot;: &quot;source.python&quot;, &quot;file_regex&quot;: &quot;^\\s*File \&quot;(...*?)\&quot;, line ([0-9]*)&quot; } 1.2 添加sublimerge插件 Preferences - Package Control - Install Package 搜索 sublimerge 安装。 1.3 查看文件编码 Preference - Settings &quot;show_encoding&quot;: true, 2 Spyder 2.1 添加模块自动补全 ~\Anaconda3\Lib\site-packages\spyder\utils\introspection\module_completion.py 将需要自动补全的模块名添加到mods变量中。" />
+<link rel="canonical" href="http://localhost:4000/2018/07/03/Code-Editor-Config.html" />
+<meta property="og:url" content="http://localhost:4000/2018/07/03/Code-Editor-Config.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-07-03T00:00:00-07:00" />
+<script type="application/ld+json">
+{"description":"1 Sublime Text 3 1.1 添加新的Build System Tools - Build System- New Build System 粘贴以下配置（注意python安装路径） Linux { &quot;shell_cmd&quot;: &quot;/home/you/anaconda3/bin/python -u \\&quot;$file\\&quot;&quot;, &quot;selector&quot;: &quot;source.python&quot;, &quot;file_regex&quot;: &quot;^[ ]*File \\&quot;(...*?)\\&quot;, line ([0-9]*)&quot; } Windows { &quot;cmd&quot;: [&quot;C:/Users/you/Anaconda3/python&quot;, &quot;-u&quot;, &quot;$file&quot;], &quot;selector&quot;: &quot;source.python&quot;, &quot;file_regex&quot;: &quot;^\\\\s*File \\&quot;(...*?)\\&quot;, line ([0-9]*)&quot; } 1.2 添加sublimerge插件 Preferences - Package Control - Install Package 搜索 sublimerge 安装。 1.3 查看文件编码 Preference - Settings &quot;show_encoding&quot;: true, 2 Spyder 2.1 添加模块自动补全 ~\\Anaconda3\\Lib\\site-packages\\spyder\\utils\\introspection\\module_completion.py 将需要自动补全的模块名添加到mods变量中。","@type":"BlogPosting","url":"http://localhost:4000/2018/07/03/Code-Editor-Config.html","headline":"Sublime Text, Spyder Configuration","dateModified":"2018-07-03T00:00:00-07:00","datePublished":"2018-07-03T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/07/03/Code-Editor-Config.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h2 id="1-sublime-text-3">1 Sublime Text 3</h2>
+
+<h3 id="11-添加新的build-system">1.1 添加新的Build System</h3>
+
+<p>Tools - Build System- New Build System</p>
+
+<p>粘贴以下配置（注意python安装路径）</p>
+
+<p><strong>Linux</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="s">"shell_cmd"</span><span class="p">:</span> <span class="s">"/home/you/anaconda3/bin/python -u </span><span class="se">\"</span><span class="s">$file</span><span class="se">\"</span><span class="s">"</span><span class="p">,</span>
+    <span class="s">"selector"</span><span class="p">:</span> <span class="s">"source.python"</span><span class="p">,</span>
+    <span class="s">"file_regex"</span><span class="p">:</span> <span class="s">"^[ ]*File </span><span class="se">\"</span><span class="s">(...*?)</span><span class="se">\"</span><span class="s">, line ([0-9]*)"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p><strong>Windows</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="s">"cmd"</span><span class="p">:</span> <span class="p">[</span><span class="s">"C:/Users/you/Anaconda3/python"</span><span class="p">,</span> <span class="s">"-u"</span><span class="p">,</span> <span class="s">"$file"</span><span class="p">],</span>
+    <span class="s">"selector"</span><span class="p">:</span> <span class="s">"source.python"</span><span class="p">,</span>
+    <span class="s">"file_regex"</span><span class="p">:</span> <span class="s">"^</span><span class="se">\\</span><span class="s">s*File </span><span class="se">\"</span><span class="s">(...*?)</span><span class="se">\"</span><span class="s">, line ([0-9]*)"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="12-添加sublimerge插件">1.2 添加sublimerge插件</h3>
+
+<p>Preferences - Package Control - Install Package</p>
+
+<p>搜索 sublimerge 安装。</p>
+
+<h3 id="13-查看文件编码">1.3 查看文件编码</h3>
+
+<p>Preference - Settings</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"show_encoding"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="2-spyder">2 Spyder</h2>
+
+<h3 id="21-添加模块自动补全">2.1 添加模块自动补全</h3>
+
+<p>~\Anaconda3\Lib\site-packages\spyder\utils\introspection\module_completion.py</p>
+
+<p>将需要自动补全的模块名添加到mods变量中。</p>
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>

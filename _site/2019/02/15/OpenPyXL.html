@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png"  href="/img/favicon.jinja.png">
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>OpenPyXL Notes | Yonji’s Blog</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="OpenPyXL Notes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="OpenPyXL Notes OpenPyXL 是一个用于读写 excel 文件的 Python 库，简单记录一下使用方法。 写入のdemo from openpyxl import Workbook from openpyxl.styles import PatternFill wb = Workbook() ws = wb.active ws[&quot;A1&quot;] = 20 # assign 1 cell = ws[&quot;A2&quot;] # assign 2 cell.value = 1994 cell = ws.cell(row=3, column=1) # assign 3 cell.value = &quot;Amoko&quot; cell = ws[&quot;B1&quot;] # assign 4 cell.fill = PatternFill(&quot;solid&quot;, fgColor=&quot;ff0000&quot;) cell = ws[&quot;B2&quot;] # assign 5 cell.fill = PatternFill(&quot;solid&quot;, fgColor=&quot;00ff00&quot;) wb.save(&quot;0215.xlsx&quot;) 读取のdemo from openpyxl import load_workbook wb = load_workbook(&quot;0215.xlsx&quot;) ws = wb[wb.sheetnames[0]] print(ws.max_row, ws.max_column) cell = ws[&quot;B1&quot;] print(repr(cell.fill.start_color.index)) for row in ws.iter_rows(): for cell in row: print(cell.row, cell.col_idx, cell.value) Reference [1] OpenPyXL 官网文档" />
+<meta property="og:description" content="OpenPyXL Notes OpenPyXL 是一个用于读写 excel 文件的 Python 库，简单记录一下使用方法。 写入のdemo from openpyxl import Workbook from openpyxl.styles import PatternFill wb = Workbook() ws = wb.active ws[&quot;A1&quot;] = 20 # assign 1 cell = ws[&quot;A2&quot;] # assign 2 cell.value = 1994 cell = ws.cell(row=3, column=1) # assign 3 cell.value = &quot;Amoko&quot; cell = ws[&quot;B1&quot;] # assign 4 cell.fill = PatternFill(&quot;solid&quot;, fgColor=&quot;ff0000&quot;) cell = ws[&quot;B2&quot;] # assign 5 cell.fill = PatternFill(&quot;solid&quot;, fgColor=&quot;00ff00&quot;) wb.save(&quot;0215.xlsx&quot;) 读取のdemo from openpyxl import load_workbook wb = load_workbook(&quot;0215.xlsx&quot;) ws = wb[wb.sheetnames[0]] print(ws.max_row, ws.max_column) cell = ws[&quot;B1&quot;] print(repr(cell.fill.start_color.index)) for row in ws.iter_rows(): for cell in row: print(cell.row, cell.col_idx, cell.value) Reference [1] OpenPyXL 官网文档" />
+<link rel="canonical" href="http://localhost:4000/2019/02/15/OpenPyXL.html" />
+<meta property="og:url" content="http://localhost:4000/2019/02/15/OpenPyXL.html" />
+<meta property="og:site_name" content="Yonji’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-02-15T00:00:00-08:00" />
+<script type="application/ld+json">
+{"description":"OpenPyXL Notes OpenPyXL 是一个用于读写 excel 文件的 Python 库，简单记录一下使用方法。 写入のdemo from openpyxl import Workbook from openpyxl.styles import PatternFill wb = Workbook() ws = wb.active ws[&quot;A1&quot;] = 20 # assign 1 cell = ws[&quot;A2&quot;] # assign 2 cell.value = 1994 cell = ws.cell(row=3, column=1) # assign 3 cell.value = &quot;Amoko&quot; cell = ws[&quot;B1&quot;] # assign 4 cell.fill = PatternFill(&quot;solid&quot;, fgColor=&quot;ff0000&quot;) cell = ws[&quot;B2&quot;] # assign 5 cell.fill = PatternFill(&quot;solid&quot;, fgColor=&quot;00ff00&quot;) wb.save(&quot;0215.xlsx&quot;) 读取のdemo from openpyxl import load_workbook wb = load_workbook(&quot;0215.xlsx&quot;) ws = wb[wb.sheetnames[0]] print(ws.max_row, ws.max_column) cell = ws[&quot;B1&quot;] print(repr(cell.fill.start_color.index)) for row in ws.iter_rows(): for cell in row: print(cell.row, cell.col_idx, cell.value) Reference [1] OpenPyXL 官网文档","@type":"BlogPosting","url":"http://localhost:4000/2019/02/15/OpenPyXL.html","headline":"OpenPyXL Notes","dateModified":"2019-02-15T00:00:00-08:00","datePublished":"2019-02-15T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/02/15/OpenPyXL.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=b0ca346b5b38b55e1001eb0920382c9d2e5aa454">
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+</head>
+
+
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Yonji's Blog|
+      <a href="http://localhost:4000">Home</a></h1>
+      <!--
+      <h2 class="project-tagline">OMG! They killed Kenny!</h2>
+      -->
+      <a href="https://github.com/Amoko/amoko.github.io" class="btn">View on GitHub</a>
+    
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="openpyxl-notes">OpenPyXL Notes</h1>
+
+<p>OpenPyXL 是一个用于读写 excel 文件的 Python 库，简单记录一下使用方法。</p>
+
+<p><strong>写入のdemo</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">openpyxl</span> <span class="kn">import</span> <span class="n">Workbook</span>
+<span class="kn">from</span> <span class="nn">openpyxl.styles</span> <span class="kn">import</span> <span class="n">PatternFill</span>
+<span class="n">wb</span> <span class="o">=</span> <span class="n">Workbook</span><span class="p">()</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">active</span>
+
+<span class="n">ws</span><span class="p">[</span><span class="s">"A1"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span> <span class="c"># assign 1</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s">"A2"</span><span class="p">]</span> <span class="c"># assign 2</span>
+<span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">1994</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c"># assign 3</span>
+<span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">"Amoko"</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s">"B1"</span><span class="p">]</span> <span class="c"># assign 4</span>
+<span class="n">cell</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="s">"solid"</span><span class="p">,</span> <span class="n">fgColor</span><span class="o">=</span><span class="s">"ff0000"</span><span class="p">)</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s">"B2"</span><span class="p">]</span> <span class="c"># assign 5</span>
+<span class="n">cell</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="s">"solid"</span><span class="p">,</span> <span class="n">fgColor</span><span class="o">=</span><span class="s">"00ff00"</span><span class="p">)</span>
+<span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">"0215.xlsx"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>读取のdemo</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">openpyxl</span> <span class="kn">import</span> <span class="n">load_workbook</span>
+<span class="n">wb</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="s">"0215.xlsx"</span><span class="p">)</span>
+<span class="n">ws</span> <span class="o">=</span> <span class="n">wb</span><span class="p">[</span><span class="n">wb</span><span class="o">.</span><span class="n">sheetnames</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">max_row</span><span class="p">,</span> <span class="n">ws</span><span class="o">.</span><span class="n">max_column</span><span class="p">)</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="s">"B1"</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">fill</span><span class="o">.</span><span class="n">start_color</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">row</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">col_idx</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="reference">Reference</h2>
+
+<p>[1] <a href="https://openpyxl.readthedocs.io/en/stable/">OpenPyXL 官网文档</a></p>
+
+
+
+      <footer class="site-footer">
+        
+          <span class="site-footer-owner"><a href="https://github.com/Amoko/amoko.github.io">amoko.github.io</a> is maintained by <a href="https://github.com/Amoko">Amoko</a>.</span>
+        
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </section>
+
+    
+  </body>
+</html>
